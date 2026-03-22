@@ -264,7 +264,7 @@
     margin-bottom: 56px;
   }
 
-  .contacts-links { display: flex; gap: 40px; align-items: center; }
+  .contacts-links { display: flex; flex-direction: column; align-items: center; gap: 16px; }
   .contacts-links a {
     font-size: 16px;
     font-weight: 500;
@@ -291,11 +291,132 @@
     .hero-headline .name { font-size: 44px; }
     .hero-headline .script { font-size: 52px; }
   }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); }
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 200;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 32px; font-weight: 500; text-decoration: none; color: var(--text); letter-spacing: -0.01em; }
+  .mobile-menu-close { position: absolute; top: 24px; right: 24px; font-size: 28px; cursor: pointer; background: none; border: none; color: var(--text); font-family: var(--font); }
+  @media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    #about-me {
+      flex-direction: column;
+      gap: 0;
+      padding: 64px 24px;
+    }
+    .about-text { width: 100%; }
+    .about-text .para-1 { margin-bottom: 24px; }
+    .about-text .para-2 { margin-top: 24px; }
+    .about-text .para-3 { margin-top: 0; }
+    .about-image-wrap {
+      justify-content: center;
+      margin: 24px 0;
+    }
+    .about-image { width: 260px; height: 260px; }
+    .btn-outline { display: flex; justify-content: center; margin: 0 auto; }
+
+    /* 2. Contacts mobile */
+    #contacts { padding: 64px 24px; }
+    .contacts-headline {
+      font-size: 52px !important;
+      text-align: center;
+    }
+    .contacts-sub { text-align: center; }
+    .contacts-links {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Hero mobile */
+    #home { padding: 100px 24px 60px; min-height: auto; }
+    .hero-inner { gap: 40px; padding: 0; height: auto; }
+    .hero-headline { font-size: 38px; }
+    .hero-headline .name { font-size: 42px; }
+    .hero-headline .script { font-size: 50px; }
+    .hero-cta { font-size: 18px; }
+
+    /* Works mobile */
+    #works { padding: 64px 24px; }
+    .works-grid { grid-template-columns: 1fr; }
+    .case-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+
+  @media (max-width: 768px) {
+    .about-image-wrap:not(.about-image-mobile) { display: none; }
+    .about-image-mobile { display: flex; }
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 101;
+  }
+  .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); transition: all 0.3s; }
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 200;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 32px; font-weight: 500; text-decoration: none; color: var(--text); letter-spacing: -0.01em; }
+  .mobile-menu-close { position: absolute; top: 24px; right: 24px; font-size: 28px; cursor: pointer; background: none; border: none; color: var(--text); font-family: var(--font); }
+  @media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .nav-links { display: none; }
+  }
 </style>
 </head>
 <body>
 
+<!-- Mobile menu overlay -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-close" onclick="closeMobileMenu()">✕</span>
+    <a href="#home" class="logo" onclick="closeMobileMenu()">S_<span>DESIGN</span></a>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="#home" onclick="closeMobileMenu()">HOME</a>
+    <a href="#works" onclick="closeMobileMenu()">WORKS</a>
+    <a href="#about-me" onclick="closeMobileMenu()">ABOUT ME</a>
+    <a href="#contacts" onclick="closeMobileMenu()">CONTACTS</a>
+  </nav>
+</div>
+
 <nav>
+  <div class="burger" onclick="openMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
   <a href="#home" class="logo">S_<span>DESIGN</span></a>
   <ul class="nav-links">
     <li><a href="#home">HOME</a></li>
@@ -304,6 +425,14 @@
     <li><a href="#contacts">CONTACTS</a></li>
   </ul>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+  <a href="#home" onclick="document.getElementById('mobileMenu').classList.remove('open')">HOME</a>
+  <a href="#works" onclick="document.getElementById('mobileMenu').classList.remove('open')">WORKS</a>
+  <a href="#about-me" onclick="document.getElementById('mobileMenu').classList.remove('open')">ABOUT ME</a>
+  <a href="#contacts" onclick="document.getElementById('mobileMenu').classList.remove('open')">CONTACTS</a>
+</div>
 
 <!-- Hero -->
 <section id="home">
@@ -328,35 +457,38 @@
 <!-- Works -->
 <section id="works">
   <div class="works-grid">
-    <div class="case-card">
+    <a class="case-card" href="case-1.html">
       <div class="case-card-inner">
         <div class="case-title">AI-assisted document workflows</div>
       </div>
       <img class="case-image" src="case1.jpg" alt="AI-assisted document workflows"/>
       <div class="case-footer">
         <p class="case-desc">The product supports scanning, organization, and understanding of documents.</p>
-        <a href="case-1.html" class="case-link">→ View full case</a>
+        <span class="case-link">→ View full case</span>
       </div>
-    </div>
-    <div class="case-card">
+    </a>
+    <a class="case-card" href="case-2.html">
       <div class="case-card-inner">
         <div class="case-title">Migraine tracking app</div>
       </div>
       <img class="case-image" src="case2.jpg" alt="Migraine tracking app"/>
       <div class="case-footer">
         <p class="case-desc">A research-driven product for supporting people with migraines through tracking and pattern recognition.</p>
-        <a href="case-2.html" class="case-link">→ View full case</a>
+        <span class="case-link">→ View full case</span>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 
 <!-- About -->
 <section id="about-me">
   <div class="about-text">
-    <p>I'm a <strong>UX/UI &amp; Product Designer</strong> creating <strong>clarity</strong> and <strong>elegance</strong> in complex digital systems.</p>
-    <p>I help users <strong>navigate workflows confidently</strong>, turning data and ambiguity into <strong>actionable</strong>, <strong>intuitive experiences</strong>.</p>
-    <p>With experience across <strong>fintech</strong>, <strong>healthcare</strong>, and <strong>data-driven platforms</strong>, I focus on designing systems that balance <strong>logic</strong>, <strong>emotion</strong>, and <strong>control</strong>, where every interaction <strong>guides and empowers</strong>.</p>
+    <p class="para-1">I'm a <strong>UX/UI &amp; Product Designer</strong> creating <strong>clarity</strong> and <strong>elegance</strong> in complex digital systems.</p>
+    <div class="about-image-wrap about-image-mobile">
+      <img class="about-image" src="photo.jpg" alt="Sasha Krivorotko"/>
+    </div>
+    <p class="para-2">I help users <strong>navigate workflows confidently</strong>, turning data and ambiguity into <strong>actionable</strong>, <strong>intuitive experiences</strong>.</p>
+    <p class="para-3">With experience across <strong>fintech</strong>, <strong>healthcare</strong>, and <strong>data-driven platforms</strong>, I focus on designing systems that balance <strong>logic</strong>, <strong>emotion</strong>, and <strong>control</strong>, where every interaction <strong>guides and empowers</strong>.</p>
     <a href="https://drive.google.com/file/d/1Mv6HsyW1wG7-e0qkAE5QjlkhqZG4rOKd/view?usp=share_link" target="_blank" class="btn-outline">Download CV</a>
   </div>
   <div class="about-image-wrap">
@@ -370,4 +502,5 @@
   <h2 class="contacts-headline">LET'S DISCUSS IT!</h2>
   <div class="contacts-links">
     <a href="https://www.linkedin.com/in/krivorotkoale" target="_blank">LinkedIn</a>
-    <a href="/cdn-cgi/l/email-protection#12737e773c79607b3c7677617b757c52757f737b7e3c717d7f"><span class="__cf_e
+    <a href="mailto:ale.kri.design@gmail.com">ale.kri.design@gmail.com</a>
+    <a href="/cdn-cgi/l/email-protection#d1b0bdb4ffbaa3b8ffb5b4a2b8b6bf91b6bcb0b8bdffb2bebc"><span class="__cf_e

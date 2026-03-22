@@ -208,11 +208,187 @@
     .principle-row.right { direction: ltr; }
     .nav-links { gap: 20px; }
   }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .burger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .burger span { display: block; width: 22px; height: 1.5px; background: var(--text); }
+    .mobile-menu { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 200; flex-direction: column; padding: 24px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+    .mobile-menu-close { font-size: 20px; cursor: pointer; }
+    .mobile-menu-links { display: flex; flex-direction: column; gap: 32px; }
+    .mobile-menu-links a { font-size: 36px; font-weight: 400; text-decoration: none; color: var(--text); }
+
+    /* Hero */
+    .case-hero {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 100px 24px 60px;
+      min-height: auto;
+    }
+    .case-hero-title { font-size: 40px; }
+    .case-hero-body { font-size: 18px; }
+    .case-role { font-size: 15px; }
+
+    /* Content sections */
+    .content-section { padding: 60px 24px; }
+    .section-title { font-size: 32px; }
+    .section-body { font-size: 17px; }
+    .arrow-item { font-size: 17px; }
+
+    /* Feature sections — stack vertically, image below text */
+    .feature-section {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 60px 24px;
+    }
+    .feature-section.flip { direction: ltr; }
+
+    /* Principles — single column */
+    .principle-row { grid-template-columns: 1fr; padding: 24px 0; }
+    .principle-row.right { direction: ltr; }
+    .principle-body { font-size: 17px; }
+
+    /* Flow — scroll horizontally */
+    .flow-wrap { overflow-x: auto; padding-bottom: 16px; justify-content: flex-start; }
+
+    /* Stats */
+    .stat-grid { grid-template-columns: 1fr 1fr; gap: 32px 16px; }
+    .stat-number { font-size: 56px; }
+
+    /* Principles transition */
+    .principles-transition { min-height: 300px; }
+
+    /* Back */
+    .back-wrap { padding: 40px 24px 60px; }
+  }
+  .burger { display: none; }
+  .mobile-menu { display: none; }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+
+    .case-hero {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 100px 24px 60px;
+      min-height: auto;
+    }
+    .case-hero-title { font-size: 40px; }
+    .case-hero-body { font-size: 18px; }
+    .case-role { font-size: 16px; }
+    .case-hero-right { width: 100%; }
+
+    .content-section { padding: 64px 24px; }
+    .section-title { font-size: 32px; margin-bottom: 24px; }
+    .section-body { font-size: 17px; }
+    .arrow-item { font-size: 17px; }
+
+    /* Principles — vertical list on mobile */
+    .principles-grid { margin-top: 24px; }
+    .principle-row {
+      grid-template-columns: 1fr;
+      padding: 24px 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .principle-row:first-child { border-top: none; }
+    .principle-row.right { direction: ltr; }
+    .principle-cell { max-width: 100%; }
+    .principle-title { font-size: 18px; margin-bottom: 8px; }
+    .principle-body { font-size: 17px; }
+
+    /* Principles transition */
+    .principles-transition { min-height: 300px; }
+
+    /* Feature sections — stacked on mobile */
+    .feature-section {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 64px 24px;
+    }
+    .feature-section.flip { direction: ltr; }
+    .feature-img {
+      max-width: 260px;
+      margin: 0 auto;
+    }
+    .section-sub { font-size: 16px; }
+
+    /* Back */
+    .back-wrap { padding: 32px 24px 60px; }
+    .back-btn { font-size: 18px; }
+
+    .nav-links { display: none; }
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--text);
+  }
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 200;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-size: 32px;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .mobile-menu-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-size: 28px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-family: var(--font);
+  }
+  @media (max-width: 768px) {
+    .hamburger { display: flex; }
+  }
 </style>
 </head>
 <body>
 
+<!-- Mobile menu overlay -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-close" onclick="closeMobileMenu()">✕</span>
+    <a href="index.html" class="logo">S_<span>DESIGN</span></a>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="index.html#home" onclick="closeMobileMenu()">HOME</a>
+    <a href="index.html#works" onclick="closeMobileMenu()">WORKS</a>
+    <a href="index.html#about-me" onclick="closeMobileMenu()">ABOUT ME</a>
+    <a href="index.html#contacts" onclick="closeMobileMenu()">CONTACTS</a>
+  </nav>
+</div>
+
 <nav>
+  <div class="burger" onclick="openMobileMenu()"><span></span><span></span><span></span></div>
   <a href="index.html" class="logo">S_<span>DESIGN</span></a>
   <ul class="nav-links">
     <li><a href="index.html#home">HOME</a></li>
@@ -417,5 +593,15 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
+<script>
+  function openMobileMenu() {
+    document.getElementById('mobileMenu').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+</script>
 </body>
 </html>
