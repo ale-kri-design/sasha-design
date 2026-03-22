@@ -299,11 +299,107 @@
     margin-bottom: 48px;
     letter-spacing: 0.01em;
   }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .burger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .burger span { display: block; width: 22px; height: 1.5px; background: var(--text); }
+    .mobile-menu { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 200; flex-direction: column; padding: 24px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+    .mobile-menu-close { font-size: 20px; cursor: pointer; }
+    .mobile-menu-links { display: flex; flex-direction: column; gap: 32px; }
+    .mobile-menu-links a { font-size: 36px; font-weight: 400; text-decoration: none; color: var(--text); }
+
+    /* Hero */
+    .case-hero {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 100px 24px 60px;
+      min-height: auto;
+    }
+    .case-hero-title { font-size: 40px; }
+    .case-hero-body { font-size: 18px; }
+    .case-role { font-size: 15px; }
+
+    /* Content sections */
+    .content-section { padding: 60px 24px; }
+    .section-title { font-size: 32px; }
+    .section-body { font-size: 17px; }
+    .arrow-item { font-size: 17px; }
+
+    /* Feature sections — stack vertically, image below text */
+    .feature-section {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 60px 24px;
+    }
+    .feature-section.flip { direction: ltr; }
+
+    /* Principles — single column */
+    .principle-row { grid-template-columns: 1fr; padding: 24px 0; }
+    .principle-row.right { direction: ltr; }
+    .principle-body { font-size: 17px; }
+
+    /* Flow — scroll horizontally */
+    .flow-wrap { overflow-x: auto; padding-bottom: 16px; justify-content: flex-start; }
+
+    /* Stats */
+    .stat-grid { grid-template-columns: 1fr 1fr; gap: 32px 16px; }
+    .stat-number { font-size: 56px; }
+
+    /* Principles transition */
+    .principles-transition { min-height: 300px; }
+
+    /* Back */
+    .back-wrap { padding: 40px 24px 60px; }
+  }
+  .burger { display: none; }
+  .mobile-menu { display: none; }
+
+  @media (max-width: 768px) {
+    .flow-wrap { flex-direction: column; align-items: center; overflow-x: visible; }
+    .flow-row-nodes { flex-direction: column; align-items: center; width: 100%; }
+    .flow-row-descs { display: none; }
+    .flow-step { width: 100%; }
+    .flow-node {
+      width: 100% !important;
+      max-width: 320px;
+      border-radius: 99px !important;
+      height: auto !important;
+      padding: 16px 24px !important;
+      font-size: 16px !important;
+      text-align: center;
+    }
+    .flow-arrow {
+      width: auto !important;
+      height: 40px !important;
+      justify-content: center;
+      padding: 0 !important;
+      transform: rotate(90deg);
+    }
+  }
 </style>
 </head>
 <body>
 
+<!-- Mobile menu overlay -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-close" onclick="closeMobileMenu()">✕</span>
+    <a href="index.html" class="logo">S_<span>DESIGN</span></a>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="index.html#home" onclick="closeMobileMenu()">HOME</a>
+    <a href="index.html#works" onclick="closeMobileMenu()">WORKS</a>
+    <a href="index.html#about-me" onclick="closeMobileMenu()">ABOUT ME</a>
+    <a href="index.html#contacts" onclick="closeMobileMenu()">CONTACTS</a>
+  </nav>
+</div>
+
 <nav>
+  <div class="burger" onclick="openMobileMenu()"><span></span><span></span><span></span></div>
   <a href="index.html" class="logo">S_<span>DESIGN</span></a>
   <ul class="nav-links">
     <li><a href="index.html#home">HOME</a></li>
@@ -534,34 +630,34 @@
   <p class="section-body"><strong>AI supports</strong> the workflow <strong>quietly in the background</strong>, stepping in only when it <strong>reduces effort</strong> or <strong>adds clarity.</strong></p>
   <div class="flow-wrap">
     <div class="flow-row-nodes">
-      <div class="flow-step"><div class="flow-node">Scan document</div></div>
+      <div class="flow-step"><div class="flow-node">User scans a document</div></div>
       <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="flow-node">Content recognition</div></div>
+      <div class="flow-step"><div class="flow-node">AI understands the document and structure</div></div>
       <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="flow-node">Duplicate check</div></div>
+      <div class="flow-step"><div class="flow-node">AI detects existing or similar documents</div></div>
       <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="flow-node">Smart save</div></div>
+      <div class="flow-step"><div class="flow-node">Smart save with suggested folder</div></div>
       <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="flow-node">Summary</div></div>
+      <div class="flow-step"><div class="flow-node">Keypoints extraction</div></div>
       <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="flow-node">Relevant insights</div></div>
+      <div class="flow-step"><div class="flow-node">Relevant insights generation</div></div>
       <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="flow-node">AI Q&amp;A</div></div>
+      <div class="flow-step"><div class="flow-node">Q&amp;A with next best action</div></div>
     </div>
     <div class="flow-row-descs">
-      <div class="flow-desc">User scans a physical document</div>
+      <div class="flow-desc">User scans a document</div>
       <div style="width:32px;flex-shrink:0"></div>
-      <div class="flow-desc">AI detects content and structure</div>
+      <div class="flow-desc">AI understands the document and structure</div>
       <div style="width:32px;flex-shrink:0"></div>
-      <div class="flow-desc">System detects existing or similar documents</div>
+      <div class="flow-desc">AI detects existing or similar documents</div>
       <div style="width:32px;flex-shrink:0"></div>
-      <div class="flow-desc">Suggested folder based on past behavior</div>
+      <div class="flow-desc">Smart save with suggested folder</div>
       <div style="width:32px;flex-shrink:0"></div>
       <div class="flow-desc">Keypoints extraction</div>
       <div style="width:32px;flex-shrink:0"></div>
-      <div class="flow-desc">Related documents and context surfaced</div>
+      <div class="flow-desc">Relevant insights generation</div>
       <div style="width:32px;flex-shrink:0"></div>
-      <div class="flow-desc">User asks follow-up questions when needed</div>
+      <div class="flow-desc">Q&A with next best action</div>
     </div>
   </div>
 </div>
@@ -666,5 +762,15 @@
   document.querySelectorAll('.stat-grid').forEach(el => statObserver.observe(el));
 </script>
 
+<script>
+  function openMobileMenu() {
+    document.getElementById('mobileMenu').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+</script>
 </body>
 </html>
