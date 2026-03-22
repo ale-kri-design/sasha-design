@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Migraine tracking app — S_DESIGN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F5F5;
+    --text: #111111;
+    --text-muted: #666666;
+    --font: 'Manrope', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 48px;
+    background: rgba(245,245,245,0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .logo { font-size: 15px; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; color: var(--text); }
+  .logo span { font-weight: 300; }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; text-decoration: none; color: var(--text); transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 0.5; }
+
+  /* Scroll animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Hero */
+  .case-hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 90px;
+    align-items: center;
+    padding: 140px 48px 120px;
+  }
+
+  .case-hero-title {
+    font-size: 64px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  .case-hero-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .case-hero-body {
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 24px;
+    width: 100%;
+  }
+
+  .case-role {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--text);
+  }
+  .case-role strong { font-weight: 500; }
+
+  /* Content sections */
+  .content-section {
+    padding: 120px 48px;
+    max-width: 100%;
+  }
+
+  /* Section titles */
+  .section-title {
+    font-size: 50px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 40px;
+  }
+
+  .section-sub {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .section-body {
+    font-size: 20px;
+    line-height: 1.75;
+    color: #333;
+    margin-bottom: 16px;
+    max-width: 960px;
+  }
+
+  .arrow-item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    max-width: 960px;
+  }
+  .arrow-item strong { font-weight: 700; }
+
+  /* Principles — chess layout */
+  .principles-grid { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
+  .principle-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 32px 0;
+  }
+  .principle-row.right { direction: rtl; }
+  .principle-row.right > * { direction: ltr; }
+  .principle-cell { max-width: 480px; }
+  .principle-title { font-size: 20px; font-weight: 600; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .principle-body { font-size: 20px; color: #444; line-height: 1.65; }
+
+  /* Feature sections */
+  .feature-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 90px;
+    align-items: center;
+    padding: 120px 48px;
+  }
+  .feature-section.flip { direction: rtl; }
+  .feature-section.flip > * { direction: ltr; }
+
+  .feature-img {
+    width: 100%;
+    max-width: 340px;
+    display: block;
+    border-radius: 44px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.18);
+  }
+
+  .feature-img-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Principles transition */
+  .principles-transition {
+    min-height: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+  }
+
+  /* Back */
+  .back-wrap { display: flex; justify-content: center; padding: 40px 48px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 16px; font-size: 20px; font-weight: 400; color: var(--text); text-decoration: none; }
+  .back-circle { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--text); display: grid; place-items: center; flex-shrink: 0; }
+
+  @keyframes wobble {
+    0%   { transform: rotate(0deg); }
+    20%  { transform: rotate(-8deg); }
+    40%  { transform: rotate(8deg); }
+    60%  { transform: rotate(-5deg); }
+    80%  { transform: rotate(5deg); }
+    100% { transform: rotate(0deg); }
+  }
+  .back-btn:hover .back-circle { animation: wobble 0.5s ease; }
+
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .case-hero, .feature-section { grid-template-columns: 1fr; gap: 40px; padding: 100px 24px 80px; }
+    .case-hero-right { width: 100%; }
+    .feature-section.flip { direction: ltr; }
+    .content-section { padding: 80px 24px; }
+    .section-title { font-size: 36px; }
+    .case-hero-title { font-size: 48px; }
+    .principles-grid .principle-row { grid-template-columns: 1fr; }
+    .principle-row.right { direction: ltr; }
+    .nav-links { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">S_<span>DESIGN</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li>
+    <li><a href="index.html#works">WORKS</a></li>
+    <li><a href="index.html#about-me">ABOUT ME</a></li>
+    <li><a href="index.html#contacts">CONTACTS</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<div class="case-hero reveal">
+  <h1 class="case-hero-title">Migraine<br>tracking<br>app</h1>
+  <div class="case-hero-right">
+    <p class="case-hero-body">This project explores how a digital product can support people living with migraines by helping them track attacks, identify triggers, and reflect on patterns over time. Migraine is not a one-time event, but a recurring condition that affects daily life, productivity, and emotional well-being.</p>
+    <p class="case-role"><strong>My role:</strong> research → principles → end-to-end flow → prototype</p>
+  </div>
+</div>
+
+<!-- Problem -->
+<div class="content-section reveal">
+  <h2 class="section-title">Problem definition</h2>
+  <p class="section-body">People experiencing migraines often struggle with:</p>
+  <div style="margin-top:16px; margin-bottom:24px">
+    <div class="arrow-item"><span>→</span><span>Understanding what triggers their attacks</span></div>
+    <div class="arrow-item"><span>→</span><span>Tracking episodes consistently over time</span></div>
+    <div class="arrow-item"><span>→</span><span>Reflecting on patterns in a meaningful way</span></div>
+    <div class="arrow-item"><span>→</span><span>Sharing structured information with doctors</span></div>
+  </div>
+  <p class="section-body">Many existing solutions either feel too complex when users are vulnerable, or too simplistic to provide real value beyond logging data. This creates a gap between tracking information and actually learning from it.</p>
+</div>
+
+<!-- Research -->
+<div class="content-section reveal">
+  <h2 class="section-title">Research approach</h2>
+  <p class="section-body">The goal was to understand not only what users track, but why, at which moments tracking breaks down, and how existing tools fail to support meaningful reflection.</p>
+  <div style="margin-top:24px">
+    <div class="arrow-item"><span>→</span><span>Desk research on migraine patterns and digital tools</span></div>
+    <div class="arrow-item"><span>→</span><span>Surveys with people suffering from migraines</span></div>
+    <div class="arrow-item"><span>→</span><span>User interviews exploring triggers, habits, and pain points</span></div>
+    <div class="arrow-item"><span>→</span><span>Competitive analysis of health and tracking apps</span></div>
+  </div>
+</div>
+
+<!-- Problem reframing -->
+<div class="content-section reveal">
+  <h2 class="section-title">Problem reframing</h2>
+  <p class="section-body">After synthesizing the research insights, it became clear that the core problem was not migraine tracking itself.</p>
+  <p class="section-body">People are generally willing to log episodes, but logging alone does not help them understand their condition. The real challenge lies in making sense of fragmented data across time, triggers, and personal context, especially when users have limited cognitive and physical energy.</p>
+  <p class="section-body">The problem, therefore, is not how to track migraines, but how to help users <strong>recognize patterns</strong>, <strong>reduce effort during vulnerable moments</strong>, and <strong>transform scattered information into clear and actionable understanding</strong>.</p>
+</div>
+
+<!-- Key insights -->
+<div class="content-section reveal">
+  <h2 class="section-title">Key insights</h2>
+  <div style="margin-top:8px">
+    <div class="arrow-item" style="margin-bottom:20px"><span>→</span><span>Migraine triggers are numerous and often overlap, making it difficult for users to identify which factors genuinely affect their condition over time.</span></div>
+    <div class="arrow-item" style="margin-bottom:20px"><span>→</span><span>External factors such as weather changes play a significant role for many users, yet are rarely tracked or meaningfully connected to migraine patterns in existing tools.</span></div>
+    <div class="arrow-item" style="margin-bottom:20px"><span>→</span><span>During a migraine attack, users avoid screens and complex interactions, which makes traditional tracking flows ineffective at the moment they are needed most.</span></div>
+    <div class="arrow-item"><span>→</span><span>Many users feel isolated in managing migraines and lack access to clear, up-to-date information or meaningful feedback about their condition.</span></div>
+  </div>
+</div>
+
+<!-- Design principles -->
+<div class="content-section reveal">
+  <h2 class="section-title">Design principles</h2>
+  <div class="principles-grid">
+    <div class="principle-row">
+      <div class="principle-cell">
+        <div class="principle-title">1. Reduce effort during vulnerable moments</div>
+        <div class="principle-body">Migraine attacks limit users' cognitive and physical energy. The experience prioritizes minimal input and avoids unnecessary interactions when users need simplicity most.</div>
+      </div>
+      <div></div>
+    </div>
+    <div class="principle-row right">
+      <div class="principle-cell">
+        <div class="principle-title">2. Prioritize patterns over isolated events</div>
+        <div class="principle-body">Single logs are less valuable than understanding trends over time. The interface focuses on summaries, correlations, and recurring patterns.</div>
+      </div>
+      <div></div>
+    </div>
+    <div class="principle-row">
+      <div class="principle-cell">
+        <div class="principle-title">3. Making data clearer</div>
+        <div class="principle-body">The overlap of triggers and data points requires a clear structure that helps users interpret their condition rather than just accumulate records.</div>
+      </div>
+      <div></div>
+    </div>
+    <div class="principle-row right">
+      <div class="principle-cell">
+        <div class="principle-title">4. Maintain a calm visual language</div>
+        <div class="principle-body">Visual restraint supports users during sensitive moments. The interface stays calm, low-contrast, and functional — especially important during photosensitivity.</div>
+      </div>
+      <div></div>
+    </div>
+    <div class="principle-row">
+      <div class="principle-cell">
+        <div class="principle-title">5. Reflection and data sharing</div>
+        <div class="principle-body">Tracking becomes truly valuable when it supports reflection and communication. The product helps users visualize patterns and prepare structured insights to share with doctors.</div>
+      </div>
+      <div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Principles transition -->
+<div class="principles-transition reveal">
+  <p style="font-size:20px; font-weight:500; color:#111111; text-align:center; font-family:'Manrope',sans-serif;">These principles guided the design decisions below ↓</p>
+</div>
+
+<!-- 1. Beginning of a migraine -->
+<div class="feature-section reveal">
+  <div>
+    <h2 class="section-title">Beginning of a migraine</h2>
+    <p class="section-sub">One tap to start, minimal input during pain</p>
+    <div class="arrow-item" style="margin-bottom:6px"><span>→</span><span><strong>Reduce effort during vulnerable moments</strong></span></div>
+    <div class="arrow-item" style="margin-bottom:24px"><span>→</span><span><strong>Maintain a calm visual language</strong></span></div>
+    <p class="section-body">When a migraine attack begins, users' cognitive abilities and visual sensitivity are reduced. At this moment, tracking should require as little effort as possible.</p>
+    <p class="section-body">The interface focuses on a single primary action, with the option to add symptoms.</p>
+  </div>
+  <div class="feature-img-wrap">
+    <img class="feature-img" src="migraine-1.png" alt="Beginning of a migraine"/>
+  </div>
+</div>
+
+<!-- 2. Symptoms & triggers -->
+<div class="feature-section flip reveal">
+  <div>
+    <h2 class="section-title">Symptoms and triggers</h2>
+    <p class="section-sub">Quick selection, fully customisable</p>
+    <div class="arrow-item" style="margin-bottom:6px"><span>→</span><span><strong>Prioritize patterns</strong></span></div>
+    <div class="arrow-item" style="margin-bottom:24px"><span>→</span><span><strong>Making data clearer</strong></span></div>
+    <p class="section-body">Migraine is influenced by multiple, often overlapping factors, but users struggle to understand which triggers are truly relevant for them.</p>
+    <p class="section-body">Symptoms and triggers are organized in a separate section. This approach makes the data more reliable and easier to analyze over time.</p>
+  </div>
+  <div class="feature-img-wrap">
+    <img class="feature-img" src="migraine-4.png" alt="Symptoms and triggers"/>
+  </div>
+</div>
+
+<!-- 3. Calendar & patterns -->
+<div class="feature-section reveal">
+  <div>
+    <h2 class="section-title">Insights &amp; patterns</h2>
+    <p class="section-sub">Visual history of all episodes</p>
+    <div class="arrow-item" style="margin-bottom:6px"><span>→</span><span><strong>Prioritize patterns</strong></span></div>
+    <div class="arrow-item" style="margin-bottom:24px"><span>→</span><span><strong>Reflection and data sharing</strong></span></div>
+    <p class="section-body">Individual migraine entries offer limited value if taken out of context. The calendar section displays all past events in two different views to make it easier to explore personal data.</p>
+    <p class="section-body">The insights section highlights recurring patterns, correlations, and trends — helping users understand what influences their migraines and supports informed reflection.</p>
+  </div>
+  <div class="feature-img-wrap">
+    <img class="feature-img" src="migraine-2.png" alt="Calendar and patterns"/>
+  </div>
+</div>
+
+<!-- 4. Reports -->
+<div class="feature-section flip reveal">
+  <div>
+    <h2 class="section-title">Reports</h2>
+    <p class="section-sub">Doctor-ready insights at one tap</p>
+    <div class="arrow-item" style="margin-bottom:6px"><span>→</span><span><strong>Making data clearer</strong></span></div>
+    <div class="arrow-item" style="margin-bottom:24px"><span>→</span><span><strong>Reflection and data sharing</strong></span></div>
+    <p class="section-body">Many users struggle to clearly communicate their migraine history during medical visits. This product transforms personal tracking data into a structured report that can be reviewed or shared with a healthcare professional.</p>
+    <p class="section-body">This reduces reliance on memory and turns personal data into actionable information.</p>
+  </div>
+  <div class="feature-img-wrap">
+    <img class="feature-img" src="migraine-3.png" alt="Insights and reports"/>
+  </div>
+</div>
+
+<!-- Results -->
+<div class="content-section reveal" style="padding-bottom:40px;">
+  <h2 class="section-title">Results</h2>
+  <p class="section-body">This concept explores how a measured, research-driven UX approach can support people living with migraine, going beyond simple episode tracking.</p>
+  <p class="section-body">The resulting experience focuses on:</p>
+  <div style="margin-top:16px">
+    <div class="arrow-item"><span>→</span><span>Reducing interaction effort during migraine episodes</span></div>
+    <div class="arrow-item"><span>→</span><span>Helping users recognize patterns over time</span></div>
+    <div class="arrow-item"><span>→</span><span>Supporting informed conversations with doctors</span></div>
+    <div class="arrow-item"><span>→</span><span>Maintaining a calm interface during moments of vulnerability</span></div>
+  </div>
+</div>
+
+<!-- Back -->
+<div class="back-wrap reveal">
+  <a href="index.html#works" class="back-btn">
+    Back
+    <div class="back-circle">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M8 13V3M3 8l5-5 5 5"/>
+      </svg>
+    </div>
+  </a>
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
