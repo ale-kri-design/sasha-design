@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI-assisted document workflows — S_DESIGN</title>
+<title>AI-assisted document workflows - S_DESIGN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -11,12 +11,14 @@
     --bg: #F5F5F5;
     --text: #111111;
     --text-muted: #666666;
+    --text-secondary: #333333;
+    --card-bg: #EDEDED;
+    --white: #FFFFFF;
     --font: 'Manrope', sans-serif;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-
   body {
     background: var(--bg);
     color: var(--text);
@@ -26,7 +28,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Nav */
+  /* ── Nav ── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -45,354 +47,12 @@
   .nav-links a { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; text-decoration: none; color: var(--text); transition: opacity 0.2s; }
   .nav-links a:hover { opacity: 0.5; }
 
-  /* ── Scroll animation ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── Hero ── */
-  .case-hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 90px;
-    align-items: center;
-    padding: 140px 48px 120px;
-  }
-
-  .case-hero-title {
-    font-size: 64px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-  }
-
-  .case-hero-right {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .case-hero-body {
-    font-size: 24px;
-    font-weight: 300;
-    line-height: 1.6;
-    color: var(--text);
-    margin-bottom: 24px;
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .case-role {
-    font-size: 18px;
-    font-weight: 300;
-    color: var(--text);
-  }
-  .case-role strong { font-weight: 500; }
-
-  /* ── Content sections ── */
-  .content-section {
-    padding: 120px 48px;
-    max-width: 100%;
-  }
-
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 80px;
-    align-items: center;
-    padding: 120px 48px;
-  }
-
-  /* ── Section titles ── */
-  .section-title {
-    font-size: 50px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-    margin-bottom: 40px;
-  }
-
-  .section-sub {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-
-  .section-body {
-    font-size: 20px;
-    line-height: 1.75;
-    color: #333;
-    margin-bottom: 16px;
-    max-width: 960px;
-  }
-
-  .arrow-item {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    font-size: 20px;
-    line-height: 1.6;
-    margin-bottom: 10px;
-    max-width: 960px;
-  }
-  .arrow-item strong { font-weight: 700; }
-
-  /* ── Phone mockup ── */
-  .phone-wrap { display: flex; justify-content: center; }
-
-  .phone-frame {
-    width: 300px;
-    background: #0d0d0d;
-    border-radius: 44px;
-    padding: 12px;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.2);
-  }
-
-  .phone-screen {
-    background: #111;
-    border-radius: 34px;
-    overflow: hidden;
-    min-height: 540px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .phone-status { display: flex; justify-content: space-between; padding: 14px 20px 6px; font-size: 12px; font-weight: 600; color: white; }
-
-  .phone-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 20px 14px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    font-size: 13px;
-    color: rgba(255,255,255,0.5);
-  }
-  .phone-bar .active { color: white; font-weight: 700; }
-
-  .phone-content { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
-  .phone-field { display: flex; flex-direction: column; gap: 4px; }
-  .phone-label { font-size: 10px; color: rgba(255,255,255,0.4); }
-  .phone-value { font-size: 13px; color: white; font-weight: 500; }
-  .phone-hint { font-size: 10px; color: rgba(255,255,255,0.3); }
-  .phone-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
-  .phone-tag { background: rgba(255,255,255,0.12); border-radius: 99px; padding: 3px 10px; font-size: 11px; color: white; }
-  .phone-actions { display: flex; gap: 10px; padding: 0 16px 20px; }
-  .phone-btn { flex: 1; padding: 11px; border-radius: 99px; font-size: 13px; font-weight: 600; font-family: var(--font); text-align: center; cursor: pointer; }
-  .phone-btn.outline { border: 1.5px solid rgba(255,255,255,0.3); background: transparent; color: white; }
-  .phone-btn.filled { border: none; background: white; color: #111; }
-
-  /* ── Stat grid ── */
-  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 16px; margin-top: 40px; }
-  .stat-number { font-size: 96px; font-weight: 300; letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px; }
-  .stat-label { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-  .stat-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
-
-  /* ── Flow ── */
-  .flow-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    margin-top: 40px;
-    overflow-x: auto;
-  }
-  .flow-row-nodes {
-    display: flex;
-    align-items: stretch;
-  }
-  .flow-row-descs {
-    display: flex;
-    align-items: flex-start;
-  }
-  .flow-step { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0; }
-  .flow-node { background: var(--bg); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 99px; padding: 0 16px; font-size: 13px; font-weight: 600; text-align: center; height: 52px; display: flex; align-items: center; justify-content: center; line-height: 1.3; width: 100%; }
-  .flow-desc { font-size: 11px; color: var(--text-muted); text-align: center; line-height: 1.4; flex: 1; padding: 10px 4px 0; min-width: 0; }
-  .flow-arrow { display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 16px; flex-shrink: 0; width: 32px; height: 52px; }
-
-  /* ── Principles ── */
-  .principles-grid { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
-  .principle-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 32px 0;
-  }
-  .principle-row.right { direction: rtl; }
-  .principle-row.right > * { direction: ltr; }
-  .principle-cell { max-width: 480px; }
-  .principle-num { display: none; }
-  .principle-title { font-size: 20px; font-weight: 600; margin-bottom: 10px; letter-spacing: -0.01em; }
-  .principle-body { font-size: 20px; color: #444; line-height: 1.65; }
-
-  /* ── Insights ── */
-  .insight-block { margin-top: 32px; max-width: 760px; }
-  .insight-block + .insight-block { margin-top: 40px; padding-top: 0; border-top: none; }
-  .insight-row { display: flex; gap: 16px; margin-bottom: 6px; font-size: 20px; line-height: 1.6; }
-  .insight-key { font-weight: 700; min-width: 120px; flex-shrink: 0; }
-  .insight-val { color: #333; }
-
-  /* ── Back ── */
-  .back-wrap { display: flex; justify-content: center; padding: 40px 48px 80px; }
-  .back-btn { display: inline-flex; align-items: center; gap: 16px; font-size: 20px; font-weight: 400; color: var(--text); text-decoration: none; }
-  .back-circle { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--text); display: grid; place-items: center; flex-shrink: 0; }
-
-  @keyframes wobble {
-    0%   { transform: rotate(0deg); }
-    20%  { transform: rotate(-8deg); }
-    40%  { transform: rotate(8deg); }
-    60%  { transform: rotate(-5deg); }
-    80%  { transform: rotate(5deg); }
-    100% { transform: rotate(0deg); }
-  }
-  .back-btn:hover .back-circle { animation: wobble 0.5s ease; }
-
-  @media (max-width: 900px) {
-    nav { padding: 20px 24px; }
-    .case-hero, .two-col { grid-template-columns: 1fr; gap: 40px; padding: 100px 24px 80px; }
-    .case-hero-right { width: 100%; }
-    .content-section { padding: 80px 24px; }
-    .section-title { font-size: 40px; }
-    .case-hero-title { font-size: 48px; }
-    .principles-grid { grid-template-columns: 1fr; }
-    .stat-grid { gap: 32px; }
-    .nav-links { gap: 20px; }
-  }
-
-  /* ── Feature sections ── */
-  .feature-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 90px;
-    align-items: center;
-    padding: 120px 48px;
-  }
-  .feature-section.flip { direction: rtl; }
-  .feature-section.flip > * { direction: ltr; }
-
-  .feature-img {
-    width: auto;
-    max-width: 300px;
-    max-height: 600px;
-    display: block;
-    border-radius: 44px;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.18);
-  }
-
-  .feature-img-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .translating-label {
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--text-muted);
-    margin-bottom: 48px;
-    letter-spacing: 0.01em;
-  }
-
-  @media (max-width: 768px) {
-    nav { padding: 20px 24px; }
-    .nav-links { display: none; }
-    .burger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-    .burger span { display: block; width: 22px; height: 1.5px; background: var(--text); }
-    .mobile-menu { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 200; flex-direction: column; padding: 24px; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
-    .mobile-menu-close { font-size: 20px; cursor: pointer; }
-    .mobile-menu-links { display: flex; flex-direction: column; gap: 32px; }
-    .mobile-menu-links a { font-size: 36px; font-weight: 400; text-decoration: none; color: var(--text); }
-
-    /* Hero */
-    .case-hero {
-      grid-template-columns: 1fr;
-      gap: 32px;
-      padding: 100px 24px 60px;
-      min-height: auto;
-    }
-    .case-hero-title { font-size: 40px; }
-    .case-hero-body { font-size: 18px; }
-    .case-role { font-size: 15px; }
-
-    /* Content sections */
-    .content-section { padding: 60px 24px; }
-    .section-title { font-size: 32px; }
-    .section-body { font-size: 17px; }
-    .arrow-item { font-size: 17px; }
-
-    /* Feature sections — stack vertically, image below text */
-    .feature-section {
-      grid-template-columns: 1fr;
-      gap: 40px;
-      padding: 60px 24px;
-    }
-    .feature-section.flip { direction: ltr; }
-
-    /* Principles — single column */
-    .principle-row { grid-template-columns: 1fr; padding: 24px 0; }
-    .principle-row.right { direction: ltr; }
-    .principle-body { font-size: 17px; }
-
-    /* Flow — scroll horizontally */
-    .flow-wrap { overflow-x: auto; padding-bottom: 16px; justify-content: flex-start; }
-
-    /* Stats */
-    .stat-grid { grid-template-columns: 1fr 1fr; gap: 32px 16px; }
-    .stat-number { font-size: 56px; }
-
-    /* Principles transition */
-    .principles-transition { min-height: 300px; }
-
-    /* Back */
-    .back-wrap { padding: 40px 24px 60px; }
-  }
-  .burger { display: none; }
-  .mobile-menu { display: none; }
-
-  @media (max-width: 768px) {
-    .flow-wrap { flex-direction: column; align-items: center; overflow-x: visible; }
-    .flow-row-nodes { flex-direction: column; align-items: center; width: 100%; }
-    .flow-row-descs { display: none; }
-    .flow-step { width: 100%; }
-    .flow-node {
-      width: 100% !important;
-      max-width: 320px;
-      border-radius: 99px !important;
-      height: auto !important;
-      padding: 16px 24px !important;
-      font-size: 16px !important;
-      text-align: center;
-    }
-    .flow-arrow {
-      width: auto !important;
-      height: 40px !important;
-      justify-content: center;
-      padding: 0 !important;
-      transform: rotate(90deg);
-    }
-  }
-
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 4px;
-  }
+  /* ── Hamburger ── */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
   .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); }
   .mobile-menu {
     display: none;
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background: var(--bg);
     z-index: 200;
     flex-direction: column;
@@ -407,26 +67,502 @@
     .hamburger { display: flex; }
     .nav-links { display: none; }
   }
+
+  /* ── Scroll reveal ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── Section pill ── */
+  .section-pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: rgba(17,17,17,0.05);
+    border: 1px solid rgba(17,17,17,0.18);
+    border-radius: 99px;
+    padding: 5px 14px;
+    margin-bottom: 20px;
+    align-self: flex-start;
+  }
+
+  /* ── Hero ── */
+  .case-hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 90px;
+    align-items: flex-start;
+    padding: 140px 48px 120px;
+  }
+  .case-hero-left { display: flex; flex-direction: column; gap: 12px; }
+  .case-hero-title {
+    font-size: 64px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .case-hero-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    padding-top: 40px;
+  }
+  .case-hero-body {
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .hero-read-time {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .hero-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .hero-tag {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    background: rgba(17,17,17,0.05);
+    border: 1px solid rgba(17,17,17,0.18);
+    border-radius: 99px;
+    padding: 4px 12px;
+  }
+
+  /* ── My Role section ── */
+  .role-section {
+    padding: 120px 48px;
+  }
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .role-card {
+    background: var(--white);
+    border: 1px solid rgba(17,17,17,0.07);
+    border-radius: 16px;
+    padding: 28px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .role-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .role-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--text);
+    transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+  .role-card:hover .role-icon svg {
+    transform: scale(1.2) rotate(10deg);
+  }
+  .role-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .role-card-body {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── Journey timeline ── */
+  .journey-section {
+    padding: 120px 48px;
+  }
+  .journey-meta {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 48px;
+  }
+  .journey-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    padding-left: 32px;
+  }
+  .journey-list::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 1.5px;
+    background: var(--card-bg);
+  }
+  .journey-item {
+    position: relative;
+    padding: 0 0 48px 32px;
+  }
+  .journey-item:last-child { padding-bottom: 0; }
+  .journey-dot {
+    position: absolute;
+    left: -32px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--text);
+    border-radius: 50%;
+    background: var(--bg);
+  }
+  .journey-phase {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .journey-title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .journey-desc {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 640px;
+  }
+
+  /* ── Design System section ── */
+  .ds-section {
+    padding: 120px 48px;
+  }
+  .ds-colors-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+  .ds-swatches {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .ds-swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 80px;
+  }
+  .ds-swatch-block {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .ds-swatch-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .ds-swatch-hex {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .ds-type-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--card-bg);
+  }
+  .ds-type-row {
+    display: flex;
+    align-items: baseline;
+    gap: 32px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--card-bg);
+  }
+  .ds-type-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+    min-width: 80px;
+    flex-shrink: 0;
+  }
+  .ds-type-sample {
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.1;
+  }
+  .ds-type-spec {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* ── Content sections ── */
+  .content-section { padding: 120px 48px; }
+  .section-title {
+    font-size: 50px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 32px;
+  }
+  .section-sub {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .section-body {
+    font-size: 20px;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    max-width: 960px;
+  }
+  .arrow-item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    max-width: 960px;
+    color: var(--text-secondary);
+  }
+  .arrow-item strong { font-weight: 700; color: var(--text); }
+
+  /* ── Feature sections ── */
+  .feature-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 90px;
+    align-items: center;
+    padding: 120px 48px;
+  }
+  .feature-section.flip { direction: rtl; }
+  .feature-section.flip > * { direction: ltr; }
+  .feature-img {
+    width: auto;
+    max-width: 300px;
+    max-height: 600px;
+    display: block;
+    border-radius: 44px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.18);
+  }
+  .feature-img-wrap { display: flex; justify-content: center; align-items: center; }
+
+  /* ── Insight blocks ── */
+  .insight-block { margin-top: 32px; max-width: 760px; }
+  .insight-block + .insight-block { margin-top: 40px; }
+  .insight-row { display: flex; gap: 16px; margin-bottom: 6px; font-size: 20px; line-height: 1.6; }
+  .insight-key { font-weight: 700; min-width: 120px; flex-shrink: 0; }
+  .insight-val { color: var(--text-secondary); }
+
+  /* ── Findings Grid ── */
+  .findings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .finding-card {
+    background: var(--white);
+    border: 1px solid rgba(17,17,17,0.07);
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .finding-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .finding-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--text);
+    transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+  .finding-card:hover .finding-icon svg {
+    transform: scale(1.2) rotate(10deg);
+  }
+  .finding-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .finding-card-body {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── Principles Cards ── */
+  .principles-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .principle-card {
+    background: var(--white);
+    border: 1px solid rgba(17,17,17,0.07);
+    border-radius: 16px;
+    padding: 28px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .principle-card:nth-child(5) {
+    grid-column: 1 / -1;
+    max-width: 50%;
+    margin-left: 25%;
+  }
+  .principle-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .principle-card-body {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── Flow ── */
+  .flow-wrap { display: flex; flex-direction: column; align-items: stretch; margin-top: 40px; overflow-x: auto; }
+  .flow-row-nodes { display: flex; align-items: stretch; }
+  .flow-row-descs { display: flex; align-items: flex-start; }
+  .flow-step { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0; }
+  .flow-node { background: var(--white); border: 1.5px solid rgba(0,0,0,0.1); border-radius: 99px; padding: 0 16px; font-size: 13px; font-weight: 600; text-align: center; height: 52px; display: flex; align-items: center; justify-content: center; line-height: 1.3; width: 100%; }
+  .flow-desc { font-size: 11px; color: var(--text-muted); text-align: center; line-height: 1.4; flex: 1; padding: 10px 4px 0; min-width: 0; }
+  .flow-arrow { display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 16px; flex-shrink: 0; width: 32px; height: 52px; }
+
+  /* ── Stat grid ── */
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 16px; margin-top: 40px; }
+  .stat-number { font-size: 96px; font-weight: 300; letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px; }
+  .stat-label { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .stat-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ── Quote block ── */
+  .quote-block {
+    background: var(--text);
+    color: white;
+    border-radius: 16px;
+    padding: 48px 56px;
+    margin: 48px 0;
+    text-align: center;
+  }
+  .quote-text {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+  .quote-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 12px;
+  }
+
+  /* ── Back ── */
+  .back-wrap { display: flex; justify-content: center; padding: 40px 48px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 16px; font-size: 20px; font-weight: 400; color: var(--text); text-decoration: none; }
+  .back-circle { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--text); display: grid; place-items: center; flex-shrink: 0; }
+  @keyframes wobble {
+    0%   { transform: rotate(0deg); }
+    20%  { transform: rotate(-8deg); }
+    40%  { transform: rotate(8deg); }
+    60%  { transform: rotate(-5deg); }
+    80%  { transform: rotate(5deg); }
+    100% { transform: rotate(0deg); }
+  }
+  .back-btn:hover .back-circle { animation: wobble 0.5s ease; }
+
+  /* ── Mobile ── */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .case-hero { grid-template-columns: 1fr; gap: 40px; padding: 100px 24px 80px; }
+    .content-section, .role-section, .journey-section, .ds-section { padding: 80px 24px; }
+    .section-title { font-size: 36px; }
+    .case-hero-title { font-size: 44px; }
+    .role-grid { grid-template-columns: 1fr 1fr; }
+    .findings-grid { grid-template-columns: 1fr; }
+    .principles-cards { grid-template-columns: 1fr; }
+    .principle-card:nth-child(5) { max-width: 100%; margin-left: 0; }
+    .stat-grid { gap: 32px; }
+    .feature-section { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+    .feature-section.flip { direction: ltr; }
+    .quote-block { padding: 32px 24px; }
+    .quote-text { font-size: 18px; }
+  }
+
+  @media (max-width: 600px) {
+    .case-hero-title { font-size: 36px; }
+    .case-hero-body { font-size: 18px; }
+    .role-grid { grid-template-columns: 1fr; }
+    .findings-grid { grid-template-columns: 1fr; }
+    .principles-cards { grid-template-columns: 1fr; }
+    .stat-number { font-size: 56px; }
+    .ds-swatches { gap: 8px; }
+    .flow-wrap { flex-direction: column; align-items: center; overflow-x: visible; }
+    .flow-row-nodes { flex-direction: column; align-items: center; width: 100%; }
+    .flow-row-descs { display: none; }
+    .flow-node { width: 100% !important; max-width: 320px; border-radius: 99px !important; height: auto !important; padding: 16px 24px !important; font-size: 16px !important; text-align: center; }
+    .flow-arrow { width: auto !important; height: 40px !important; justify-content: center; padding: 0 !important; transform: rotate(90deg); }
+  }
 </style>
 </head>
 <body>
 
-<!-- Mobile menu overlay -->
+<!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-menu-header">
-    <span class="mobile-menu-close" onclick="closeMobileMenu()">✕</span>
-    <a href="index.html" class="logo">S_<span>DESIGN</span></a>
-  </div>
-  <nav class="mobile-menu-links">
-    <a href="index.html#home" onclick="closeMobileMenu()">HOME</a>
-    <a href="index.html#works" onclick="closeMobileMenu()">WORKS</a>
-    <a href="index.html#about-me" onclick="closeMobileMenu()">ABOUT ME</a>
-    <a href="index.html#contacts" onclick="closeMobileMenu()">CONTACTS</a>
-  </nav>
+  <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+  <a href="index.html#home" onclick="closeMobileMenu()">HOME</a>
+  <a href="index.html#works" onclick="closeMobileMenu()">WORKS</a>
+  <a href="index.html#about-me" onclick="closeMobileMenu()">ABOUT ME</a>
+  <a href="index.html#contacts" onclick="closeMobileMenu()">CONTACTS</a>
 </div>
 
 <nav>
-  <div class="burger" onclick="openMobileMenu()"><span></span><span></span><span></span></div>
   <a href="index.html" class="logo">S_<span>DESIGN</span></a>
   <ul class="nav-links">
     <li><a href="index.html#home">HOME</a></li>
@@ -434,19 +570,128 @@
     <li><a href="index.html#about-me">ABOUT ME</a></li>
     <li><a href="index.html#contacts">CONTACTS</a></li>
   </ul>
+  <div class="hamburger" onclick="openMobileMenu()"><span></span><span></span><span></span></div>
 </nav>
 
-<!-- Hero -->
+<!-- ── Hero ── -->
 <div class="case-hero reveal">
-  <h1 class="case-hero-title">AI-assisted<br>document<br>workflows</h1>
+  <div class="case-hero-left">
+    <span class="section-pill">B2B · Mobile & Tablet</span>
+    <h1 class="case-hero-title">AI-assisted document workflows</h1>
+  </div>
   <div class="case-hero-right">
-    <p class="case-hero-body">A B2B mobile and tablet application for corporate teams working with large volumes of documents. The product supports scanning, organization, and understanding of documents, helping users move from raw files to informed decisions.</p>
-    <p class="case-role"><strong>My role:</strong> research → principles → end-to-end flow → prototype</p>
+    <p class="case-hero-body">A B2B mobile and tablet application for corporate teams working with large volumes of documents. The product supports scanning, organization, and understanding of documents - helping users move from raw files to informed decisions.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">UX Research</span>
+      <span class="hero-tag">Product Design</span>
+      <span class="hero-tag">AI Strategy</span>
+      <span class="hero-tag">Prototyping</span>
+    </div>
+    <div class="hero-read-time">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4l2.5 1.5"/></svg>
+      ~7 min read
+    </div>
   </div>
 </div>
 
-<!-- Problem -->
+<!-- ── My Role ── -->
+<div class="role-section reveal">
+  <span class="section-pill">My Role</span>
+  <h2 class="section-title">From research to prototype</h2>
+  <p class="section-body">I led the end-to-end product design - from understanding how teams actually use documents, to defining principles that guide every AI interaction, to building high-fidelity screens.</p>
+  <div class="role-grid">
+    <div class="role-card">
+      <div class="role-icon">
+        <!-- Open book -->
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.5C3 4.5 6 3 10 3s7 1.5 7 1.5V16s-3-1.5-7-1.5S3 16 3 16V4.5z"/><path d="M10 3v12.5"/></svg>
+      </div>
+      <div class="role-card-title">User Research</div>
+      <div class="role-card-body">Contextual inquiry, semi-structured interviews, and task analysis with document-heavy teams</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <!-- Frame / layout -->
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 3v14M3 7h4"/></svg>
+      </div>
+      <div class="role-card-title">Problem Definition</div>
+      <div class="role-card-body">Reframing the product vision - from document storage to decision-making support</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <!-- Diamond / principles -->
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2l3.5 5H6.5L10 2zM6.5 7l3.5 11 3.5-11H6.5z"/><path d="M3 7h14"/></svg>
+      </div>
+      <div class="role-card-title">Design Principles</div>
+      <div class="role-card-body">5 principles governing every AI interaction - transparency, control, proactivity, clarity, and automation</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <!-- Document with lines -->
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2h7l3 3v13H5V2z"/><path d="M12 2v4h3"/><path d="M7 9h6M7 12h6M7 15h4"/></svg>
+      </div>
+      <div class="role-card-title">End-to-End UX</div>
+      <div class="role-card-body">Designed the full document lifecycle with 7 AI-powered touchpoints from scan to action</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="10" height="16" rx="2"/><path d="M8 6h4M8 9h4M8 12h2"/></svg>
+      </div>
+      <div class="role-card-title">UI Design</div>
+      <div class="role-card-body">High-fidelity screens for mobile and tablet - clean, information-dense, and frictionless</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <!-- Sparkle / AI -->
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v3M10 15v3M2 10h3M15 10h3M4.2 4.2l2.1 2.1M13.7 13.7l2.1 2.1M4.2 15.8l2.1-2.1M13.7 6.3l2.1-2.1"/><circle cx="10" cy="10" r="2.5"/></svg>
+      </div>
+      <div class="role-card-title">AI Strategy</div>
+      <div class="role-card-body">Defined where AI assists without overriding - always explainable, always editable</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── The Journey ── -->
+<div class="journey-section reveal">
+  <span class="section-pill">The Journey</span>
+  <h2 class="section-title">How the work unfolded</h2>
+  <p class="journey-meta">~6 weeks</p>
+  <div class="journey-list">
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Discovery</div>
+      <div class="journey-title">User Research</div>
+      <div class="journey-desc">Observed how corporate teams search, save, and extract information from documents. Conducted task analysis and semi-structured interviews to surface real friction points.</div>
+    </div>
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Define</div>
+      <div class="journey-title">Problem Framing</div>
+      <div class="journey-desc">Identified 3 core breakdowns in document workflows. Reframed the product vision: users don't need better storage - they need a system that turns documents into decisions.</div>
+    </div>
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Design</div>
+      <div class="journey-title">Principles & AI Strategy</div>
+      <div class="journey-desc">Defined 5 design principles governing every AI touchpoint. Mapped where intelligence should intervene, suggest, and stay silent.</div>
+    </div>
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Build</div>
+      <div class="journey-title">End-to-End Flow</div>
+      <div class="journey-desc">Designed 7 AI-powered features across the full document lifecycle - from scanning and recognition to Q&A and next-step suggestions.</div>
+    </div>
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Ship</div>
+      <div class="journey-title">High-Fidelity Prototype</div>
+      <div class="journey-desc">Built detailed screens for mobile and tablet. Validated flows against design principles and ensured consistency across all AI interaction states.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Problem ── -->
 <div class="content-section reveal">
+  <span class="section-pill">Problem</span>
   <h2 class="section-title">Problem definition</h2>
   <p class="section-body">Teams store documents, but <strong>can't reliably use them later</strong> to make decisions.</p>
   <p class="section-body">In document-heavy teams, files are scanned, uploaded, and archived daily. Over time, <strong>structure breaks</strong>, <strong>context is lost</strong>, and <strong>documents stop supporting real work</strong>.</p>
@@ -458,100 +703,184 @@
   </div>
 </div>
 
-<!-- Research -->
+<!-- ── Research ── -->
 <div class="content-section reveal">
+  <span class="section-pill">Discovery</span>
   <h2 class="section-title">Key research methods</h2>
   <p class="section-body">To understand how documents are actually used in daily work, I focused on <strong>real workflows</strong>, <strong>behaviors</strong>, and <strong>decision moments</strong> rather than demographics.</p>
   <div style="margin-top:24px; margin-bottom:32px">
     <div class="arrow-item"><span>→</span><span><strong>Contextual inquiry</strong> through observing how professionals <strong>search</strong> and <strong>extract information</strong></span></div>
     <div class="arrow-item"><span>→</span><span><strong>Task analysis</strong> focused on <strong>document workflows</strong>, <strong>friction points</strong>, and <strong>decision moments</strong></span></div>
-    <div class="arrow-item"><span>→</span><span>Semi structured <strong>interviews</strong> to understand <strong>mental models</strong>, <strong>habits</strong>, and <strong>expectations</strong></span></div>
+    <div class="arrow-item"><span>→</span><span>Semi-structured <strong>interviews</strong> to understand <strong>mental models</strong>, <strong>habits</strong>, and <strong>expectations</strong></span></div>
     <div class="arrow-item"><span>→</span><span><strong>Comparative analysis</strong> of scanning, storage, and retrieval tools to identify gaps</span></div>
   </div>
   <p class="section-sub">What I found:</p>
-  <p class="section-body">1. People don't 'read' docs, they hunt for answers</p>
-  <p class="section-body">2. Folder structures degrade, naming becomes random</p>
-  <p class="section-body">3. After saving, users don't know what to do next</p>
+  <div class="findings-grid">
+    <div class="finding-card">
+      <div class="finding-card-title">Hunting, not reading</div>
+      <div class="finding-card-body">Users scan for specific answers - they rarely read documents top to bottom</div>
+    </div>
+    <div class="finding-card">
+      <div class="finding-card-title">Structure degrades</div>
+      <div class="finding-card-body">Folder naming becomes inconsistent over time; finding files relies on memory, not system</div>
+    </div>
+    <div class="finding-card">
+      <div class="finding-card-title">Lost after saving</div>
+      <div class="finding-card-body">Once a file is archived, users lose context. They don't know what to do with it next</div>
+    </div>
+  </div>
 </div>
 
-<!-- Insights -->
+<!-- ── Insights ── -->
 <div class="content-section reveal">
+  <span class="section-pill">Research Insights</span>
   <h2 class="section-title">Research Insights &amp; AI Opportunities</h2>
   <p class="section-body">These insights directly informed the design principles and the <strong>role of AI</strong> across the product:</p>
   <div class="insight-block">
     <div class="insight-row"><span class="insight-key">1st Insight:</span><span class="insight-val">Documents are used as inputs for decisions</span></div>
-    <div class="insight-row"><span class="insight-key">Decision:</span><span class="insight-val">make "answers" the primary unit, not files</span></div>
-    <div class="insight-row"><span class="insight-key">AI role:</span><span class="insight-val">summary, highlighting decision relevant information, connecting related documents</span></div>
+    <div class="insight-row"><span class="insight-key">Decision:</span><span class="insight-val">Make "answers" the primary unit, not files</span></div>
+    <div class="insight-row"><span class="insight-key">AI role:</span><span class="insight-val">Summary, highlighting decision-relevant information, connecting related documents</span></div>
   </div>
   <div class="insight-block">
     <div class="insight-row"><span class="insight-key">2nd Insight:</span><span class="insight-val">Manual organization does not scale over time</span></div>
-    <div class="insight-row"><span class="insight-key">Decision:</span><span class="insight-val">proactive suggestions at save-time</span></div>
-    <div class="insight-row"><span class="insight-key">AI role:</span><span class="insight-val">automated classification, smart folders, context based suggestions</span></div>
+    <div class="insight-row"><span class="insight-key">Decision:</span><span class="insight-val">Proactive suggestions at save-time</span></div>
+    <div class="insight-row"><span class="insight-key">AI role:</span><span class="insight-val">Automated classification, smart folders, context-based suggestions</span></div>
   </div>
   <div class="insight-block">
     <div class="insight-row"><span class="insight-key">3rd Insight:</span><span class="insight-val">The document's place in the workflow is unclear</span></div>
-    <div class="insight-row"><span class="insight-key">Decision:</span><span class="insight-val">"next step" prompts + related context</span></div>
-    <div class="insight-row"><span class="insight-key">AI role:</span><span class="insight-val">reveal relationship between documents, contextual suggestions, Q&A, no auto-actions</span></div>
+    <div class="insight-row"><span class="insight-key">Decision:</span><span class="insight-val">"Next step" prompts + related context</span></div>
+    <div class="insight-row"><span class="insight-key">AI role:</span><span class="insight-val">Reveal relationships between documents, contextual suggestions, Q&A - no auto-actions</span></div>
   </div>
 </div>
 
-<!-- Reframing -->
+<!-- ── Vision ── -->
 <div class="content-section reveal">
+  <span class="section-pill">Research Outcome</span>
   <h2 class="section-title">Reframing the product vision</h2>
   <p class="section-body">Users don't need another place to store documents.</p>
   <p class="section-body">They need a <strong>system</strong> that <strong>understands documents in context</strong>, helps <strong>extract meaning</strong>, and <strong>supports the decisions</strong> that follow.</p>
+  <div class="quote-block">
+    <div class="quote-text">From passive storage to active intelligence.</div>
+    <div class="quote-sub">Every document should tell you what to do next.</div>
+  </div>
 </div>
 
-<!-- Principles -->
+<!-- ── Design Principles ── -->
 <div class="content-section reveal">
+  <span class="section-pill">Design Principles</span>
   <h2 class="section-title">Design principles</h2>
-  <div class="principles-grid">
-    <div class="principle-row">
-      <div class="principle-cell">
-        <div class="principle-title">1. Automate whenever possible</div>
-        <div class="principle-body">Repetitive and low-value tasks should be handled by AI to reduce friction and free users to focus on decisions rather than document management.</div>
-      </div>
-      <div></div>
+  <div class="principles-cards">
+    <div class="principle-card">
+      <div class="principle-card-title">Automate whenever possible</div>
+      <div class="principle-card-body">Repetitive and low-value tasks should be handled by AI to reduce friction and free users to focus on decisions rather than document management.</div>
     </div>
-    <div class="principle-row right">
-      <div class="principle-cell">
-        <div class="principle-title">2. Keep intelligence transparent</div>
-        <div class="principle-body">AI suggestions are always explainable and editable, helping users understand why a decision is made, ensuring trust and control.</div>
-      </div>
-      <div></div>
+    <div class="principle-card">
+      <div class="principle-card-title">Keep intelligence transparent</div>
+      <div class="principle-card-body">AI suggestions are always explainable and editable, helping users understand why a decision is made, ensuring trust and control.</div>
     </div>
-    <div class="principle-row">
-      <div class="principle-cell">
-        <div class="principle-title">3. Reduce cognitive load through clarity</div>
-        <div class="principle-body">Information is structured and summarized to highlight what matters most, avoiding unnecessary detail and mental effort.</div>
-      </div>
-      <div></div>
+    <div class="principle-card">
+      <div class="principle-card-title">Reduce cognitive load through clarity</div>
+      <div class="principle-card-body">Information is structured and summarized to highlight what matters most, avoiding unnecessary detail and mental effort.</div>
     </div>
-    <div class="principle-row right">
-      <div class="principle-cell">
-        <div class="principle-title">4. Anticipate user needs, don't wait for input</div>
-        <div class="principle-body">The system proactively surfaces insights and next steps at the right moment, without requiring users to search or ask first.</div>
-      </div>
-      <div></div>
+    <div class="principle-card">
+      <div class="principle-card-title">Anticipate user needs</div>
+      <div class="principle-card-body">The system proactively surfaces insights and next steps at the right moment, without requiring users to search or ask first.</div>
     </div>
-    <div class="principle-row">
-      <div class="principle-cell">
-        <div class="principle-title">5. Keep the user in control</div>
-        <div class="principle-body">While automation accelerates workflows, users retain the authority to confirm, correct, or refine AI outputs. The system assists and it doesn't override.</div>
+    <div class="principle-card">
+      <div class="principle-card-title">Keep the user in control</div>
+      <div class="principle-card-body">While automation accelerates workflows, users retain the authority to confirm, correct, or refine AI outputs. The system assists; it doesn't override.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Design System ── -->
+<div class="ds-section reveal">
+  <span class="section-pill">Design System</span>
+  <h2 class="section-title">A system built for clarity</h2>
+  <p class="section-body">The design language prioritises <strong>information density without noise</strong>. A monochrome palette, clean hierarchy, and generous whitespace let the content - and the AI - do the work.</p>
+
+  <div style="margin-top: 48px;">
+    <div class="ds-colors-label">Color Palette</div>
+    <div class="ds-swatches">
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#111111;"></div>
+        <div class="ds-swatch-name">Text</div>
+        <div class="ds-swatch-hex">#111111</div>
       </div>
-      <div></div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#333333;"></div>
+        <div class="ds-swatch-name">Secondary</div>
+        <div class="ds-swatch-hex">#333333</div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#666666;"></div>
+        <div class="ds-swatch-name">Muted</div>
+        <div class="ds-swatch-hex">#666666</div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#EDEDED; border: 1px solid rgba(0,0,0,0.08);"></div>
+        <div class="ds-swatch-name">Card</div>
+        <div class="ds-swatch-hex">#EDEDED</div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#F5F5F5; border: 1px solid rgba(0,0,0,0.08);"></div>
+        <div class="ds-swatch-name">Background</div>
+        <div class="ds-swatch-hex">#F5F5F5</div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#FFFFFF; border: 1px solid rgba(0,0,0,0.08);"></div>
+        <div class="ds-swatch-name">White</div>
+        <div class="ds-swatch-hex">#FFFFFF</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 48px;">
+    <div class="ds-colors-label">Typography - Manrope</div>
+    <div class="ds-type-table">
+      <div class="ds-type-row">
+        <div class="ds-type-label">Display</div>
+        <div class="ds-type-sample" style="font-size:48px; font-weight:300; letter-spacing:-0.02em; line-height:1;">Documents become decisions</div>
+        <div class="ds-type-spec">48px · Light 300</div>
+      </div>
+      <div class="ds-type-row">
+        <div class="ds-type-label">H1</div>
+        <div class="ds-type-sample" style="font-size:32px; font-weight:500; letter-spacing:-0.02em;">Documents become decisions</div>
+        <div class="ds-type-spec">32px · Medium 500</div>
+      </div>
+      <div class="ds-type-row">
+        <div class="ds-type-label">H2</div>
+        <div class="ds-type-sample" style="font-size:20px; font-weight:600; letter-spacing:-0.01em;">Documents become decisions</div>
+        <div class="ds-type-spec">20px · Semibold 600</div>
+      </div>
+      <div class="ds-type-row">
+        <div class="ds-type-label">Body L</div>
+        <div class="ds-type-sample" style="font-size:20px; font-weight:400; line-height:1.75; color:#333;">Documents become decisions.</div>
+        <div class="ds-type-spec">20px · Regular 400</div>
+      </div>
+      <div class="ds-type-row">
+        <div class="ds-type-label">Body M</div>
+        <div class="ds-type-sample" style="font-size:16px; font-weight:400; line-height:1.6; color:#333;">Documents become decisions.</div>
+        <div class="ds-type-spec">16px · Regular 400</div>
+      </div>
+      <div class="ds-type-row">
+        <div class="ds-type-label">Label</div>
+        <div class="ds-type-sample" style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;">Discovery</div>
+        <div class="ds-type-spec">11px · Bold · 0.1em</div>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- Principles transition -->
-<div style="min-height:800px; display:flex; align-items:center; justify-content:center; padding: 48px;" class="reveal">
-  <p style="font-size:20px; font-weight:500; color:#111111; text-align:center; font-family:'Manrope',sans-serif;">These principles guided the design decisions below ↓</p>
+<div style="min-height:600px; display:flex; align-items:center; justify-content:center; padding: 48px;" class="reveal">
+  <p style="font-size:20px; font-weight:500; color:#111111; text-align:center; font-family:'Manrope',sans-serif;">These principles guided every design decision below ↓</p>
 </div>
 
-<!-- 1. Document recognition -->
+<!-- ── 1. Document recognition ── -->
 <div class="feature-section reveal">
   <div>
+    <span class="section-pill">The Product</span>
     <h2 class="section-title">Document recognition</h2>
     <p class="section-sub" style="margin-bottom:16px;">Document scanning with AI details recognition</p>
     <div class="arrow-item" style="margin-bottom:6px"><span>→</span><span><strong>Automate whenever possible</strong></span></div>
@@ -564,11 +893,11 @@
   </div>
 </div>
 
-<!-- 2. Duplicate & Similarity detection -->
+<!-- ── 2. Duplicate detection ── -->
 <div class="feature-section flip reveal">
   <div>
     <h2 class="section-title">Duplicate &amp; Similarity detection</h2>
-    <p class="section-sub" style="margin-bottom:16px;">Identifying existing document across the system</p>
+    <p class="section-sub" style="margin-bottom:16px;">Identifying existing documents across the system</p>
     <div class="arrow-item" style="margin-bottom:6px"><span>→</span><span><strong>Anticipate user needs</strong></span></div>
     <div class="arrow-item" style="margin-bottom:24px"><span>→</span><span><strong>Reduce cognitive load</strong></span></div>
     <p class="section-body">During scanning, <strong>AI checks</strong> the archive for <strong>duplicates</strong> or closely <strong>related files</strong>.</p>
@@ -579,7 +908,7 @@
   </div>
 </div>
 
-<!-- 3. Smart folder suggestion -->
+<!-- ── 3. Smart folder ── -->
 <div class="feature-section reveal">
   <div>
     <h2 class="section-title">Smart folder suggestion</h2>
@@ -594,7 +923,7 @@
   </div>
 </div>
 
-<!-- 4. Summary -->
+<!-- ── 4. Summary ── -->
 <div class="feature-section flip reveal">
   <div>
     <h2 class="section-title">Summary</h2>
@@ -609,7 +938,7 @@
   </div>
 </div>
 
-<!-- 5. Relevant insights -->
+<!-- ── 5. Relevant insights ── -->
 <div class="feature-section reveal">
   <div>
     <h2 class="section-title">Relevant insights</h2>
@@ -623,7 +952,7 @@
   </div>
 </div>
 
-<!-- 6. Conversational AI -->
+<!-- ── 6. Conversational AI ── -->
 <div class="feature-section flip reveal">
   <div>
     <h2 class="section-title">Conversational AI</h2>
@@ -637,11 +966,11 @@
   </div>
 </div>
 
-<!-- 7. Smart suggestions -->
+<!-- ── 7. Smart suggestions ── -->
 <div class="feature-section reveal">
   <div>
     <h2 class="section-title">Smart suggestions</h2>
-    <p class="section-sub" style="margin-bottom:16px;">AI provides next steps recommendations</p>
+    <p class="section-sub" style="margin-bottom:16px;">AI provides next-step recommendations</p>
     <div class="arrow-item" style="margin-bottom:24px"><span>→</span><span><strong>Anticipate user needs</strong></span></div>
     <p class="section-body">Once a document is understood, users often need help deciding what to do next. Smart Suggestions support this moment by <strong>proposing relevant actions</strong> based on document content, usage patterns, and related context.</p>
     <p class="section-body">Suggestions appear only <strong>after intent is established</strong> through exploration or conversation.</p>
@@ -651,8 +980,9 @@
   </div>
 </div>
 
-<!-- User flow -->
+<!-- ── User flow ── -->
 <div class="content-section reveal">
+  <span class="section-pill">User Flow</span>
   <h2 class="section-title">Final user flow</h2>
   <p class="section-body"><strong>AI supports</strong> the workflow <strong>quietly in the background</strong>, stepping in only when it <strong>reduces effort</strong> or <strong>adds clarity.</strong></p>
   <div class="flow-wrap">
@@ -689,8 +1019,9 @@
   </div>
 </div>
 
-<!-- Impact -->
+<!-- ── Impact ── -->
 <div class="content-section reveal">
+  <span class="section-pill">Impact</span>
   <h2 class="section-title">Estimated impact</h2>
   <p class="section-body">Estimates based on workflow analysis and comparable document management tools.</p>
   <div class="stat-grid">
@@ -713,8 +1044,9 @@
   </div>
 </div>
 
-<!-- Outcomes -->
+<!-- ── Reflection ── -->
 <div class="content-section reveal" style="padding-bottom:40px;">
+  <span class="section-pill">Reflection</span>
   <h2 class="section-title">Qualitative outcomes</h2>
   <p class="section-body">Users understand <strong>why a document matters</strong>, <strong>what information it contains</strong>, and <strong>how it supports</strong> their current <strong>task</strong>.</p>
   <p class="section-body"><strong>Summaries</strong> and <strong>insights</strong> help users grasp the value of a document at the right moment.</p>
@@ -726,10 +1058,10 @@
   </div>
 </div>
 
-<!-- Back -->
+<!-- ── Back ── -->
 <div class="back-wrap reveal">
   <a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;" class="back-btn">
-    Back
+    Back to top
     <div class="back-circle">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M8 13V3M3 8l5-5 5 5"/>
@@ -742,19 +1074,14 @@
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -60px 0px'
-  });
+  }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   // Count-up animation
   function animateCount(el) {
-    const raw = el.dataset.target; // e.g. "-40" or "+25"
+    const raw = el.dataset.target;
     const suffix = el.dataset.suffix || '';
     const isNeg = raw.startsWith('-');
     const isPos = raw.startsWith('+');
@@ -762,11 +1089,9 @@
     const prefix = isNeg ? '-' : isPos ? '+' : '';
     const duration = 1400;
     const start = performance.now();
-
     function update(now) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       const current = Math.round(eased * target);
       el.textContent = prefix + current + suffix;
@@ -778,26 +1103,15 @@
   const statObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.querySelectorAll('.stat-number[data-target]').forEach(el => {
-          animateCount(el);
-        });
+        animateCount(entry.target);
         statObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-number[data-target]').forEach(el => statObserver.observe(el));
 
-  document.querySelectorAll('.stat-grid').forEach(el => statObserver.observe(el));
-</script>
-
-<script>
-  function openMobileMenu() {
-    document.getElementById('mobileMenu').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeMobileMenu() {
-    document.getElementById('mobileMenu').classList.remove('open');
-    document.body.style.overflow = '';
-  }
+  function openMobileMenu() { document.getElementById('mobileMenu').classList.add('open'); }
+  function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
 </script>
 </body>
 </html>
