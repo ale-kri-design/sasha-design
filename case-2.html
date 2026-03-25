@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Migraine tracking app — S_DESIGN</title>
+<title>Migraine tracking app - S_DESIGN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -11,12 +11,14 @@
     --bg: #F5F5F5;
     --text: #111111;
     --text-muted: #666666;
+    --text-secondary: #333333;
+    --card-bg: #EDEDED;
+    --white: #FFFFFF;
     --font: 'Manrope', sans-serif;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-
   body {
     background: var(--bg);
     color: var(--text);
@@ -26,7 +28,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Nav */
+  /* -- Nav -- */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -45,84 +47,365 @@
   .nav-links a { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; text-decoration: none; color: var(--text); transition: opacity 0.2s; }
   .nav-links a:hover { opacity: 0.5; }
 
-  /* Scroll animation */
+  /* -- Hamburger -- */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); }
+  .mobile-menu {
+    display: none;
+    position: fixed; inset: 0;
+    background: var(--bg);
+    z-index: 200;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 32px; font-weight: 500; text-decoration: none; color: var(--text); letter-spacing: -0.01em; }
+  .mobile-menu-close { position: absolute; top: 24px; right: 24px; font-size: 28px; cursor: pointer; background: none; border: none; color: var(--text); font-family: var(--font); }
+  @media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .nav-links { display: none; }
+  }
+
+  /* -- Scroll reveal -- */
   .reveal {
     opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* Hero */
+  /* -- Section pill -- */
+  .section-pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #4B3FA0;
+    background: rgba(223,219,255,0.45);
+    border: 1px solid rgba(176,163,255,0.5);
+    border-radius: 99px;
+    padding: 5px 14px;
+    margin-bottom: 20px;
+    align-self: flex-start;
+  }
+
+  /* -- Hero -- */
   .case-hero {
     min-height: 100vh;
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 90px;
-    align-items: center;
+    align-items: flex-start;
     padding: 140px 48px 120px;
   }
-
+  .case-hero-left { display: flex; flex-direction: column; gap: 12px; }
   .case-hero-title {
     font-size: 64px;
     font-weight: 500;
     letter-spacing: -0.02em;
     line-height: 1.05;
   }
-
   .case-hero-right {
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 20px;
+    padding-top: 40px;
   }
-
   .case-hero-body {
     font-size: 24px;
     font-weight: 300;
     line-height: 1.6;
     color: var(--text);
-    margin-bottom: 24px;
-    width: 100%;
+  }
+  .hero-read-time {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .hero-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .hero-tag {
+    font-size: 12px;
+    font-weight: 500;
+    color: #4B3FA0;
+    background: rgba(223,219,255,0.45);
+    border: 1px solid rgba(176,163,255,0.5);
+    border-radius: 99px;
+    padding: 4px 12px;
   }
 
-  .case-role {
-    font-size: 18px;
-    font-weight: 300;
+  /* -- My Role section -- */
+  .role-section {
+    padding: 120px 48px;
+  }
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .role-card {
+    background: var(--white);
+    border: 1px solid rgba(17,17,17,0.07);
+    border-radius: 16px;
+    padding: 28px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .role-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(223,219,255,0.55);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .role-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: #4B3FA0;
+    transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+  .role-card:hover .role-icon svg {
+    transform: scale(1.2) rotate(10deg);
+  }
+  .role-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
     color: var(--text);
   }
-  .case-role strong { font-weight: 500; }
-
-  /* Content sections */
-  .content-section {
-    padding: 120px 48px;
-    max-width: 100%;
+  .role-card-body {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
   }
 
-  /* Section titles */
+  /* -- Journey timeline -- */
+  .journey-section {
+    padding: 120px 48px;
+  }
+  .journey-meta {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 48px;
+  }
+  .journey-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    padding-left: 32px;
+  }
+  .journey-list::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 1.5px;
+    background: var(--card-bg);
+  }
+  .journey-item {
+    position: relative;
+    padding: 0 0 48px 32px;
+  }
+  .journey-item:last-child { padding-bottom: 0; }
+  .journey-dot {
+    position: absolute;
+    left: -32px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--text);
+    border-radius: 50%;
+    background: var(--bg);
+  }
+  .journey-phase {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .journey-title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .journey-desc {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 640px;
+  }
+
+  /* -- Design System section -- */
+  .ds-section {
+    padding: 120px 48px;
+  }
+  .ds-colors-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+  .ds-swatches {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .ds-swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 80px;
+  }
+  .ds-swatch-block {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .ds-swatch-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .ds-swatch-hex {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* Dark typography preview */
+  .ds-dark-panel {
+    background: #0A0C19;
+    border-radius: 24px;
+    padding: 56px 56px 48px;
+    margin-bottom: 0;
+  }
+  .ds-font-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 40px;
+  }
+  .ds-type-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .ds-type-row {
+    display: flex;
+    align-items: baseline;
+    gap: 32px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .ds-type-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    font-weight: 500;
+    min-width: 80px;
+    flex-shrink: 0;
+  }
+  .ds-type-sample {
+    color: #FFFFFF;
+    font-family: 'Aeonik PRO', 'Manrope', sans-serif;
+    line-height: 1.1;
+  }
+  .ds-type-spec {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    margin-left: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* App UI components preview */
+  .ds-components-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    align-items: center;
+  }
+  .ds-pill-preview {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 99px;
+    padding: 10px 20px;
+  }
+  .ds-pill-preview.selected {
+    background: #DFDBFF;
+    border-color: #DFDBFF;
+    color: #0A0C19;
+    font-weight: 500;
+  }
+  .ds-btn-preview {
+    font-size: 15px;
+    font-weight: 500;
+    color: #0A0C19;
+    background: #DFDBFF;
+    border: none;
+    border-radius: 99px;
+    padding: 14px 32px;
+    cursor: default;
+  }
+  .ds-btn-preview.secondary {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.75);
+  }
+  @media (max-width: 600px) {
+    .ds-dark-panel { padding: 32px 24px; }
+  }
+
+  /* -- Content sections -- */
+  .content-section { padding: 120px 48px; }
   .section-title {
     font-size: 50px;
     font-weight: 500;
     letter-spacing: -0.02em;
     line-height: 1.05;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
   }
-
   .section-sub {
     font-size: 18px;
     font-weight: 600;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
-
   .section-body {
     font-size: 20px;
     line-height: 1.75;
-    color: #333;
+    color: var(--text-secondary);
     margin-bottom: 16px;
     max-width: 960px;
   }
-
   .arrow-item {
     display: flex;
     align-items: baseline;
@@ -131,23 +414,91 @@
     line-height: 1.6;
     margin-bottom: 10px;
     max-width: 960px;
+    color: var(--text-secondary);
   }
-  .arrow-item strong { font-weight: 700; }
+  .arrow-item strong { font-weight: 700; color: var(--text); }
 
-  /* Principles — chess layout */
-  .principles-grid { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
-  .principle-row {
+  /* -- Findings Grid -- */
+  .findings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .finding-card {
+    background: var(--white);
+    border: 1px solid rgba(17,17,17,0.07);
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .finding-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .finding-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--text);
+    transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+  .finding-card:hover .finding-icon svg {
+    transform: scale(1.2) rotate(10deg);
+  }
+  .finding-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .finding-card-body {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* -- Principles Cards -- */
+  .principles-cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    padding: 32px 0;
+    gap: 16px;
+    margin-top: 40px;
   }
-  .principle-row.right { direction: rtl; }
-  .principle-row.right > * { direction: ltr; }
-  .principle-cell { max-width: 480px; }
-  .principle-title { font-size: 20px; font-weight: 600; margin-bottom: 10px; letter-spacing: -0.01em; }
-  .principle-body { font-size: 20px; color: #444; line-height: 1.65; }
+  .principle-card {
+    background: var(--white);
+    border: 1px solid rgba(17,17,17,0.07);
+    border-radius: 16px;
+    padding: 28px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .principle-card:nth-child(5) {
+    grid-column: 1 / -1;
+    max-width: 50%;
+    margin-left: 25%;
+  }
+  .principle-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .principle-card-body {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
 
-  /* Feature sections */
+  /* -- Feature sections -- */
   .feature-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -157,35 +508,29 @@
   }
   .feature-section.flip { direction: rtl; }
   .feature-section.flip > * { direction: ltr; }
-
   .feature-img {
-    width: 100%;
-    max-width: 340px;
+    width: auto;
+    max-width: 300px;
+    max-height: 600px;
     display: block;
     border-radius: 44px;
     box-shadow: 0 40px 80px rgba(0,0,0,0.18);
   }
+  .feature-img-wrap { display: flex; justify-content: center; align-items: center; }
 
-  .feature-img-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* Principles transition */
+  /* -- Principles transition -- */
   .principles-transition {
-    min-height: 800px;
+    min-height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 48px;
   }
 
-  /* Back */
+  /* -- Back -- */
   .back-wrap { display: flex; justify-content: center; padding: 40px 48px 80px; }
   .back-btn { display: inline-flex; align-items: center; gap: 16px; font-size: 20px; font-weight: 400; color: var(--text); text-decoration: none; }
   .back-circle { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--text); display: grid; place-items: center; flex-shrink: 0; }
-
   @keyframes wobble {
     0%   { transform: rotate(0deg); }
     20%  { transform: rotate(-8deg); }
@@ -196,199 +541,44 @@
   }
   .back-btn:hover .back-circle { animation: wobble 0.5s ease; }
 
+  /* -- Mobile -- */
   @media (max-width: 900px) {
     nav { padding: 20px 24px; }
-    .case-hero, .feature-section { grid-template-columns: 1fr; gap: 40px; padding: 100px 24px 80px; }
-    .case-hero-right { width: 100%; }
-    .feature-section.flip { direction: ltr; }
-    .content-section { padding: 80px 24px; }
+    .case-hero { grid-template-columns: 1fr; gap: 40px; padding: 100px 24px 80px; }
+    .content-section, .role-section, .journey-section, .ds-section { padding: 80px 24px; }
     .section-title { font-size: 36px; }
-    .case-hero-title { font-size: 48px; }
-    .principles-grid .principle-row { grid-template-columns: 1fr; }
-    .principle-row.right { direction: ltr; }
-    .nav-links { gap: 20px; }
-  }
-
-  @media (max-width: 768px) {
-    nav { padding: 20px 24px; }
-    .nav-links { display: none; }
-    .burger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-    .burger span { display: block; width: 22px; height: 1.5px; background: var(--text); }
-    .mobile-menu { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 200; flex-direction: column; padding: 24px; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
-    .mobile-menu-close { font-size: 20px; cursor: pointer; }
-    .mobile-menu-links { display: flex; flex-direction: column; gap: 32px; }
-    .mobile-menu-links a { font-size: 36px; font-weight: 400; text-decoration: none; color: var(--text); }
-
-    /* Hero */
-    .case-hero {
-      grid-template-columns: 1fr;
-      gap: 32px;
-      padding: 100px 24px 60px;
-      min-height: auto;
-    }
-    .case-hero-title { font-size: 40px; }
-    .case-hero-body { font-size: 18px; }
-    .case-role { font-size: 15px; }
-
-    /* Content sections */
-    .content-section { padding: 60px 24px; }
-    .section-title { font-size: 32px; }
-    .section-body { font-size: 17px; }
-    .arrow-item { font-size: 17px; }
-
-    /* Feature sections — stack vertically, image below text */
-    .feature-section {
-      grid-template-columns: 1fr;
-      gap: 40px;
-      padding: 60px 24px;
-    }
+    .case-hero-title { font-size: 44px; }
+    .role-grid { grid-template-columns: 1fr 1fr; }
+    .findings-grid { grid-template-columns: 1fr; }
+    .principles-cards { grid-template-columns: 1fr; }
+    .principle-card:nth-child(5) { max-width: 100%; margin-left: 0; }
+    .feature-section { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
     .feature-section.flip { direction: ltr; }
-
-    /* Principles — single column */
-    .principle-row { grid-template-columns: 1fr; padding: 24px 0; }
-    .principle-row.right { direction: ltr; }
-    .principle-body { font-size: 17px; }
-
-    /* Flow — scroll horizontally */
-    .flow-wrap { overflow-x: auto; padding-bottom: 16px; justify-content: flex-start; }
-
-    /* Stats */
-    .stat-grid { grid-template-columns: 1fr 1fr; gap: 32px 16px; }
-    .stat-number { font-size: 56px; }
-
-    /* Principles transition */
-    .principles-transition { min-height: 300px; }
-
-    /* Back */
-    .back-wrap { padding: 40px 24px 60px; }
   }
-  .burger { display: none; }
-  .mobile-menu { display: none; }
 
-  /* ── Mobile ── */
-  @media (max-width: 768px) {
-    nav { padding: 20px 24px; }
-
-    .case-hero {
-      grid-template-columns: 1fr;
-      gap: 32px;
-      padding: 100px 24px 60px;
-      min-height: auto;
-    }
-    .case-hero-title { font-size: 40px; }
+  @media (max-width: 600px) {
+    .case-hero-title { font-size: 36px; }
     .case-hero-body { font-size: 18px; }
-    .case-role { font-size: 16px; }
-    .case-hero-right { width: 100%; }
-
-    .content-section { padding: 64px 24px; }
-    .section-title { font-size: 32px; margin-bottom: 24px; }
-    .section-body { font-size: 17px; }
-    .arrow-item { font-size: 17px; }
-
-    /* Principles — vertical list on mobile */
-    .principles-grid { margin-top: 24px; }
-    .principle-row {
-      grid-template-columns: 1fr;
-      padding: 24px 0;
-      border-top: 1px solid rgba(0,0,0,0.08);
-    }
-    .principle-row:first-child { border-top: none; }
-    .principle-row.right { direction: ltr; }
-    .principle-cell { max-width: 100%; }
-    .principle-title { font-size: 18px; margin-bottom: 8px; }
-    .principle-body { font-size: 17px; }
-
-    /* Principles transition */
-    .principles-transition { min-height: 300px; }
-
-    /* Feature sections — stacked on mobile */
-    .feature-section {
-      grid-template-columns: 1fr;
-      gap: 32px;
-      padding: 64px 24px;
-    }
-    .feature-section.flip { direction: ltr; }
-    .feature-img {
-      max-width: 260px;
-      margin: 0 auto;
-    }
-    .section-sub { font-size: 16px; }
-
-    /* Back */
-    .back-wrap { padding: 32px 24px 60px; }
-    .back-btn { font-size: 18px; }
-
-    .nav-links { display: none; }
-  }
-
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 4px;
-  }
-  .hamburger span {
-    display: block;
-    width: 22px;
-    height: 1.5px;
-    background: var(--text);
-  }
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: var(--bg);
-    z-index: 200;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-  }
-  .mobile-menu.open { display: flex; }
-  .mobile-menu a {
-    font-size: 32px;
-    font-weight: 500;
-    text-decoration: none;
-    color: var(--text);
-    letter-spacing: -0.01em;
-  }
-  .mobile-menu-close {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    font-size: 28px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    color: var(--text);
-    font-family: var(--font);
-  }
-  @media (max-width: 768px) {
-    .hamburger { display: flex; }
+    .role-grid { grid-template-columns: 1fr; }
+    .findings-grid { grid-template-columns: 1fr; }
+    .principles-cards { grid-template-columns: 1fr; }
+    .ds-swatches { gap: 8px; }
+    .principles-transition { min-height: 200px; }
   }
 </style>
 </head>
 <body>
 
-<!-- Mobile menu overlay -->
+<!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-menu-header">
-    <span class="mobile-menu-close" onclick="closeMobileMenu()">✕</span>
-    <a href="index.html" class="logo">S_<span>DESIGN</span></a>
-  </div>
-  <nav class="mobile-menu-links">
-    <a href="index.html#home" onclick="closeMobileMenu()">HOME</a>
-    <a href="index.html#works" onclick="closeMobileMenu()">WORKS</a>
-    <a href="index.html#about-me" onclick="closeMobileMenu()">ABOUT ME</a>
-    <a href="index.html#contacts" onclick="closeMobileMenu()">CONTACTS</a>
-  </nav>
+  <button class="mobile-menu-close" onclick="closeMobileMenu()">&#x2715;</button>
+  <a href="index.html#home" onclick="closeMobileMenu()">HOME</a>
+  <a href="index.html#works" onclick="closeMobileMenu()">WORKS</a>
+  <a href="index.html#about-me" onclick="closeMobileMenu()">ABOUT ME</a>
+  <a href="index.html#contacts" onclick="closeMobileMenu()">CONTACTS</a>
 </div>
 
 <nav>
-  <div class="burger" onclick="openMobileMenu()"><span></span><span></span><span></span></div>
   <a href="index.html" class="logo">S_<span>DESIGN</span></a>
   <ul class="nav-links">
     <li><a href="index.html#home">HOME</a></li>
@@ -396,115 +586,300 @@
     <li><a href="index.html#about-me">ABOUT ME</a></li>
     <li><a href="index.html#contacts">CONTACTS</a></li>
   </ul>
+  <div class="hamburger" onclick="openMobileMenu()"><span></span><span></span><span></span></div>
 </nav>
 
 <!-- Hero -->
 <div class="case-hero reveal">
-  <h1 class="case-hero-title">Migraine<br>tracking<br>app</h1>
+  <div class="case-hero-left">
+    <span class="section-pill">Health &middot; Mobile App</span>
+    <h1 class="case-hero-title">Migraine tracking app</h1>
+  </div>
   <div class="case-hero-right">
-    <p class="case-hero-body">This project explores how a digital product can support people living with migraines by helping them track attacks, identify triggers, and reflect on patterns over time. Migraine is not a one-time event, but a recurring condition that affects daily life, productivity, and emotional well-being.</p>
-    <p class="case-role"><strong>My role:</strong> research → principles → end-to-end flow → prototype</p>
+    <p class="case-hero-body">A mobile app for people living with migraines - helping them track attacks, identify triggers, and reflect on patterns over time. Migraine is not a one-time event, but a recurring condition that affects daily life, productivity, and emotional well-being.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">UX Research</span>
+      <span class="hero-tag">Product Design</span>
+      <span class="hero-tag">Interaction Design</span>
+      <span class="hero-tag">Prototyping</span>
+    </div>
+    <div class="hero-read-time">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4l2.5 1.5"/></svg>
+      ~6 min read
+    </div>
+  </div>
+</div>
+
+<!-- My Role -->
+<div class="role-section reveal">
+  <span class="section-pill">My Role</span>
+  <h2 class="section-title">Research to prototype</h2>
+  <p class="section-body">I led the end-to-end product design - from understanding how people with migraines actually live with their condition, to defining principles that guide every interaction, to building high-fidelity screens.</p>
+  <div class="role-grid">
+    <div class="role-card">
+      <div class="role-icon">
+        <!-- Open book -->
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.5C3 4.5 6 3 10 3s7 1.5 7 1.5V16s-3-1.5-7-1.5S3 16 3 16V4.5z"/><path d="M10 3v12.5"/></svg>
+      </div>
+      <div class="role-card-title">User Research</div>
+      <div class="role-card-body">Surveys, interviews, and competitive analysis with people who experience migraines regularly</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <!-- Frame / layout -->
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 3v14M3 7h4"/></svg>
+      </div>
+      <div class="role-card-title">Problem Definition</div>
+      <div class="role-card-body">Reframing the product from simple logging to a tool for pattern recognition and informed reflection</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <!-- Diamond / principles -->
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2l3.5 5H6.5L10 2zM6.5 7l3.5 11 3.5-11H6.5z"/><path d="M3 7h14"/></svg>
+      </div>
+      <div class="role-card-title">Design Principles</div>
+      <div class="role-card-body">5 principles governing every interaction - minimal effort, calm language, pattern focus, and reflection</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <!-- Document with lines -->
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2h7l3 3v13H5V2z"/><path d="M12 2v4h3"/><path d="M7 9h6M7 12h6M7 15h4"/></svg>
+      </div>
+      <div class="role-card-title">End-to-End UX</div>
+      <div class="role-card-body">Designed the full experience from attack logging to insights, calendar view, and doctor-ready reports</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <!-- Phone / UI -->
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="10" height="16" rx="2"/><path d="M8 6h4M8 9h4M8 12h2"/></svg>
+      </div>
+      <div class="role-card-title">UI Design</div>
+      <div class="role-card-body">High-fidelity mobile screens built around a calm, low-contrast visual language for sensitive moments</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <!-- Sparkle / interaction -->
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v3M10 15v3M2 10h3M15 10h3M4.2 4.2l2.1 2.1M13.7 13.7l2.1 2.1M4.2 15.8l2.1-2.1M13.7 6.3l2.1-2.1"/><circle cx="10" cy="10" r="2.5"/></svg>
+      </div>
+      <div class="role-card-title">Interaction Design</div>
+      <div class="role-card-body">Optimized flows for moments of vulnerability - one-tap logging, minimal input, and friction-free navigation</div>
+    </div>
+  </div>
+</div>
+
+<!-- The Journey -->
+<div class="journey-section reveal">
+  <span class="section-pill">The Journey</span>
+  <h2 class="section-title">How the work unfolded</h2>
+  <p class="journey-meta">~5 weeks</p>
+  <div class="journey-list">
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Discovery</div>
+      <div class="journey-title">User Research</div>
+      <div class="journey-desc">Conducted surveys and interviews with migraine sufferers to understand not only what they track, but when tracking breaks down and how existing tools fail them during vulnerable moments.</div>
+    </div>
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Define</div>
+      <div class="journey-title">Problem Reframing</div>
+      <div class="journey-desc">Identified that the core problem was not logging itself but making sense of fragmented data. Reframed the product vision: the challenge is helping users recognize patterns, not accumulate records.</div>
+    </div>
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Design</div>
+      <div class="journey-title">Principles and Visual Language</div>
+      <div class="journey-desc">Defined 5 design principles for the experience and established a calm, low-contrast visual language - essential for a product used during photosensitive episodes.</div>
+    </div>
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Build</div>
+      <div class="journey-title">End-to-End Flow</div>
+      <div class="journey-desc">Designed the full product - attack logging, symptom and trigger selection, calendar and insights view, and a doctor-ready report generator.</div>
+    </div>
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Ship</div>
+      <div class="journey-title">High-Fidelity Prototype</div>
+      <div class="journey-desc">Built detailed mobile screens and validated all flows against the 5 design principles, ensuring consistency across every state - especially during active migraine episodes.</div>
+    </div>
   </div>
 </div>
 
 <!-- Problem -->
 <div class="content-section reveal">
+  <span class="section-pill">Problem</span>
   <h2 class="section-title">Problem definition</h2>
-  <p class="section-body">People experiencing migraines often struggle with:</p>
-  <div style="margin-top:16px; margin-bottom:24px">
-    <div class="arrow-item"><span>→</span><span>Understanding what triggers their attacks</span></div>
-    <div class="arrow-item"><span>→</span><span>Tracking episodes consistently over time</span></div>
-    <div class="arrow-item"><span>→</span><span>Reflecting on patterns in a meaningful way</span></div>
-    <div class="arrow-item"><span>→</span><span>Sharing structured information with doctors</span></div>
+  <p class="section-body">People experiencing migraines often struggle with understanding their own condition over time.</p>
+  <p class="section-body">Many existing solutions either feel too complex when users are at their most vulnerable, or too simplistic to provide real value beyond logging data. This creates a gap between <strong>tracking information</strong> and actually <strong>learning from it</strong>.</p>
+  <div style="margin-top:24px">
+    <div class="arrow-item"><span>&#8594;</span><span>Understanding what <strong>triggers</strong> their attacks</span></div>
+    <div class="arrow-item"><span>&#8594;</span><span>Tracking episodes <strong>consistently</strong> over time</span></div>
+    <div class="arrow-item"><span>&#8594;</span><span>Reflecting on <strong>patterns</strong> in a meaningful way</span></div>
+    <div class="arrow-item"><span>&#8594;</span><span>Sharing <strong>structured information</strong> with doctors</span></div>
   </div>
-  <p class="section-body">Many existing solutions either feel too complex when users are vulnerable, or too simplistic to provide real value beyond logging data. This creates a gap between tracking information and actually learning from it.</p>
 </div>
 
 <!-- Research -->
 <div class="content-section reveal">
+  <span class="section-pill">Research</span>
   <h2 class="section-title">Research approach</h2>
   <p class="section-body">The goal was to understand not only what users track, but why, at which moments tracking breaks down, and how existing tools fail to support meaningful reflection.</p>
   <div style="margin-top:24px">
-    <div class="arrow-item"><span>→</span><span>Desk research on migraine patterns and digital tools</span></div>
-    <div class="arrow-item"><span>→</span><span>Surveys with people suffering from migraines</span></div>
-    <div class="arrow-item"><span>→</span><span>User interviews exploring triggers, habits, and pain points</span></div>
-    <div class="arrow-item"><span>→</span><span>Competitive analysis of health and tracking apps</span></div>
+    <div class="arrow-item"><span>&#8594;</span><span>Desk research on migraine patterns and digital health tools</span></div>
+    <div class="arrow-item"><span>&#8594;</span><span>Surveys with people suffering from migraines</span></div>
+    <div class="arrow-item"><span>&#8594;</span><span>User interviews exploring triggers, habits, and pain points</span></div>
+    <div class="arrow-item"><span>&#8594;</span><span>Competitive analysis of health and tracking apps</span></div>
   </div>
 </div>
 
 <!-- Problem reframing -->
 <div class="content-section reveal">
+  <span class="section-pill">Research Outcome</span>
   <h2 class="section-title">Problem reframing</h2>
   <p class="section-body">After synthesizing the research insights, it became clear that the core problem was not migraine tracking itself.</p>
-  <p class="section-body">People are generally willing to log episodes, but logging alone does not help them understand their condition. The real challenge lies in making sense of fragmented data across time, triggers, and personal context, especially when users have limited cognitive and physical energy.</p>
+  <p class="section-body">People are generally willing to log episodes, but logging alone does not help them understand their condition. The real challenge lies in making sense of fragmented data across time, triggers, and personal context - especially when users have limited cognitive and physical energy.</p>
   <p class="section-body">The problem, therefore, is not how to track migraines, but how to help users <strong>recognize patterns</strong>, <strong>reduce effort during vulnerable moments</strong>, and <strong>transform scattered information into clear and actionable understanding</strong>.</p>
 </div>
 
 <!-- Key insights -->
 <div class="content-section reveal">
-  <h2 class="section-title">Key insights</h2>
-  <div style="margin-top:8px">
-    <div class="arrow-item" style="margin-bottom:20px"><span>→</span><span>Migraine triggers are numerous and often overlap, making it difficult for users to identify which factors genuinely affect their condition over time.</span></div>
-    <div class="arrow-item" style="margin-bottom:20px"><span>→</span><span>External factors such as weather changes play a significant role for many users, yet are rarely tracked or meaningfully connected to migraine patterns in existing tools.</span></div>
-    <div class="arrow-item" style="margin-bottom:20px"><span>→</span><span>During a migraine attack, users avoid screens and complex interactions, which makes traditional tracking flows ineffective at the moment they are needed most.</span></div>
-    <div class="arrow-item"><span>→</span><span>Many users feel isolated in managing migraines and lack access to clear, up-to-date information or meaningful feedback about their condition.</span></div>
+  <span class="section-pill">Key Insights</span>
+  <h2 class="section-title">What I found</h2>
+  <div class="findings-grid">
+    <div class="finding-card">
+      <div class="finding-card-title">Trigger overload</div>
+      <div class="finding-card-body">Migraine triggers are numerous and often overlap, making it difficult for users to identify which factors genuinely affect their condition over time.</div>
+    </div>
+    <div class="finding-card">
+      <div class="finding-card-title">Invisible external factors</div>
+      <div class="finding-card-body">Environmental factors such as weather changes play a significant role for many users, yet are rarely tracked or meaningfully connected to migraine patterns in existing tools.</div>
+    </div>
+    <div class="finding-card">
+      <div class="finding-card-title">Screen avoidance during attacks</div>
+      <div class="finding-card-body">During a migraine attack, users avoid screens and complex interactions, making traditional tracking flows ineffective at the exact moment they are needed most.</div>
+    </div>
+    <div class="finding-card">
+      <div class="finding-card-title">Isolation and lack of feedback</div>
+      <div class="finding-card-body">Many users feel isolated in managing migraines and lack access to clear, up-to-date information or meaningful feedback about their condition.</div>
+    </div>
   </div>
 </div>
 
 <!-- Design principles -->
 <div class="content-section reveal">
+  <span class="section-pill">Design Principles</span>
   <h2 class="section-title">Design principles</h2>
-  <div class="principles-grid">
-    <div class="principle-row">
-      <div class="principle-cell">
-        <div class="principle-title">1. Reduce effort during vulnerable moments</div>
-        <div class="principle-body">Migraine attacks limit users' cognitive and physical energy. The experience prioritizes minimal input and avoids unnecessary interactions when users need simplicity most.</div>
-      </div>
-      <div></div>
+  <div class="principles-cards">
+    <div class="principle-card">
+      <div class="principle-card-title">Reduce effort during vulnerable moments</div>
+      <div class="principle-card-body">Migraine attacks limit users' cognitive and physical energy. The experience prioritizes minimal input and avoids unnecessary interactions when users need simplicity most.</div>
     </div>
-    <div class="principle-row right">
-      <div class="principle-cell">
-        <div class="principle-title">2. Prioritize patterns over isolated events</div>
-        <div class="principle-body">Single logs are less valuable than understanding trends over time. The interface focuses on summaries, correlations, and recurring patterns.</div>
-      </div>
-      <div></div>
+    <div class="principle-card">
+      <div class="principle-card-title">Prioritize patterns over isolated events</div>
+      <div class="principle-card-body">Single logs are less valuable than understanding trends over time. The interface focuses on summaries, correlations, and recurring patterns rather than individual entries.</div>
     </div>
-    <div class="principle-row">
-      <div class="principle-cell">
-        <div class="principle-title">3. Making data clearer</div>
-        <div class="principle-body">The overlap of triggers and data points requires a clear structure that helps users interpret their condition rather than just accumulate records.</div>
-      </div>
-      <div></div>
+    <div class="principle-card">
+      <div class="principle-card-title">Make data clearer</div>
+      <div class="principle-card-body">The overlap of triggers and data points requires clear structure that helps users interpret their condition rather than simply accumulate records.</div>
     </div>
-    <div class="principle-row right">
-      <div class="principle-cell">
-        <div class="principle-title">4. Maintain a calm visual language</div>
-        <div class="principle-body">Visual restraint supports users during sensitive moments. The interface stays calm, low-contrast, and functional — especially important during photosensitivity.</div>
-      </div>
-      <div></div>
+    <div class="principle-card">
+      <div class="principle-card-title">Maintain a calm visual language</div>
+      <div class="principle-card-body">Visual restraint supports users during sensitive moments. The interface stays calm, low-contrast, and functional - especially important during photosensitivity.</div>
     </div>
-    <div class="principle-row">
-      <div class="principle-cell">
-        <div class="principle-title">5. Reflection and data sharing</div>
-        <div class="principle-body">Tracking becomes truly valuable when it supports reflection and communication. The product helps users visualize patterns and prepare structured insights to share with doctors.</div>
-      </div>
-      <div></div>
+    <div class="principle-card">
+      <div class="principle-card-title">Support reflection and data sharing</div>
+      <div class="principle-card-body">Tracking becomes truly valuable when it supports reflection and communication. The product helps users visualize patterns and prepare structured insights to share with doctors.</div>
     </div>
   </div>
 </div>
 
 <!-- Principles transition -->
 <div class="principles-transition reveal">
-  <p style="font-size:20px; font-weight:500; color:#111111; text-align:center; font-family:'Manrope',sans-serif;">These principles guided the design decisions below ↓</p>
+  <p style="font-size:20px; font-weight:500; color:#111111; text-align:center; font-family:'Manrope',sans-serif;">These principles guided the design decisions below &#8595;</p>
+</div>
+
+<!-- Design System -->
+<div class="ds-section reveal">
+  <span class="section-pill">Design System</span>
+  <h2 class="section-title">Visual language</h2>
+  <p class="section-body" style="margin-bottom:48px;">A dark, low-contrast palette built for moments of vulnerability. Every color choice prioritizes calm - reducing visual stress during photosensitive migraine episodes.</p>
+
+  <p class="ds-colors-label">Color palette</p>
+  <div class="ds-swatches">
+    <div class="ds-swatch">
+      <div class="ds-swatch-block" style="background:#0A0C19;"></div>
+      <div class="ds-swatch-name">Background</div>
+      <div class="ds-swatch-hex">#0A0C19</div>
+    </div>
+    <div class="ds-swatch">
+      <div class="ds-swatch-block" style="background:#353A4D;"></div>
+      <div class="ds-swatch-name">Surface</div>
+      <div class="ds-swatch-hex">#353A4D</div>
+    </div>
+    <div class="ds-swatch">
+      <div class="ds-swatch-block" style="background:#B1BEDF;"></div>
+      <div class="ds-swatch-name">Icon</div>
+      <div class="ds-swatch-hex">#B1BEDF</div>
+    </div>
+    <div class="ds-swatch">
+      <div class="ds-swatch-block" style="background:#DFDBFF;"></div>
+      <div class="ds-swatch-name">Accent</div>
+      <div class="ds-swatch-hex">#DFDBFF</div>
+    </div>
+    <div class="ds-swatch">
+      <div class="ds-swatch-block" style="background:#FFFFFF; border: 1px solid rgba(0,0,0,0.06);"></div>
+      <div class="ds-swatch-name">White</div>
+      <div class="ds-swatch-hex">#FFFFFF</div>
+    </div>
+  </div>
+
+  <div class="ds-dark-panel">
+    <p class="ds-font-label">Typeface &mdash; Aeonik PRO</p>
+    <div class="ds-type-table">
+      <div class="ds-type-row">
+        <span class="ds-type-label">Display</span>
+        <span class="ds-type-sample" style="font-size:48px; font-weight:400; letter-spacing:-0.02em;">Calm in every moment.</span>
+        <span class="ds-type-spec">48px / 400 / -0.02em</span>
+      </div>
+      <div class="ds-type-row">
+        <span class="ds-type-label">Heading</span>
+        <span class="ds-type-sample" style="font-size:28px; font-weight:400; letter-spacing:-0.01em;">Calm in every moment.</span>
+        <span class="ds-type-spec">28px / 400 / -0.01em</span>
+      </div>
+      <div class="ds-type-row">
+        <span class="ds-type-label">Body</span>
+        <span class="ds-type-sample" style="font-size:17px; font-weight:300; line-height:1.6;">Calm in every moment.</span>
+        <span class="ds-type-spec">17px / 300 / 1.6</span>
+      </div>
+      <div class="ds-type-row">
+        <span class="ds-type-label">Label</span>
+        <span class="ds-type-sample" style="font-size:13px; font-weight:500; letter-spacing:0.02em;">Calm in every moment.</span>
+        <span class="ds-type-spec">13px / 500 / 0.02em</span>
+      </div>
+    </div>
+
+    <div class="ds-components-row" style="margin-top:48px;">
+      <span class="ds-pill-preview selected">Ophthalmological aura</span>
+      <span class="ds-pill-preview">Vomiting</span>
+      <span class="ds-pill-preview">Stress</span>
+      <span class="ds-pill-preview">Weather changes</span>
+    </div>
+    <div class="ds-components-row" style="margin-top:16px;">
+      <button class="ds-btn-preview">End migraine</button>
+      <button class="ds-btn-preview secondary">&#x2295;&nbsp; Add symptoms</button>
+    </div>
+  </div>
 </div>
 
 <!-- 1. Beginning of a migraine -->
 <div class="feature-section reveal">
   <div>
+    <span class="section-pill">Product</span>
     <h2 class="section-title">Beginning of a migraine</h2>
     <p class="section-sub">One tap to start, minimal input during pain</p>
-    <div class="arrow-item" style="margin-bottom:6px"><span>→</span><span><strong>Reduce effort during vulnerable moments</strong></span></div>
-    <div class="arrow-item" style="margin-bottom:24px"><span>→</span><span><strong>Maintain a calm visual language</strong></span></div>
+    <div class="arrow-item" style="margin-bottom:6px"><span>&#8594;</span><span><strong>Reduce effort during vulnerable moments</strong></span></div>
+    <div class="arrow-item" style="margin-bottom:24px"><span>&#8594;</span><span><strong>Maintain a calm visual language</strong></span></div>
     <p class="section-body">When a migraine attack begins, users' cognitive abilities and visual sensitivity are reduced. At this moment, tracking should require as little effort as possible.</p>
     <p class="section-body">The interface focuses on a single primary action, with the option to add symptoms.</p>
   </div>
@@ -513,13 +888,13 @@
   </div>
 </div>
 
-<!-- 2. Symptoms & triggers -->
+<!-- 2. Symptoms and triggers -->
 <div class="feature-section flip reveal">
   <div>
     <h2 class="section-title">Symptoms and triggers</h2>
     <p class="section-sub">Quick selection, fully customisable</p>
-    <div class="arrow-item" style="margin-bottom:6px"><span>→</span><span><strong>Prioritize patterns</strong></span></div>
-    <div class="arrow-item" style="margin-bottom:24px"><span>→</span><span><strong>Making data clearer</strong></span></div>
+    <div class="arrow-item" style="margin-bottom:6px"><span>&#8594;</span><span><strong>Prioritize patterns</strong></span></div>
+    <div class="arrow-item" style="margin-bottom:24px"><span>&#8594;</span><span><strong>Make data clearer</strong></span></div>
     <p class="section-body">Migraine is influenced by multiple, often overlapping factors, but users struggle to understand which triggers are truly relevant for them.</p>
     <p class="section-body">Symptoms and triggers are organized in a separate section. This approach makes the data more reliable and easier to analyze over time.</p>
   </div>
@@ -528,15 +903,15 @@
   </div>
 </div>
 
-<!-- 3. Calendar & patterns -->
+<!-- 3. Insights and patterns -->
 <div class="feature-section reveal">
   <div>
     <h2 class="section-title">Insights &amp; patterns</h2>
     <p class="section-sub">Visual history of all episodes</p>
-    <div class="arrow-item" style="margin-bottom:6px"><span>→</span><span><strong>Prioritize patterns</strong></span></div>
-    <div class="arrow-item" style="margin-bottom:24px"><span>→</span><span><strong>Reflection and data sharing</strong></span></div>
+    <div class="arrow-item" style="margin-bottom:6px"><span>&#8594;</span><span><strong>Prioritize patterns</strong></span></div>
+    <div class="arrow-item" style="margin-bottom:24px"><span>&#8594;</span><span><strong>Support reflection and data sharing</strong></span></div>
     <p class="section-body">Individual migraine entries offer limited value if taken out of context. The calendar section displays all past events in two different views to make it easier to explore personal data.</p>
-    <p class="section-body">The insights section highlights recurring patterns, correlations, and trends — helping users understand what influences their migraines and supports informed reflection.</p>
+    <p class="section-body">The insights section highlights recurring patterns, correlations, and trends - helping users understand what influences their migraines and supports informed reflection.</p>
   </div>
   <div class="feature-img-wrap">
     <img class="feature-img" src="migraine-2.png" alt="Calendar and patterns"/>
@@ -548,8 +923,8 @@
   <div>
     <h2 class="section-title">Reports</h2>
     <p class="section-sub">Doctor-ready insights at one tap</p>
-    <div class="arrow-item" style="margin-bottom:6px"><span>→</span><span><strong>Making data clearer</strong></span></div>
-    <div class="arrow-item" style="margin-bottom:24px"><span>→</span><span><strong>Reflection and data sharing</strong></span></div>
+    <div class="arrow-item" style="margin-bottom:6px"><span>&#8594;</span><span><strong>Make data clearer</strong></span></div>
+    <div class="arrow-item" style="margin-bottom:24px"><span>&#8594;</span><span><strong>Support reflection and data sharing</strong></span></div>
     <p class="section-body">Many users struggle to clearly communicate their migraine history during medical visits. This product transforms personal tracking data into a structured report that can be reviewed or shared with a healthcare professional.</p>
     <p class="section-body">This reduces reliance on memory and turns personal data into actionable information.</p>
   </div>
@@ -559,22 +934,23 @@
 </div>
 
 <!-- Results -->
-<div class="content-section reveal" style="padding-bottom:40px;">
+<div class="content-section reveal">
+  <span class="section-pill">Outcomes</span>
   <h2 class="section-title">Results</h2>
-  <p class="section-body">This concept explores how a measured, research-driven UX approach can support people living with migraine, going beyond simple episode tracking.</p>
+  <p class="section-body">This concept explores how a measured, research-driven UX approach can support people living with migraine - going beyond simple episode tracking.</p>
   <p class="section-body">The resulting experience focuses on:</p>
-  <div style="margin-top:16px">
-    <div class="arrow-item"><span>→</span><span>Reducing interaction effort during migraine episodes</span></div>
-    <div class="arrow-item"><span>→</span><span>Helping users recognize patterns over time</span></div>
-    <div class="arrow-item"><span>→</span><span>Supporting informed conversations with doctors</span></div>
-    <div class="arrow-item"><span>→</span><span>Maintaining a calm interface during moments of vulnerability</span></div>
+  <div style="margin-top:24px">
+    <div class="arrow-item"><span>&#8594;</span><span>Reducing interaction effort during migraine episodes</span></div>
+    <div class="arrow-item"><span>&#8594;</span><span>Helping users recognize patterns over time</span></div>
+    <div class="arrow-item"><span>&#8594;</span><span>Supporting informed conversations with doctors</span></div>
+    <div class="arrow-item"><span>&#8594;</span><span>Maintaining a calm interface during moments of vulnerability</span></div>
   </div>
 </div>
 
 <!-- Back -->
 <div class="back-wrap reveal">
   <a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;" class="back-btn">
-    Back
+    Back to top
     <div class="back-circle">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M8 13V3M3 8l5-5 5 5"/>
