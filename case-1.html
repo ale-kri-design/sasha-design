@@ -472,9 +472,9 @@
   .flow-row-nodes { display: flex; align-items: stretch; }
   .flow-row-descs { display: flex; align-items: flex-start; }
   .flow-step { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0; }
-  .flow-node { background: var(--white); border: 1.5px solid rgba(0,0,0,0.1); border-radius: 99px; padding: 0 16px; font-size: 13px; font-weight: 600; text-align: center; height: 52px; display: flex; align-items: center; justify-content: center; line-height: 1.3; width: 100%; }
+  .flow-node { background: var(--white); border: 1.5px solid rgba(0,0,0,0.1); border-radius: 99px; padding: 14px 16px; font-size: 13px; font-weight: 600; text-align: center; min-height: 72px; height: auto; display: flex; align-items: center; justify-content: center; line-height: 1.35; width: 100%; }
   .flow-desc { font-size: 11px; color: var(--text-muted); text-align: center; line-height: 1.4; flex: 1; padding: 10px 4px 0; min-width: 0; }
-  .flow-arrow { display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 16px; flex-shrink: 0; width: 32px; height: 52px; }
+  .flow-arrow { display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 16px; flex-shrink: 0; width: 32px; min-height: 72px; }
 
   /* ── Stat grid ── */
   .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 16px; margin-top: 40px; }
@@ -793,6 +793,11 @@
   </div>
 </div>
 
+<!-- Principles transition -->
+<div style="min-height:400px; display:flex; align-items:center; justify-content:center; padding: 48px;" class="reveal">
+  <p style="font-size:20px; font-weight:500; color:#111111; text-align:center; font-family:'Manrope',sans-serif;">These principles guided every design decision below &#8595;</p>
+</div>
+
 <!-- ── Design System ── -->
 <div class="ds-section reveal">
   <span class="section-pill">Design System</span>
@@ -872,10 +877,6 @@
   </div>
 </div>
 
-<!-- Principles transition -->
-<div style="min-height:600px; display:flex; align-items:center; justify-content:center; padding: 48px;" class="reveal">
-  <p style="font-size:20px; font-weight:500; color:#111111; text-align:center; font-family:'Manrope',sans-serif;">These principles guided every design decision below ↓</p>
-</div>
 
 <!-- ── 1. Document recognition ── -->
 <div class="feature-section reveal">
@@ -1000,21 +1001,6 @@
       <div class="flow-step"><div class="flow-node">Relevant insights generation</div></div>
       <div class="flow-arrow">→</div>
       <div class="flow-step"><div class="flow-node">Q&amp;A with next best action</div></div>
-    </div>
-    <div class="flow-row-descs">
-      <div class="flow-desc">User scans a document</div>
-      <div style="width:32px;flex-shrink:0"></div>
-      <div class="flow-desc">AI understands the document and structure</div>
-      <div style="width:32px;flex-shrink:0"></div>
-      <div class="flow-desc">AI detects existing or similar documents</div>
-      <div style="width:32px;flex-shrink:0"></div>
-      <div class="flow-desc">Smart save with suggested folder</div>
-      <div style="width:32px;flex-shrink:0"></div>
-      <div class="flow-desc">Keypoints extraction</div>
-      <div style="width:32px;flex-shrink:0"></div>
-      <div class="flow-desc">Relevant insights generation</div>
-      <div style="width:32px;flex-shrink:0"></div>
-      <div class="flow-desc">Q&A with next best action</div>
     </div>
   </div>
 </div>
