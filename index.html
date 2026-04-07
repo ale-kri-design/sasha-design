@@ -159,15 +159,13 @@
   .case-link:hover { background: var(--text); color: white; }
 
   /* ── About ── */
-  #about-me { display: flex; align-items: center; justify-content: center; gap: 64px; padding: 120px 48px; }
-  .about-text { width: 60%; flex-shrink: 0; }
+  #about-me { display: flex; align-items: center; justify-content: space-between; gap: 64px; padding: 120px 48px; }
+  .about-text { width: 54%; flex-shrink: 0; }
   .about-text p { font-size: 20px; line-height: 1.7; margin-bottom: 24px; color: #333; }
-  .about-text p:last-of-type { margin-bottom: 40px; }
+  .about-text p:last-of-type { margin-bottom: 0; }
   .about-image-wrap { flex: 1; display: flex; justify-content: center; align-items: center; }
   .about-image { width: 360px; height: 360px; border-radius: 50%; object-fit: cover; display: block; }
   .about-image-mobile { display: none; }
-  .btn-outline { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font); font-size: 18px; font-weight: 500; color: var(--text); background: white; border: none; border-radius: 99px; padding: 12px 28px; text-decoration: none; cursor: pointer; transition: background 0.2s, color 0.2s; }
-  .btn-outline:hover { background: var(--text); color: white; }
 
   /* ── Contacts ── */
   #contacts { flex-direction: column; align-items: center; justify-content: center; text-align: center; }
@@ -210,7 +208,6 @@
       border-radius: 50%; object-fit: cover;
       margin: 24px auto;
     }
-    .btn-outline { display: inline-flex; margin: 0 auto; }
 
     /* Contacts */
     #contacts { padding: 64px 24px; }
@@ -305,7 +302,6 @@
     <img class="about-image-mobile" src="photo.jpg" alt="Sasha Krivorotko"/>
     <p>I help users <strong>navigate workflows confidently</strong>, turning data and ambiguity into <strong>actionable</strong>, <strong>intuitive experiences</strong>.</p>
     <p>With experience across <strong>fintech</strong>, <strong>healthcare</strong>, and <strong>data-driven platforms</strong>, I focus on designing systems that balance <strong>logic</strong>, <strong>emotion</strong>, and <strong>control</strong>, where every interaction <strong>guides and empowers</strong>.</p>
-    <a href="https://drive.google.com/file/d/1lR-cLDjWOpLqKbh3RVBMVyKX_K23cFvp/view?usp=share_link" target="_blank" class="btn-outline">Download CV</a>
   </div>
   <div class="about-image-wrap">
     <img class="about-image" src="photo.jpg" alt="Sasha Krivorotko"/>
