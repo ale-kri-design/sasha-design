@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Year of Florence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --res:    #245E8A;
+  --tour:   #B84B1F;
+  --text:   #1C1814;
+  --dim:    #4A4540;
+  --dimmer: #7A7265;
+  --bg:     #F8F7F5;
+  --serif:  'Playfair Display', Georgia, serif;
+  --sans:   'DM Sans', system-ui, sans-serif;
+  --strip:  68px;
+  --dot:    10px;
+  --gap:    3px;
+}
+
+/* ─ BASE: no overflow anywhere, page scrolls naturally ─ */
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
+
+/* ── INTRO ─────────────────────────────── */
+#intro {
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 4rem 2rem;
+}
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(3rem,7vw,5.5rem); line-height: 1.06; margin-bottom: 1.25rem; }
+h1 em { font-style: italic; color: var(--tour); }
+.intro-sub { font-size: clamp(1rem,2vw,1.15rem); font-weight: 300; color: var(--dim); line-height: 1.75; max-width: 480px; margin: 0 auto 3rem; }
+.cue { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--dimmer); display: flex; flex-direction: column; align-items: center; gap: 6px; animation: bob 2s ease-in-out infinite; cursor: pointer; }
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+/* ── PANEL — sticky ────────────────────── */
+#panel {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bg);
+  display: grid;
+  grid-template-columns: 190px 1fr 1fr;
+  padding: 1.25rem 2.5rem 1rem;
+  gap: 2rem;
+  border-bottom: 1px solid rgba(28,24,20,.08);
+}
+
+.ratio-cell { display: flex; flex-direction: column; justify-content: flex-start; }
+.ratio-n { font-family: var(--serif); font-weight: 400; font-size: clamp(5.5rem,10vh,9rem); line-height: .9; color: var(--tour); display: block; transition: color .4s; }
+@keyframes peakPulse { 0%{transform:scale(1);opacity:1} 20%{transform:scale(1.08);opacity:1} 40%{transform:scale(1);opacity:.7} 60%{transform:scale(1.05);opacity:1} 100%{transform:scale(1);opacity:1} }
+.ratio-n.peak-pulse { animation: peakPulse 1.6s ease-in-out 3; }
+.ratio-l { font-size: 13px; color: var(--dimmer); line-height: 1.5; margin-top: 20px; }
+
+.zone-cell { display: flex; flex-direction: column; min-width: 0; }
+.zones-row { display: contents; }
+.zc-label { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+.zc-area  { font-size: 11px; color: var(--dimmer); margin-bottom: .625rem; }
+.zc-counts { display: flex; align-items: center; gap: 1.25rem; margin-bottom: .625rem; flex-wrap: wrap; }
+.zc-res, .zc-tou { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 500; line-height: 1; }
+.zc-res { color: var(--res); } .zc-tou { color: var(--tour); }
+.dot-badge { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+canvas.dot-canvas { display: block; max-width: 100%; }
+.zc-legend { display: flex; gap: 1rem; align-items: center; margin-top: .375rem; flex-wrap: wrap; }
+.lg-item { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--dimmer); }
+.lg-dot { width: 7px; height: 7px; border-radius: 50%; }
+.lg-scale { font-size: 11px; color: var(--dimmer); }
+
+/* ── CHAPTERS ──────────────────────────── */
+#scroll-section { padding-bottom: var(--strip); }
+.chapter { min-height: 60svh; display: flex; flex-direction: column; justify-content: center; padding: 4rem 2.5rem; background: var(--bg); }
+.ch-n { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--dimmer); margin-bottom: .875rem; }
+.ch-title { font-family: var(--serif); font-weight: 400; font-size: clamp(2.25rem,3.5vw,3.25rem); line-height: 1.1; color: var(--text); margin-bottom: 1.25rem; max-width: 680px; }
+.ch-body { font-size: 17px; font-weight: 300; color: var(--dim); line-height: 1.85; max-width: 600px; }
+.peak-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--tour); margin-bottom: 1rem; font-weight: 500; animation: badgeFade .6s ease both; }
+.quiet-badge { color: var(--res); animation: badgeFade .6s ease both; }
+@keyframes badgeFade { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+.peak-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--tour); animation: dotBlink 1s ease-in-out 4; }
+.quiet-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--res); }
+@keyframes dotBlink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.5)} }
+
+/* ── OUTRO ─────────────────────────────── */
+#outro { min-height: 80svh; display: flex; align-items: center; justify-content: center; padding: 5rem 2rem calc(4rem + var(--strip)); text-align: center; background: var(--bg); border-top: 1px solid rgba(28,24,20,.06); }
+.outro-inner { max-width: 560px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+.outro-eyebrow { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--dimmer); margin-bottom: 1.25rem; }
+.outro-n { font-family: var(--serif); font-size: clamp(5rem,10vw,8rem); color: var(--tour); line-height: 1; margin-bottom: 3rem; }
+.outro-l { font-size: 15px; color: var(--dim); margin-bottom: 2.5rem; line-height: 1.5; }
+.outro-b { font-size: clamp(1rem,1.8vw,1.1rem); font-weight: 300; color: var(--dim); line-height: 1.9; margin-bottom: 1.75rem; }
+.outro-p2 { font-size: clamp(.95rem,1.6vw,1.05rem); font-weight: 300; color: var(--dim); line-height: 1.85; margin-bottom: 1.5rem; text-align: left; }
+.outro-p2 strong { color: var(--text); font-weight: 500; }
+.outro-cr { font-size: 12px; color: var(--dimmer); margin-top: 2.5rem; line-height: 1.9; border-top: 1px solid rgba(28,24,20,.08); padding-top: 1.5rem; width: 100%; }
+
+/* ── MONTH STRIP ───────────────────────── */
+#strip {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: var(--strip);
+  background: rgba(248,247,245,.96);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(28,24,20,.08);
+  display: flex; align-items: flex-end;
+  padding: 0 1.5rem .5rem; gap: 4px; z-index: 50;
+}
+.mbtn { flex: 1; display: flex; align-items: flex-end; justify-content: center; cursor: pointer; border: none; background: none; padding: 0; }
+.mbtn-bar { width: 100%; border-radius: 4px 4px 0 0; background: rgba(28,24,20,.1); transition: background .3s, height .25s ease; display: flex; align-items: center; justify-content: center; height: 40px; }
+.mbtn-name { font-size: 14px; font-weight: 400; color: var(--dim); font-family: var(--sans); white-space: nowrap; user-select: none; transition: color .2s; }
+.mbtn.active .mbtn-bar { background: var(--tour); height: 45px; }
+.mbtn.active .mbtn-name { color: #fff; font-weight: 500; }
+.mbtn:hover:not(.active) .mbtn-bar { background: rgba(28,24,20,.18); }
+
+/* ── MOBILE ────────────────────────────── */
+@media (max-width: 700px) {
+  :root { --strip: 52px; --dot: 7px; --gap: 2px; }
+
+  /* Hide intro — panel is first thing on screen */
+  #intro { display: none; }
+
+  /* Panel: sticky works when no parent has overflow:hidden */
+  #panel {
+    display: flex !important;
+    flex-direction: column;
+    grid-template-columns: unset;
+    padding: .75rem 1rem .625rem;
+    gap: .5rem;
+  }
+
+  /* Row 1: ratio inline */
+  .ratio-cell { flex-direction: row; align-items: baseline; gap: .625rem; }
+  .ratio-n { font-size: 2.5rem; }
+  .ratio-l { font-size: 11px; margin-top: 0; }
+
+  /* Row 2: two zones side by side */
+  .zones-row { display: flex !important; flex-direction: row; gap: .625rem; }
+  .zone-cell { flex: 1; min-width: 0; overflow: hidden; }
+  .zc-label { font-size: 10px; margin-bottom: 1px; }
+  .zc-area  { font-size: 9px; margin-bottom: .25rem; }
+  .zc-counts { gap: .375rem; margin-bottom: .25rem; flex-wrap: nowrap; }
+  .zc-res, .zc-tou { font-size: 10px; gap: 3px; }
+  .dot-badge { width: 5px; height: 5px; }
+  .zc-legend { display: none; }
+
+  /* Chapters */
+  .chapter { min-height: 65svh; padding: 2rem 1.25rem 2.5rem; }
+  .ch-title { font-size: 1.875rem; }
+  .ch-body { font-size: 15px; }
+  .ch-n { font-size: 10px; }
+  .peak-badge { font-size: 10px; }
+
+  /* Outro */
+  #outro { padding: 3rem 1.25rem calc(2rem + var(--strip)); min-height: auto; }
+  .outro-n { font-size: 5rem; margin-bottom: 2rem; }
+  .outro-b, .outro-p2 { font-size: .95rem; text-align: left; }
+
+  /* Strip */
+  #strip { padding: 0 .25rem .3rem; gap: 2px; }
+  .mbtn-bar { height: 24px; }
+  .mbtn.active .mbtn-bar { height: 36px; }
+  .mbtn-name { font-size: 9px; }
+}
+</style>
+</head>
+<body>
+
+<section id="intro">
+  <h1>A Year of <em>Florence</em></h1>
+  <p class="intro-sub">13 million tourists. 370,000 residents.<br>A city that transforms twelve times over — month by month.</p>
+  <div class="cue"><span>scroll to begin</span><div>↓</div></div>
+</section>
+
+<div id="panel">
+  <div class="ratio-cell">
+    <span class="ratio-n" id="ratio-n">–</span>
+    <span class="ratio-l">tourists per resident<br>in the Centro Storico</span>
+  </div>
+  <div class="zones-row">
+    <div class="zone-cell">
+      <div class="zc-label">Centro Storico · Q1</div>
+      <div class="zc-area">5 km² · 3.4% of the city</div>
+      <div class="zc-counts">
+        <div class="zc-res"><div class="dot-badge" style="background:var(--res)"></div><span>36k residents</span></div>
+        <div class="zc-tou"><div class="dot-badge" style="background:var(--tour)"></div><span id="tou-c">–</span></div>
+      </div>
+      <canvas id="canvas-c"></canvas>
+      <div class="zc-legend">
+        <div class="lg-item"><div class="lg-dot" style="background:var(--res)"></div>residents</div>
+        <div class="lg-item"><div class="lg-dot" style="background:var(--tour)"></div>tourists</div>
+        <div class="lg-scale">1 dot = 10,000 people</div>
+      </div>
+    </div>
+    <div class="zone-cell">
+      <div class="zc-label">Rest of city · Q2–Q5</div>
+      <div class="zc-area">97 km² · 96.6% of the city</div>
+      <div class="zc-counts">
+        <div class="zc-res"><div class="dot-badge" style="background:var(--res)"></div><span>334k residents</span></div>
+        <div class="zc-tou"><div class="dot-badge" style="background:var(--tour)"></div><span id="tou-r">–</span></div>
+      </div>
+      <canvas id="canvas-r"></canvas>
+    </div>
+  </div>
+</div>
+
+<div id="scroll-section"><div id="chapters"></div></div>
+
+<section id="outro">
+  <div class="outro-inner">
+    <div class="outro-eyebrow">City-wide average</div>
+    <div class="outro-n" id="outro-n">25</div>
+    <div class="outro-l">tourist overnights for every resident</div>
+    <p class="outro-b">Florence is the most tourism-dense city in Italy by square kilometer. Its 5 km² Centro Storico, which is just 3.4% of the city's area, absorbs 76% of all overnight stays, while most Florentines live in the outer neighborhoods where tourist pressure is a fraction of what the centre endures.</p>
+    <p class="outro-p2"><strong>Peak season</strong> runs from late April through mid-September, with July as the single most intense month — over 1.3 million overnight stays and 27 tourists for every resident in the historic centre. Crowds peak between July 10 and August 20.</p>
+    <p class="outro-p2"><strong>The quiet season</strong> stretches from mid-November through February. Between December 27 and January 6, the city returns closest to its everyday rhythm — local bars fill again, streets move at a Florentine pace.</p>
+    <div class="outro-cr">Data: ISTAT / Regione Toscana 2023 · CST Firenze · Firenze Patrimonio Mondiale 2024<br>Concept &amp; design: <a href="https://ale-kri-design.vercel.app" target="_blank" rel="noopener" style="color:var(--tour);text-decoration:none;border-bottom:1px solid rgba(184,75,31,.3)">Aleksandra Krivorotko</a></div>
+  </div>
+</section>
+
+<div id="strip"></div>
+
+<script>
+var SCALE = 10000, CR = 36000, RR = 334000, CS = 0.76;
+var DOT = 10, GAP = 3, STEP = DOT + GAP;
+function D(n){ return Math.round(n/SCALE); }
+function fmt(n){ return Math.round(n/1000)+'k'; }
+
+var MONTHS = [
+  {n:"January",  s:"Jan",t:450000, peak:false,quietest:true,
+   body:"Florence belongs to its residents. The streets speak Florentine, bars still run on local prices. The quietest month of the year — and already, ten tourists for every person who calls this home."},
+  {n:"February", s:"Feb",t:500000, peak:false,
+   body:"The city breathes slowly. Tourists are here — they are always here — but they have not taken over yet. The neighbourhood market still runs on local time."},
+  {n:"March",    s:"Mar",t:750000, peak:false,
+   body:"Something shifts. The first queues form at the Duomo. Restaurant menus gain a zero. The season has begun, and with it the quiet transformation of the historic centre."},
+  {n:"April",    s:"Apr",t:1050000,peak:false,
+   body:"Easter brings a wave that does not recede. 22 visitors for every Centro resident. The terraces fill with foreign languages; the streets narrow with people who have nowhere specific to be."},
+  {n:"May",      s:"May",t:1150000,peak:false,
+   body:"Perfect weather, golden light, everywhere sold out. The centro storico is no longer a neighbourhood — it is an open-air attraction. Residents learn to move along the margins, to shop at dawn."},
+  {n:"June",     s:"Jun",t:1200000,peak:false,
+   body:"25 tourists for every resident. Ponte Vecchio is impassable at midday. Those who live in Q1 plan their grocery runs for early morning, outside the centre entirely."},
+  {n:"July",     s:"Jul",t:1300000,peak:true,
+   body:"Florence belongs to everyone — except the people who actually live there."},
+  {n:"August",   s:"Aug",t:1100000,peak:false,
+   body:"Florentines escape to the sea. Tourists remain. The paradox of August: the city empties of residents precisely when it is fullest of visitors."},
+  {n:"September",s:"Sep",t:1200000,peak:false,
+   body:"Still warm, still crowded. The season shows no sign of ending. Cultural tourism does not know an autumn low season the way the coast does."},
+  {n:"October",  s:"Oct",t:1100000,peak:false,
+   body:"The leaves change; the tourist type changes too. Fewer families, more couples. The flow slows — but there are still 23 visitors for every Centro resident."},
+  {n:"November", s:"Nov",t:600000, peak:false,
+   body:"The city finds its rhythm again. Restaurants reopen for locals. It is not quite Florentine yet — but it is getting there."},
+  {n:"December", s:"Dec",t:550000, peak:false,
+   body:"Christmas brings markets and one last brief wave. Then, between the 26th and 31st, the city falls quiet. For a few days, Florence is Florence again."}
+];
+
+var maxT = 0;
+for(var i=0;i<MONTHS.length;i++) if(MONTHS[i].t>maxT) maxT=MONTHS[i].t;
+
+// Build chapters
+var chEl = document.getElementById('chapters');
+for(var i=0;i<MONTHS.length;i++){
+  (function(idx){
+    var m = MONTHS[idx];
+    var d = document.createElement('div');
+    d.className='chapter'; d.dataset.month=idx;
+    var html='<div class="ch-n">'+(idx+1)+' / 12</div>';
+    if(m.peak) html+='<div class="peak-badge"><div class="peak-badge-dot"></div>The peak of the year</div>';
+    if(m.quietest) html+='<div class="peak-badge quiet-badge"><div class="quiet-badge-dot"></div>The quietest month</div>';
+    html+='<h2 class="ch-title">'+m.n+'</h2>';
+    html+='<p class="ch-body">'+m.body+'</p>';
+    d.innerHTML=html; chEl.appendChild(d);
+  })(i);
+}
+
+// Build strip
+var stripEl = document.getElementById('strip');
+for(var i=0;i<MONTHS.length;i++){
+  (function(idx){
+    var btn=document.createElement('button');
+    btn.className='mbtn'; btn.id='mbtn'+idx;
+    btn.innerHTML='<div class="mbtn-bar"><span class="mbtn-name">'+MONTHS[idx].s+'</span></div>';
+    btn.addEventListener('click',function(){
+      var ch=document.querySelector('.chapter[data-month="'+idx+'"]');
+      if(!ch) return;
+      setMonth(idx); // set immediately, don't wait for observer
+      var panelH=document.getElementById('panel').offsetHeight||0;
+      var y=ch.getBoundingClientRect().top+window.pageYOffset-panelH-4;
+      window.scrollTo({top:y,behavior:'smooth'});
+    });
+    stripEl.appendChild(btn);
+  })(i);
+}
+
+// ── CANVAS ──────────────────────────────────────
+var CC  = document.getElementById('canvas-c');
+var CR_ = document.getElementById('canvas-r');
+var xC  = CC.getContext('2d');
+var xR  = CR_.getContext('2d');
+var colsC = 1, colsR = 1;
+var COL_T = '#B84B1F', COL_R = '#245E8A';
+
+function readDotVars() {
+  var s = getComputedStyle(document.documentElement);
+  var d = parseInt(s.getPropertyValue('--dot')) || 10;
+  var g = parseInt(s.getPropertyValue('--gap')) || 3;
+  DOT = d; GAP = g; STEP = d + g;
+}
+
+function setupCanvas(cv, isC) {
+  var w = cv.parentElement.offsetWidth;
+  if (!w || w < 40) w = Math.floor(window.innerWidth / 2) - 80;
+  w = Math.max(Math.floor(w), 60);
+  var dpr = Math.max(2, window.devicePixelRatio || 2);
+  cv._dpr = dpr;
+  var r = DOT / 2;
+  var cols = Math.max(1, Math.floor((w - r * 2) / STEP));
+  var nRes    = isC ? D(CR) : D(RR);
+  var nTouMax = isC ? D(maxT * CS) : D(maxT * (1 - CS));
+  var rows = Math.ceil((nRes + nTouMax + 2) / cols);
+  var h = Math.max(rows * STEP + GAP, 20);
+  cv.width  = Math.round(w * dpr);
+  cv.height = Math.round(h * dpr);
+  cv.style.width  = w + 'px';
+  cv.style.height = h + 'px';
+  return cols;
+}
+
+function drawCanvas(cv, ctx, nRes, nTou, cols) {
+  var dpr = cv._dpr || 2;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, cv.width / dpr, cv.height / dpr);
+  var r = DOT / 2, total = nTou + nRes;
+  for (var i = 0; i < total; i++) {
+    var col = i % cols, row = Math.floor(i / cols);
+    ctx.fillStyle = i < nTou ? COL_T : COL_R;
+    ctx.beginPath();
+    ctx.arc(col * STEP + r + GAP, row * STEP + r + GAP, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function initCanvases() {
+  readDotVars();
+  colsC = setupCanvas(CC,  true);
+  colsR = setupCanvas(CR_, false);
+}
+
+// ── ANIMATION ────────────────────────────────────
+var prevCT = 0, prevRT = 0, targCT = 0, targRT = 0;
+var animStart = null, animDur = 600, raf = null;
+
+function animFrame(ts) {
+  if (!animStart) animStart = ts;
+  var p = Math.min((ts - animStart) / animDur, 1);
+  var e = 1 - Math.pow(1 - p, 3);
+  var ct = Math.round(prevCT + (targCT - prevCT) * e);
+  var rt = Math.round(prevRT + (targRT - prevRT) * e);
+  drawCanvas(CC,  xC, D(CR), ct, colsC);
+  drawCanvas(CR_, xR, D(RR), rt, colsR);
+  if (p < 1) { raf = requestAnimationFrame(animFrame); }
+  else { prevCT = targCT; prevRT = targRT; raf = null; }
+}
+
+function animateTo(ct, rt) {
+  if (raf) cancelAnimationFrame(raf);
+  animStart = null;
+  targCT = ct; targRT = rt;
+  raf = requestAnimationFrame(animFrame);
+}
+
+// ── COUNT UP ─────────────────────────────────────
+function countUp(el, to) {
+  var from = parseInt(el.textContent) || 0;
+  if (from === to) return;
+  var dur = 420, start = Date.now();
+  (function step() {
+    var p = Math.min((Date.now()-start)/dur, 1);
+    var v = Math.round(from + (to-from)*(1-Math.pow(1-p,3)));
+    el.textContent = v;
+    var mob = document.getElementById('ratio-n-mob');
+    if (mob) mob.textContent = v;
+    if (p < 1) requestAnimationFrame(step);
+  })();
+}
+
+// ── SET MONTH ─────────────────────────────────────
+var cur = -1;
+function setMonth(idx) {
+  if (idx === cur) return;
+  cur = idx;
+  var m  = MONTHS[idx];
+  var ct = D(m.t * CS);
+  var rt = D(m.t * (1-CS));
+  var ratio = Math.round(m.t * CS / CR);
+  var rnEl = document.getElementById('ratio-n');
+  countUp(rnEl, ratio);
+  rnEl.classList.remove('peak-pulse');
+  if (MONTHS[idx].peak) { void rnEl.offsetWidth; rnEl.classList.add('peak-pulse'); }
+  document.getElementById('tou-c').textContent = fmt(Math.round(m.t * CS)) + ' tourists';
+  document.getElementById('tou-r').textContent = fmt(Math.round(m.t * (1-CS))) + ' tourists';
+  animateTo(ct, rt);
+  for (var i = 0; i < MONTHS.length; i++) {
+    var btn = document.getElementById('mbtn'+i);
+    if (btn) btn.classList.toggle('active', i === idx);
+  }
+}
+
+// ── OBSERVER ──────────────────────────────────────
+function fixMobileMargin() {
+  if (window.innerWidth > 700) { document.getElementById('scroll-section').style.marginTop = ''; return; }
+  var h = document.getElementById('panel').offsetHeight;
+  if (h > 0) document.getElementById('scroll-section').style.marginTop = h + 'px';
+}
+
+var obs = null;
+function buildObserver() {
+  if (obs) obs.disconnect();
+  var isMob = window.innerWidth <= 700;
+  var top = isMob ? ('-' + Math.round(window.innerHeight * 0.44) + 'px') : '-20%';
+  obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) setMonth(parseInt(e.target.dataset.month)); });
+  }, { rootMargin: top + ' 0px -50% 0px', threshold: 0 });
+  document.querySelectorAll('.chapter').forEach(function(ch){ obs.observe(ch); });
+}
+
+// ── OUTRO ANIMATION ───────────────────────────────
+function initOutroAnim() {
+  var el = document.getElementById('outro-n');
+  if (!el) return;
+  var o = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) { el.classList.add('visible'); o.disconnect(); }
+  }, { threshold: 0.3 });
+  o.observe(el);
+}
+
+// ── INIT ──────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function() {
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      initCanvases();
+      setMonth(0);
+      buildObserver();
+      initOutroAnim();
+      fixMobileMargin();
+      setTimeout(fixMobileMargin, 200);
+    });
+  });
+});
+
+window.addEventListener('resize', function() {
+  initCanvases();
+  drawCanvas(CC,  xC, D(CR), targCT, colsC);
+  drawCanvas(CR_, xR, D(RR), targRT, colsR);
+  buildObserver();
+  fixMobileMargin();
+});
+</script>
+</body>
+</html>

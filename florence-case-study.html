@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Year of Florence S_DESIGN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F5F5;
+    --text: #111111;
+    --text-muted: #666666;
+    --text-secondary: #333333;
+    --card-bg: #EDEDED;
+    --white: #FFFFFF;
+    --font: 'Manrope', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 48px;
+    background: rgba(245,245,245,0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .logo { font-size: 15px; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; color: var(--text); }
+  .logo span { font-weight: 300; }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; text-decoration: none; color: var(--text); transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 0.5; }
+
+  /* ── Hamburger ── */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); }
+  .mobile-menu {
+    display: none;
+    position: fixed; inset: 0;
+    background: var(--bg);
+    z-index: 200;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 32px; font-weight: 500; text-decoration: none; color: var(--text); letter-spacing: -0.01em; }
+  .mobile-menu-close { position: absolute; top: 24px; right: 24px; font-size: 28px; cursor: pointer; background: none; border: none; color: var(--text); font-family: var(--font); }
+  @media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .nav-links { display: none; }
+  }
+
+  /* ── Scroll reveal ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── Section pill ── */
+  .section-pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: rgba(17,17,17,0.05);
+    border: 1px solid rgba(17,17,17,0.18);
+    border-radius: 99px;
+    padding: 5px 14px;
+    margin-bottom: 20px;
+    align-self: flex-start;
+  }
+
+  /* ── Section titles / body ── */
+  .section-title {
+    font-size: 50px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 32px;
+  }
+  .section-body {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 760px;
+    margin-bottom: 16px;
+  }
+  .section-body strong { font-weight: 700; color: var(--text); }
+  .section-sub {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+
+  /* ── Hero ── */
+  .case-hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 90px;
+    align-items: flex-start;
+    padding: 140px 48px 120px;
+  }
+  .case-hero-left { display: flex; flex-direction: column; gap: 12px; }
+  .case-hero-title {
+    font-size: 64px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .case-hero-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    padding-top: 40px;
+  }
+  .case-hero-body {
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .hero-read-time {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .hero-tag {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    background: rgba(17,17,17,0.05);
+    border: 1px solid rgba(17,17,17,0.18);
+    border-radius: 99px;
+    padding: 4px 12px;
+  }
+
+  /* ── Content sections ── */
+  .content-section { padding: 120px 48px; }
+  .role-section { padding: 120px 48px; }
+  .journey-section { padding: 120px 48px; }
+
+  /* ── Arrow items ── */
+  .arrow-item {
+    display: flex;
+    gap: 12px;
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+  .arrow-item span:first-child { font-weight: 700; color: var(--text); flex-shrink: 0; }
+  .arrow-item strong { font-weight: 700; color: var(--text); }
+
+  /* ── Role cards ── */
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .role-card {
+    background: var(--white);
+    border: 1px solid rgba(17,17,17,0.07);
+    border-radius: 16px;
+    padding: 28px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .role-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .role-icon svg { width: 20px; height: 20px; stroke: var(--text); transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1); }
+  .role-card:hover .role-icon svg { transform: scale(1.2) rotate(10deg); }
+  .role-card-title { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--text); }
+  .role-card-body { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ── Journey timeline ── */
+  .journey-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 48px; }
+  .journey-list {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 32px;
+  }
+  .journey-list::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 1.5px;
+    background: var(--card-bg);
+  }
+  .journey-item { position: relative; padding: 0 0 48px 32px; }
+  .journey-item:last-child { padding-bottom: 0; }
+  .journey-dot {
+    position: absolute;
+    left: -32px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--text);
+    border-radius: 50%;
+    background: var(--bg);
+  }
+  .journey-phase { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+  .journey-title { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 6px; color: var(--text); }
+  .journey-desc { font-size: 16px; color: var(--text-secondary); line-height: 1.6; max-width: 640px; }
+
+  /* ── Finding cards ── */
+  .findings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+  .finding-card { background: var(--white); border: 1px solid rgba(17,17,17,0.07); border-radius: 16px; padding: 28px; }
+  .finding-card-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .finding-card-body { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ── Stat grid ── */
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 16px; margin-top: 40px; }
+  .stat-item {}
+  .stat-number { font-size: 96px; font-weight: 300; letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px; }
+  .stat-label { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .stat-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ── Principle cards ── */
+  .principles-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; }
+  .principle-card {
+    background: var(--white);
+    border: 1px solid rgba(17,17,17,0.07);
+    border-radius: 16px;
+    padding: 28px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .principle-card-title { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--text); }
+  .principle-card-body { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ── Quote block ── */
+  .quote-block {
+    background: var(--text);
+    color: white;
+    border-radius: 16px;
+    padding: 48px 56px;
+    margin: 48px 0;
+    text-align: center;
+  }
+  .quote-text { font-size: 24px; font-weight: 500; line-height: 1.5; letter-spacing: -0.01em; }
+  .quote-sub { font-size: 15px; color: rgba(255,255,255,0.6); margin-top: 12px; }
+
+  /* ── Embed ── */
+  .embed-section { padding: 0; border-top: 1px solid rgba(17,17,17,0.08); }
+  .embed-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: var(--white);
+    border-bottom: 1px solid rgba(17,17,17,0.08);
+  }
+  .embed-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .embed-open { font-size: 13px; font-weight: 500; color: var(--text); text-decoration: none; opacity: 0.6; transition: opacity 0.2s; }
+  .embed-open:hover { opacity: 1; }
+  iframe.embed { display: block; width: 100%; height: 88svh; border: none; }
+
+  /* ── Back ── */
+  .back-wrap { display: flex; justify-content: center; padding: 40px 48px 80px; }
+  .back-btn { display: inline-flex; align-items: center; gap: 16px; font-size: 20px; font-weight: 400; color: var(--text); text-decoration: none; }
+  .back-circle { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--text); display: grid; place-items: center; flex-shrink: 0; }
+  @keyframes wobble {
+    0%   { transform: rotate(0deg); }
+    20%  { transform: rotate(-8deg); }
+    40%  { transform: rotate(8deg); }
+    60%  { transform: rotate(-5deg); }
+    80%  { transform: rotate(5deg); }
+    100% { transform: rotate(0deg); }
+  }
+  .back-btn:hover .back-circle { animation: wobble 0.5s ease; }
+
+  /* ── Mobile ── */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .case-hero { grid-template-columns: 1fr; gap: 40px; padding: 100px 24px 80px; }
+    .case-hero-title { font-size: 44px; }
+    .case-hero-body { font-size: 18px; }
+    .content-section, .role-section, .journey-section { padding: 80px 24px; }
+    .section-title { font-size: 36px; }
+    .role-grid { grid-template-columns: 1fr 1fr; }
+    .findings-grid { grid-template-columns: 1fr; }
+    .principles-cards { grid-template-columns: 1fr; }
+    .stat-grid { gap: 32px; }
+    .embed-header { padding: 16px 24px; }
+    .quote-block { padding: 32px 24px; }
+    .quote-text { font-size: 18px; }
+    .back-wrap { padding: 32px 24px 60px; }
+  }
+  @media (max-width: 600px) {
+    .case-hero-title { font-size: 36px; }
+    .role-grid { grid-template-columns: 1fr; }
+    .stat-number { font-size: 56px; }
+    .arrow-item { font-size: 16px; }
+    .section-body { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+  <a href="index.html#home" onclick="closeMobileMenu()">HOME</a>
+  <a href="index.html#works" onclick="closeMobileMenu()">WORKS</a>
+  <a href="index.html#about-me" onclick="closeMobileMenu()">ABOUT ME</a>
+  <a href="index.html#contacts" onclick="closeMobileMenu()">CONTACTS</a>
+</div>
+
+<nav>
+  <a href="index.html" class="logo">S_<span>DESIGN</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li>
+    <li><a href="index.html#works">WORKS</a></li>
+    <li><a href="index.html#about-me">ABOUT ME</a></li>
+    <li><a href="index.html#contacts">CONTACTS</a></li>
+  </ul>
+  <div class="hamburger" onclick="openMobileMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="case-hero reveal">
+  <div class="case-hero-left">
+    <span class="section-pill">Data Storytelling</span>
+    <h1 class="case-hero-title">A Year of Florence</h1>
+  </div>
+  <div class="case-hero-right">
+    <p class="case-hero-body">An interactive data visualisation showing how 13 million tourists and 370,000 residents share the same city. The numbers tell the story: month by month, zone by zone.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">Data Visualisation</span>
+      <span class="hero-tag">Scrollytelling</span>
+      <span class="hero-tag">Urban Research</span>
+    </div>
+    <div class="hero-read-time">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4l2.5 1.5"/></svg>
+      ~6 min read
+    </div>
+  </div>
+</div>
+
+<!-- ── My Role ── -->
+<div class="role-section reveal">
+  <span class="section-pill">My Role</span>
+  <h2 class="section-title">From raw data to a story that works</h2>
+  <p class="section-body">I led the full project from sourcing and cleaning the data, to designing the narrative arc, to building the interactive entirely in code.</p>
+  <div class="role-grid">
+    <div class="role-card">
+      <div class="role-icon">
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h14M3 10h14M3 15h8"/></svg>
+      </div>
+      <div class="role-card-title">Data Research</div>
+      <div class="role-card-body">Sourcing, cleaning and structuring monthly tourism data from ISTAT, Regione Toscana, and CST Firenze</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15l4-8 4 5 2-3 3 6"/><rect x="2" y="2" width="16" height="16" rx="2"/></svg>
+      </div>
+      <div class="role-card-title">Narrative Design</div>
+      <div class="role-card-body">Structuring 12 months as a scrollytelling arc with a single protagonist: the tourist-to-resident ratio</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="3"/><path d="M10 2v3M10 15v3M2 10h3M15 10h3"/></svg>
+      </div>
+      <div class="role-card-title">Visual Design</div>
+      <div class="role-card-body">Dot-grid method, typography, colour palette, and seasonal visual behaviour</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 7 2 10 6 13"/><polyline points="14 7 18 10 14 13"/><line x1="11" y1="5" x2="9" y2="15"/></svg>
+      </div>
+      <div class="role-card-title">Frontend Build</div>
+      <div class="role-card-body">Implemented in HTML, CSS, and vanilla JS Canvas API for dot rendering, IntersectionObserver for scroll events</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="6" height="10" rx="1"/><rect x="11" y="3" width="6" height="14" rx="1"/></svg>
+      </div>
+      <div class="role-card-title">Data Strategy</div>
+      <div class="role-card-body">Translating absolute figures into relative ratios the key analytical decision that made the story work</div>
+    </div>
+    <div class="role-card">
+      <div class="role-icon">
+        <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="12" height="9" rx="1.5"/><path d="M14 8h2.5a1.5 1.5 0 0 1 1.5 1.5v5A1.5 1.5 0 0 1 16.5 16H15"/><line x1="2" y1="17" x2="14" y2="17"/><line x1="7" y1="13" x2="7" y2="17"/></svg>
+      </div>
+      <div class="role-card-title">Responsive</div>
+      <div class="role-card-body">Fully adapted for mobile with a fixed-panel layout and native-feel scroll behaviour</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── The Journey ── -->
+<div class="journey-section reveal">
+  <span class="section-pill">The Journey</span>
+  <h2 class="section-title">How the work unfolded</h2>
+  <p class="journey-meta">~4 weeks</p>
+  <div class="journey-list">
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Discover</div>
+      <div class="journey-title">Data audit</div>
+      <div class="journey-desc">Identified the gap: tourism data exists in PDFs and spreadsheets but no source tells a human story. Found monthly breakdown by zone in ISTAT and CST Firenze reports. <strong>No existing source translated this into a human story.</strong></div>
+    </div>
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Define</div>
+      <div class="journey-title">Narrative framing</div>
+      <div class="journey-desc">Chose the tourist-to-resident ratio as the primary metric more direct than absolute numbers. Defined the two zones: Centro Storico vs. the rest of the city.</div>
+    </div>
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Design</div>
+      <div class="journey-title">Visual system</div>
+      <div class="journey-desc">Established the dot-grid method (1 dot = 10,000 people), colour palette, typography, and scrollytelling structure. Referenced Pudding.cool for narrative scroll mechanics.</div>
+    </div>
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Build</div>
+      <div class="journey-title">Coded interactive</div>
+      <div class="journey-desc">Vanilla JS throughout. Canvas API for dot rendering with retina support. IntersectionObserver for scroll-driven month switching.</div>
+    </div>
+    <div class="journey-item">
+      <div class="journey-dot"></div>
+      <div class="journey-phase">Refine</div>
+      <div class="journey-title">Narrative editing</div>
+      <div class="journey-desc">Cut everything that competed with the core message. Subtracted until only the story remained the hardest and most important design work in the project.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Problem ── -->
+<div class="content-section reveal">
+  <span class="section-pill">Problem</span>
+  <h2 class="section-title">The data existed. The story didn't.</h2>
+  <p class="section-body">Florence's tourism statistics are published every year but in PDF reports written for municipal officials. The numbers answer "how many?" but never <strong>"what does it feel like to live here?"</strong></p>
+  <div style="margin-top:24px">
+    <div class="arrow-item"><span>→</span><span><strong>PDF annual reports</strong> city-wide totals, no seasonal or geographic breakdown</span></div>
+    <div class="arrow-item"><span>→</span><span><strong>ISTAT tables</strong> accurate but unintelligible without human context</span></div>
+    <div class="arrow-item"><span>→</span><span><strong>Smart city dashboards</strong> designed for administrators, optimised for KPIs, not for empathy</span></div>
+    <div class="arrow-item"><span>→</span><span>No single source visualised how the balance shifts <strong>month by month and neighbourhood by neighbourhood</strong></span></div>
+  </div>
+</div>
+
+<!-- ── Key Data ── -->
+<div class="content-section reveal">
+  <span class="section-pill">The Numbers</span>
+  <h2 class="section-title">What the data actually says</h2>
+  <p class="section-body">The same dataset reads very differently depending on how you frame it.</p>
+  <div class="stat-grid">
+    <div class="stat-item">
+      <div class="stat-number">27</div>
+      <div class="stat-label">tourists per resident in July</div>
+      <div class="stat-desc">In the Centro Storico the most intense month of the year. The neighbourhood effectively changes population.</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">76%</div>
+      <div class="stat-label">of overnight stays in one zone</div>
+      <div class="stat-desc">Q1 covers 5 km² just 3.4% of the city's area and absorbs three quarters of all tourism.</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">25</div>
+      <div class="stat-label">overnights per resident, city-wide average</div>
+      <div class="stat-desc">The average masks extremes: Q1 exceeds 110 per resident annually. Q5 (Rifredi) falls below 3.</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">10</div>
+      <div class="stat-label">tourists per resident even in January</div>
+      <div class="stat-desc">The quietest month still has 10× the tourist-to-resident ratio. Florence is never truly its own again.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Design Approach ── -->
+<div class="content-section reveal">
+  <span class="section-pill">Design Approach</span>
+  <h2 class="section-title">Designing for understanding, not information</h2>
+  <p class="section-body">The central question wasn't "how do I display this data?" but <strong>"how do I make someone feel what it means to live in Florence in July?"</strong> Every decision followed from that.</p>
+  <div style="margin-top:32px; margin-bottom:32px">
+    <div class="arrow-item"><span>→</span><span><strong>Dot-grid method.</strong> Each dot = 10,000 people. Tourist dots (terracotta) and resident dots (blue) occupy the same space so the imbalance is literal, not abstracted into bar length</span></div>
+    <div class="arrow-item"><span>→</span><span><strong>Scroll as time.</strong> Each chapter = one month. The panel updates as you scroll mimicking the passage of the year from January to December</span></div>
+    <div class="arrow-item"><span>→</span><span><strong>The ratio as protagonist.</strong> One large number dominates the panel. Everything else supports it. Nothing competes with the single most important insight</span></div>
+    <div class="arrow-item"><span>→</span><span><strong>Two zones, one comparison.</strong> Centro Storico alongside the rest of the city makes the argument visually no text required</span></div>
+  </div>
+
+  <p class="section-sub">What I found:</p>
+  <div class="findings-grid">
+    <div class="finding-card">
+      <div class="finding-card-title">Context is the data</div>
+      <div class="finding-card-body">"988,000 tourists" is a number. "27 for every person who lives here" is a story. The ratio reframes the same figure completely.</div>
+    </div>
+    <div class="finding-card">
+      <div class="finding-card-title">Less is more impact</div>
+      <div class="finding-card-body">Early versions showed multiple metrics. Every element added reduced the power of the one that mattered. Subtracting was the hardest work.</div>
+    </div>
+    <div class="finding-card">
+      <div class="finding-card-title">Crowding is physical</div>
+      <div class="finding-card-body">Dots communicate crowding better than bars because the feeling of overcrowding is spatial not a length comparison.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Design Principles ── -->
+<div class="content-section reveal">
+  <span class="section-pill">Design Principles</span>
+  <h2 class="section-title">Rules that guided every decision</h2>
+  <div class="principles-cards">
+    <div class="principle-card">
+      <div class="principle-card-title">One number, maximum impact</div>
+      <div class="principle-card-body">The tourist-to-resident ratio is the single most important piece of information. The entire visual system exists to make that number immediately visible.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-card-title">Animate the exception</div>
+      <div class="principle-card-body">Only July gets a pulse animation. Every other month transitions cleanly. Animating the one peak makes the peak work animation as editorial emphasis, not decoration.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-card-title">Don't spoil the story</div>
+      <div class="principle-card-body">Month navigation uses equal-height bars no bar chart encoding tourist volume. That would reveal the July peak before the reader reaches it. The story unfolds; it doesn't telegraph itself.</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-card-title">Data structure = narrative structure</div>
+      <div class="principle-card-body">Working with monthly ISTAT data made months the natural unit. The data told me how to structure the story not the other way around.</div>
+    </div>
+  </div>
+</div>
+
+<div style="min-height:200px; display:flex; align-items:center; justify-content:center; padding:48px;" class="reveal">
+  <p style="font-size:20px; font-weight:500; color:#111111; text-align:center; font-family:'Manrope',sans-serif;">The interactive below ↓</p>
+</div>
+
+<!-- ── Live embed ── -->
+<div class="embed-section">
+  <div class="embed-header">
+    <span class="embed-tag">Live interactive scroll inside</span>
+    <a href="year-of-florence.html" target="_blank" class="embed-open">Open full screen →</a>
+  </div>
+  <iframe src="year-of-florence.html" class="embed" title="A Year of Florence Interactive" loading="lazy" scrolling="yes"></iframe>
+</div>
+
+<!-- ── Reflection ── -->
+<div class="content-section reveal">
+  <span class="section-pill">Reflection</span>
+  <h2 class="section-title">Qualitative outcomes</h2>
+
+  <div class="quote-block">
+    <div class="quote-text">Good data visualisation is more editorial than technical.</div>
+    <div class="quote-sub">The hardest decisions weren't about rendering dots they were about what to show, when, and in what order.</div>
+  </div>
+
+  <div style="margin-top:8px">
+    <div class="arrow-item"><span>→</span><span>Building in code without a design tool forces decisions to be <strong>real</strong> you can't fake responsive behaviour in Figma</span></div>
+    <div class="arrow-item"><span>→</span><span>Mobile-first data visualisation requires a completely <strong>different layout strategy</strong> than desktop fixed panels, JS-measured margins, iOS Safari edge cases</span></div>
+    <div class="arrow-item"><span>→</span><span>The dot-grid communicates <strong>crowding better than any chart type</strong> because crowding is physical and spatial, not a comparison of lengths</span></div>
+    <div class="arrow-item"><span>→</span><span>This project reinforced that <strong>data structure should determine narrative structure</strong> not the other way around</span></div>
+  </div>
+</div>
+
+<!-- ── Back ── -->
+<div class="back-wrap reveal">
+  <a href="index.html#works" class="back-btn">
+    <div class="back-circle">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l5-5 5 5"/></svg>
+    </div>
+    Back to top
+  </a>
+</div>
+
+<script>
+function openMobileMenu()  { document.getElementById('mobileMenu').classList.add('open'); }
+function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+var els = document.querySelectorAll('.reveal');
+var io = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+els.forEach(function(el) { io.observe(el); });
+</script>
+</body>
+</html>

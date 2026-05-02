@@ -147,15 +147,29 @@
 
   /* ── Works ── */
   #works { flex-direction: column; align-items: center; justify-content: center; gap: 32px; padding-top: 80px; }
-  .works-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; }
-  .case-card { background: #EDEDED; border-radius: 16px; overflow: hidden; text-decoration: none; color: var(--text); transition: background 0.25s, transform 0.25s; display: flex; flex-direction: column; }
+  .works-grid {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    cursor: grab;
+    scrollbar-width: none;
+  }
+  .works-grid::-webkit-scrollbar { display: none; }
+  .works-grid:active { cursor: grabbing; }
+  .case-card { background: #EDEDED; border-radius: 16px; overflow: hidden; text-decoration: none; color: var(--text); transition: background 0.25s, transform 0.25s; display: flex; flex-direction: column; flex-shrink: 0; width: calc(50vw - 56px); min-width: 380px; max-width: 620px; scroll-snap-align: start; }
   .case-card:hover { background: #F0F0F0; transform: translateY(-3px); }
   .case-card-inner { padding: 24px 24px 0; }
   .case-title { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 20px; color: #111; line-height: 24px; }
-  .case-image { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
-  .case-footer { padding: 16px 24px 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex: 1; }
+  .case-image-wrap { width: 100%; aspect-ratio: 16/10; flex-shrink: 0; overflow: hidden; }
+  .case-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .case-footer { padding: 16px 24px 24px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex: 1; }
   .case-desc { font-size: 16px; color: #111; line-height: 24px; flex: 1; }
-  .case-link { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 500; text-decoration: none; color: var(--text); background: white; border: none; border-radius: 99px; padding: 10px 22px; white-space: nowrap; flex-shrink: 0; align-self: flex-end; transition: background 0.2s, color 0.2s; }
+  .case-link { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 500; text-decoration: none; color: var(--text); background: white; border: none; border-radius: 99px; padding: 10px 22px; white-space: nowrap; flex-shrink: 0; align-self: flex-end; transition: background 0.2s, color 0.2s; margin-top: auto; }
   .case-link:hover { background: var(--text); color: white; }
 
   /* ── About ── */
@@ -193,7 +207,7 @@
 
     /* Works */
     #works { padding-top: 120px; }
-    .works-grid { grid-template-columns: 1fr; }
+    .case-card { width: calc(85vw); min-width: 280px; }
     .case-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
     .case-link { align-self: center; }
 
@@ -272,11 +286,22 @@
 <!-- Works -->
 <section id="works">
   <div class="works-grid">
+    <a class="case-card" href="florence-case-study.html">
+      <div class="case-card-inner">
+        <div class="case-title">A Year of Florence</div>
+      </div>
+      <div class="case-image-wrap"><img class="case-image" src="3rd_case.jpg" alt="A Year of Florence"/></div>
+      <div class="case-footer">
+        <p class="case-desc">An interactive data visualisation of tourist density across Florence's neighbourhoods, month by month.</p>
+        <span class="case-link">→ View full case</span>
+      </div>
+    </a>
+
     <a class="case-card" href="case-1.html">
       <div class="case-card-inner">
         <div class="case-title">AI-assisted document workflows</div>
       </div>
-      <img class="case-image" src="case1.jpg" alt="AI-assisted document workflows"/>
+      <div class="case-image-wrap"><img class="case-image" src="case1.jpg" alt="AI-assisted document workflows"/></div>
       <div class="case-footer">
         <p class="case-desc">The product supports scanning, organization, and understanding of documents.</p>
         <span class="case-link">→ View full case</span>
@@ -286,7 +311,7 @@
       <div class="case-card-inner">
         <div class="case-title">Migraine tracking app</div>
       </div>
-      <img class="case-image" src="case2.jpg" alt="Migraine tracking app"/>
+      <div class="case-image-wrap"><img class="case-image" src="case2.jpg" alt="Migraine tracking app"/></div>
       <div class="case-footer">
         <p class="case-desc">A research-driven product for supporting people with migraines through tracking and pattern recognition.</p>
         <span class="case-link">→ View full case</span>
