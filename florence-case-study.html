@@ -15,6 +15,7 @@
     --card-bg: #EDEDED;
     --white: #FFFFFF;
     --font: 'Manrope', sans-serif;
+    --accent: #C85C38;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -83,9 +84,9 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text);
-    background: rgba(17,17,17,0.05);
-    border: 1px solid rgba(17,17,17,0.18);
+    color: var(--accent);
+    background: rgba(200,92,56,0.08);
+    border: 1px solid rgba(200,92,56,0.3);
     border-radius: 99px;
     padding: 5px 14px;
     margin-bottom: 20px;
@@ -157,12 +158,26 @@
   .hero-tag {
     font-size: 12px;
     font-weight: 500;
-    color: var(--text);
-    background: rgba(17,17,17,0.05);
-    border: 1px solid rgba(17,17,17,0.18);
+    color: var(--accent);
+    background: rgba(200,92,56,0.08);
+    border: 1px solid rgba(200,92,56,0.3);
     border-radius: 99px;
     padding: 4px 12px;
   }
+
+  /* ── Design System section ── */
+  .ds-section { padding: 120px 48px; }
+  .ds-colors-label { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 16px; letter-spacing: 0.02em; }
+  .ds-swatches { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+  .ds-swatch { display: flex; flex-direction: column; gap: 8px; min-width: 80px; }
+  .ds-swatch-block { width: 80px; height: 80px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06); }
+  .ds-swatch-name { font-size: 11px; font-weight: 600; color: var(--text); }
+  .ds-swatch-hex { font-size: 11px; color: var(--text-muted); }
+  .ds-type-table { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--card-bg); }
+  .ds-type-row { display: flex; align-items: baseline; gap: 32px; padding: 16px 0; border-bottom: 1px solid var(--card-bg); }
+  .ds-type-label { font-size: 12px; color: var(--text-muted); font-weight: 500; min-width: 80px; flex-shrink: 0; }
+  .ds-type-sample { color: var(--text); font-family: var(--font); line-height: 1.1; }
+  .ds-type-spec { font-size: 12px; color: var(--text-muted); margin-left: auto; flex-shrink: 0; white-space: nowrap; }
 
   /* ── Content sections ── */
   .content-section { padding: 120px 48px; }
@@ -200,14 +215,14 @@
   .role-icon {
     width: 40px;
     height: 40px;
-    background: var(--card-bg);
+    background: rgba(200,92,56,0.1);
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
   }
-  .role-icon svg { width: 20px; height: 20px; stroke: var(--text); transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1); }
+  .role-icon svg { width: 20px; height: 20px; stroke: var(--accent); transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1); }
   .role-card:hover .role-icon svg { transform: scale(1.2) rotate(10deg); }
   .role-card-title { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--text); }
   .role-card-body { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
@@ -249,14 +264,14 @@
   .findings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
   .finding-card { background: var(--white); border: 1px solid rgba(17,17,17,0.07); border-radius: 16px; padding: 28px; }
   .finding-card-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
-  .finding-card-body { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+  .finding-card-body { font-size: 16px; color: var(--text-secondary); line-height: 1.6; }
 
   /* ── Stat grid ── */
   .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 16px; margin-top: 40px; }
   .stat-item {}
   .stat-number { font-size: 96px; font-weight: 300; letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px; }
   .stat-label { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-  .stat-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .stat-desc { font-size: 16px; color: var(--text-muted); line-height: 1.5; }
 
   /* ── Principle cards ── */
   .principles-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; }
@@ -270,7 +285,7 @@
     gap: 12px;
   }
   .principle-card-title { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--text); }
-  .principle-card-body { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+  .principle-card-body { font-size: 16px; color: var(--text-secondary); line-height: 1.6; }
 
   /* ── Quote block ── */
   .quote-block {
@@ -464,7 +479,7 @@
       <div class="journey-dot"></div>
       <div class="journey-phase">Refine</div>
       <div class="journey-title">Narrative editing</div>
-      <div class="journey-desc">Cut everything that competed with the core message. Subtracted until only the story remained the hardest and most important design work in the project.</div>
+      <div class="journey-desc">Cut everything that competed with the core message. Kept what mattered, removed what didn't.</div>
     </div>
   </div>
 </div>
@@ -475,10 +490,10 @@
   <h2 class="section-title">The data existed. The story didn't.</h2>
   <p class="section-body">Florence's tourism statistics are published every year but in PDF reports written for municipal officials. The numbers answer "how many?" but never <strong>"what does it feel like to live here?"</strong></p>
   <div style="margin-top:24px">
-    <div class="arrow-item"><span>→</span><span><strong>PDF annual reports</strong> city-wide totals, no seasonal or geographic breakdown</span></div>
-    <div class="arrow-item"><span>→</span><span><strong>ISTAT tables</strong> accurate but unintelligible without human context</span></div>
-    <div class="arrow-item"><span>→</span><span><strong>Smart city dashboards</strong> designed for administrators, optimised for KPIs, not for empathy</span></div>
-    <div class="arrow-item"><span>→</span><span>No single source visualised how the balance shifts <strong>month by month and neighbourhood by neighbourhood</strong></span></div>
+    <div class="arrow-item"><span>→</span><span><strong>PDF annual reports</strong> city-wide totals, <strong>no seasonal or geographic breakdown</strong></span></div>
+    <div class="arrow-item"><span>→</span><span><strong>ISTAT tables</strong> accurate but <strong>unintelligible without human context</strong></span></div>
+    <div class="arrow-item"><span>→</span><span><strong>Smart city dashboards</strong> designed for administrators, optimised for KPIs, <strong>not for empathy</strong></span></div>
+    <div class="arrow-item"><span>→</span><span><strong>No single source</strong> visualised how the balance shifts month by month and neighbourhood by neighbourhood</span></div>
   </div>
 </div>
 
@@ -517,10 +532,10 @@
   <h2 class="section-title">Designing for understanding, not information</h2>
   <p class="section-body">The central question wasn't "how do I display this data?" but <strong>"how do I make someone feel what it means to live in Florence in July?"</strong> Every decision followed from that.</p>
   <div style="margin-top:32px; margin-bottom:32px">
-    <div class="arrow-item"><span>→</span><span><strong>Dot-grid method.</strong> Each dot = 10,000 people. Tourist dots (terracotta) and resident dots (blue) occupy the same space so the imbalance is literal, not abstracted into bar length</span></div>
-    <div class="arrow-item"><span>→</span><span><strong>Scroll as time.</strong> Each chapter = one month. The panel updates as you scroll mimicking the passage of the year from January to December</span></div>
-    <div class="arrow-item"><span>→</span><span><strong>The ratio as protagonist.</strong> One large number dominates the panel. Everything else supports it. Nothing competes with the single most important insight</span></div>
-    <div class="arrow-item"><span>→</span><span><strong>Two zones, one comparison.</strong> Centro Storico alongside the rest of the city makes the argument visually no text required</span></div>
+    <div class="arrow-item"><span>→</span><span><strong>Dot-grid method.</strong> Each dot = 10,000 people. <svg width="12" height="12" style="vertical-align:middle;margin:0 2px"><circle cx="6" cy="6" r="6" fill="#C85C38"/></svg> tourist dots and <svg width="12" height="12" style="vertical-align:middle;margin:0 2px"><circle cx="6" cy="6" r="6" fill="#2C4B6E"/></svg> resident dots occupy the same space, making the imbalance visible and immediate</span></div>
+    <div class="arrow-item"><span>→</span><span><strong>Scroll as time.</strong> Each chapter is one month and the panel updates as you scroll down, mimicking the passage of the year from January to December</span></div>
+    <div class="arrow-item"><span>→</span><span><strong>The ratio as protagonist.</strong> One large number dominates the panel. Everything else supports it.</span></div>
+    <div class="arrow-item"><span>→</span><span><strong>Two zones, one comparison.</strong> A visual comparison between Centro Storico and the rest of the city is clear and evident.</span></div>
   </div>
 
   <p class="section-sub">What I found:</p>
@@ -531,11 +546,85 @@
     </div>
     <div class="finding-card">
       <div class="finding-card-title">Less is more impact</div>
-      <div class="finding-card-body">Early versions showed multiple metrics. Every element added reduced the power of the one that mattered. Subtracting was the hardest work.</div>
+      <div class="finding-card-body">Early versions showed multiple metrics. Every element added reduced the power of the one that mattered. Removing elements was the hardest part.</div>
     </div>
     <div class="finding-card">
       <div class="finding-card-title">Crowding is physical</div>
-      <div class="finding-card-body">Dots communicate crowding better than bars because the feeling of overcrowding is spatial not a length comparison.</div>
+      <div class="finding-card-body">Dots communicate crowding perfectly, bringing the feeling of overcrowding directly to the viewer.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Design System / Visual Language ── -->
+<div class="ds-section reveal">
+  <span class="section-pill">Visual Language</span>
+  <h2 class="section-title">A system built around one constraint</h2>
+  <p class="section-body">Every visual decision had to earn its place by making the data clearer. Two colours, one typeface, no chart axes — if it didn't serve the story, it was removed.</p>
+
+  <div style="margin-top: 48px;">
+    <div class="ds-colors-label">Color Palette</div>
+    <div class="ds-swatches">
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#C85C38;"></div>
+        <div class="ds-swatch-name">Tourist</div>
+        <div class="ds-swatch-hex">#C85C38</div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#2C4B6E;"></div>
+        <div class="ds-swatch-name">Resident</div>
+        <div class="ds-swatch-hex">#2C4B6E</div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#111111;"></div>
+        <div class="ds-swatch-name">Text</div>
+        <div class="ds-swatch-hex">#111111</div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#666666;"></div>
+        <div class="ds-swatch-name">Muted</div>
+        <div class="ds-swatch-hex">#666666</div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#EDEDED; border:1px solid rgba(0,0,0,0.08);"></div>
+        <div class="ds-swatch-name">Card</div>
+        <div class="ds-swatch-hex">#EDEDED</div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#F5F5F5; border:1px solid rgba(0,0,0,0.08);"></div>
+        <div class="ds-swatch-name">Background</div>
+        <div class="ds-swatch-hex">#F5F5F5</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 48px;">
+    <div class="ds-colors-label">Typography — Manrope</div>
+    <div class="ds-type-table">
+      <div class="ds-type-row">
+        <div class="ds-type-label">Ratio</div>
+        <div class="ds-type-sample" style="font-size:64px; font-weight:300; letter-spacing:-0.03em; line-height:1;">27</div>
+        <div class="ds-type-spec">64px · Light 300</div>
+      </div>
+      <div class="ds-type-row">
+        <div class="ds-type-label">Display</div>
+        <div class="ds-type-sample" style="font-size:48px; font-weight:500; letter-spacing:-0.02em; line-height:1;">tourists per resident</div>
+        <div class="ds-type-spec">48px · Medium 500</div>
+      </div>
+      <div class="ds-type-row">
+        <div class="ds-type-label">H2</div>
+        <div class="ds-type-sample" style="font-size:20px; font-weight:600; letter-spacing:-0.01em;">Centro Storico · July</div>
+        <div class="ds-type-spec">20px · Semibold 600</div>
+      </div>
+      <div class="ds-type-row">
+        <div class="ds-type-label">Body</div>
+        <div class="ds-type-sample" style="font-size:16px; font-weight:400; line-height:1.6; color:#333;">The neighbourhood effectively changes population.</div>
+        <div class="ds-type-spec">16px · Regular 400</div>
+      </div>
+      <div class="ds-type-row">
+        <div class="ds-type-label">Label</div>
+        <div class="ds-type-sample" style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#C85C38;">The Numbers</div>
+        <div class="ds-type-spec">11px · Bold · 0.1em</div>
+      </div>
     </div>
   </div>
 </div>
@@ -551,15 +640,15 @@
     </div>
     <div class="principle-card">
       <div class="principle-card-title">Animate the exception</div>
-      <div class="principle-card-body">Only July gets a pulse animation. Every other month transitions cleanly. Animating the one peak makes the peak work animation as editorial emphasis, not decoration.</div>
+      <div class="principle-card-body">Animation highlights the highest number across the year. Every other month transitions cleanly.</div>
     </div>
     <div class="principle-card">
       <div class="principle-card-title">Don't spoil the story</div>
-      <div class="principle-card-body">Month navigation uses equal-height bars no bar chart encoding tourist volume. That would reveal the July peak before the reader reaches it. The story unfolds; it doesn't telegraph itself.</div>
+      <div class="principle-card-body">The user won't know the numbers for all months before scrolling to them.</div>
     </div>
     <div class="principle-card">
       <div class="principle-card-title">Data structure = narrative structure</div>
-      <div class="principle-card-body">Working with monthly ISTAT data made months the natural unit. The data told me how to structure the story not the other way around.</div>
+      <div class="principle-card-body">The monthly ISTAT data naturally suggested months as the unit of the story. The structure came from the data, not from an idea imposed on top of it.</div>
     </div>
   </div>
 </div>
@@ -583,15 +672,14 @@
   <h2 class="section-title">Qualitative outcomes</h2>
 
   <div class="quote-block">
-    <div class="quote-text">Good data visualisation is more editorial than technical.</div>
-    <div class="quote-sub">The hardest decisions weren't about rendering dots they were about what to show, when, and in what order.</div>
+    <div class="quote-text">Effective storytelling is built on clarity, clean interfaces, and letting the user explore the data at their own pace.</div>
+    <div class="quote-sub">The hardest part was finding the right visualisation — one that felt natural rather than constructed.</div>
   </div>
 
   <div style="margin-top:8px">
-    <div class="arrow-item"><span>→</span><span>Building in code without a design tool forces decisions to be <strong>real</strong> you can't fake responsive behaviour in Figma</span></div>
-    <div class="arrow-item"><span>→</span><span>Mobile-first data visualisation requires a completely <strong>different layout strategy</strong> than desktop fixed panels, JS-measured margins, iOS Safari edge cases</span></div>
-    <div class="arrow-item"><span>→</span><span>The dot-grid communicates <strong>crowding better than any chart type</strong> because crowding is physical and spatial, not a comparison of lengths</span></div>
-    <div class="arrow-item"><span>→</span><span>This project reinforced that <strong>data structure should determine narrative structure</strong> not the other way around</span></div>
+    <div class="arrow-item"><span>→</span><span>The dot-grid communicates <strong>crowding better than any chart type</strong> because crowding is physical and spatial</span></div>
+    <div class="arrow-item"><span>→</span><span>Mobile-first data visualisation requires a completely <strong>different layout strategy</strong> than desktop</span></div>
+    <div class="arrow-item"><span>→</span><span>Narrative and story <strong>naturally follow the data</strong> — the structure emerged from the dataset, not the other way around</span></div>
   </div>
 </div>
 
