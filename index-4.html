@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S_DESIGN — Sasha Krivorotko</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Ephesis&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F5F5;
+    --text: #111111;
+    --text-muted: #666666;
+    --font: 'Manrope', sans-serif;
+    --font-script: 'Ephesis', cursive;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 48px;
+    background: rgba(245,245,245,0.9);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  }
+  .logo { font-size: 15px; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; color: var(--text); }
+  .logo span { font-weight: 300; }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; text-decoration: none; color: var(--text); transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 0.5; }
+
+  /* ── Hamburger ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    width: 28px;
+    height: 28px;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--text);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+  /* Animate to X */
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* ── Mobile menu ── */
+  .mobile-menu {
+    display: flex;
+    position: fixed; inset: 0; z-index: 200;
+    background: var(--bg);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .mobile-menu.open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+  .mobile-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    width: 100%;
+  }
+  .mobile-menu-header .logo {
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+  .mobile-menu-close {
+    position: static !important;
+    font-size: 22px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1;
+    padding: 0;
+  }
+  .mobile-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    width: 100%;
+  }
+  .mobile-menu-links a {
+    font-size: 32px;
+    font-weight: 400;
+    text-decoration: none;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    font-family: var(--font);
+  }
+  .mobile-menu-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 24px;
+    align-items: flex-start;
+  }
+  .mobile-menu-footer a {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  /* ── Sections ── */
+  section { min-height: 100vh; display: flex; padding: 100px 48px; }
+
+  /* ── Hero ── */
+  #home { align-items: center; justify-content: flex-start; }
+  .hero-inner { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 80px; max-width: 800px; width: 100%; }
+  .hero-headline { font-size: 60px; font-weight: 300; line-height: 1.12; letter-spacing: -0.01em; }
+  .hero-headline .name { font-size: 64px; font-weight: 600; }
+  .hero-headline .script { font-family: var(--font-script); font-weight: 400; font-size: 70px; letter-spacing: 0.02em; line-height: 1; display: inline; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 16px; font-size: 22px; font-weight: 400; color: var(--text); text-decoration: none; }
+  .cta-circle { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--text); display: grid; place-items: center; flex-shrink: 0; }
+  @keyframes wobble { 0%{transform:rotate(0)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)} 60%{transform:rotate(-5deg)} 80%{transform:rotate(5deg)} 100%{transform:rotate(0)} }
+  .hero-cta:hover .cta-circle { animation: wobble 0.5s ease; }
+  .cta-circle svg { width: 16px; height: 16px; }
+
+  /* ── Works ── */
+  #works { flex-direction: column; align-items: center; justify-content: center; gap: 32px; padding-top: 80px; }
+  .works-grid {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    cursor: grab;
+    scrollbar-width: none;
+  }
+  .works-grid::-webkit-scrollbar { display: none; }
+  .works-grid:active { cursor: grabbing; }
+  .case-card { background: #EDEDED; border-radius: 16px; overflow: hidden; text-decoration: none; color: var(--text); transition: background 0.25s, transform 0.25s; display: flex; flex-direction: column; flex-shrink: 0; width: calc(50vw - 56px); min-width: 380px; max-width: 620px; scroll-snap-align: start; }
+  .case-card:hover { background: #F0F0F0; transform: translateY(-3px); }
+  .case-card-inner { padding: 24px 24px 0; }
+  .case-title { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 20px; color: #111; line-height: 24px; }
+  .case-image-wrap { width: 100%; aspect-ratio: 16/10; flex-shrink: 0; overflow: hidden; }
+  .case-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .case-footer { padding: 16px 24px 24px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex: 1; }
+  .case-desc { font-size: 16px; color: #111; line-height: 24px; flex: 1; }
+  .case-link { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 500; text-decoration: none; color: var(--text); background: white; border: none; border-radius: 99px; padding: 10px 22px; white-space: nowrap; flex-shrink: 0; align-self: flex-end; transition: background 0.2s, color 0.2s; margin-top: auto; }
+  .case-link:hover { background: var(--text); color: white; }
+
+  /* ── About ── */
+  #about-me { display: flex; align-items: center; justify-content: space-between; gap: 64px; padding: 120px 48px; }
+  .about-text { width: 54%; flex-shrink: 0; }
+  .about-text p { font-size: 20px; line-height: 1.7; margin-bottom: 24px; color: #333; }
+  .about-text p:last-of-type { margin-bottom: 0; }
+  .about-image-wrap { flex: 1; display: flex; justify-content: center; align-items: center; }
+  .about-image { width: 360px; height: 360px; border-radius: 50%; object-fit: cover; display: block; }
+  .about-image-mobile { display: none; }
+
+  /* ── Contacts ── */
+  #contacts { flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .contacts-sub { font-size: 24px; font-weight: 400; color: var(--text); margin-bottom: 24px; }
+  .contacts-headline { font-size: 86px; font-weight: 400; letter-spacing: -0.03em; line-height: 1; margin-bottom: 56px; }
+  .contacts-links { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .contacts-links a { font-size: 16px; font-weight: 500; color: var(--text); text-decoration: underline; text-underline-offset: 4px; transition: opacity 0.2s; }
+  .contacts-links a:hover { opacity: 0.5; }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .hamburger { display: flex; }
+    .nav-links { display: none; }
+
+    section { padding: 100px 24px 60px; }
+
+    /* Hero */
+    #home { min-height: 100vh; align-items: flex-start; padding-top: 120px; }
+    .hero-inner { gap: 120px; }
+    .hero-headline { font-size: 36px; line-height: 1.2; }
+    .hero-headline .name { font-size: 36px; font-weight: 600; display: block; }
+    .hero-headline .script { font-size: 44px; }
+    .hero-cta { font-size: 20px; margin-top: 0; }
+
+    /* Works */
+    #works { padding-top: 120px; }
+    .case-card { width: calc(85vw); min-width: 280px; }
+    .case-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .case-link { align-self: center; }
+
+    /* About */
+    #about-me { flex-direction: column; gap: 0; padding: 64px 24px; }
+    .about-text { width: 100%; }
+    .about-text p { font-size: 17px; margin-bottom: 20px; }
+    .about-image-wrap { display: none; }
+    .about-image-mobile {
+      display: block;
+      width: 240px; height: 240px;
+      border-radius: 50%; object-fit: cover;
+      margin: 24px auto;
+    }
+
+    /* Contacts */
+    #contacts { padding: 64px 24px; }
+    .contacts-headline { font-size: 36px; }
+    .contacts-sub { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+    <a href="#home" class="logo" onclick="closeMobileMenu()">S_<span>DESIGN</span></a>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="#home" onclick="closeMobileMenu()">HOME</a>
+    <a href="#works" onclick="closeMobileMenu()">WORKS</a>
+    <a href="#about-me" onclick="closeMobileMenu()">ABOUT ME</a>
+    <a href="#contacts" onclick="closeMobileMenu()">CONTACTS</a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <a href="https://www.linkedin.com/in/krivorotkoale" target="_blank">LinkedIn</a>
+    <a href="mailto:ale.kri.design@gmail.com">ale.kri.design@gmail.com</a>
+  </div>
+</div>
+
+<nav>
+  <a href="#home" class="logo">S_<span>DESIGN</span></a>
+  <ul class="nav-links">
+    <li><a href="#home">HOME</a></li>
+    <li><a href="#works">WORKS</a></li>
+    <li><a href="#about-me">ABOUT ME</a></li>
+    <li><a href="#contacts">CONTACTS</a></li>
+  </ul>
+  <div class="hamburger" id="hamburgerBtn" onclick="openMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section id="home">
+  <div class="hero-inner">
+    <h1 class="hero-headline">
+      <span class="name">I'm Sasha</span> - Product Designer<br>
+      based in Florence, Italy. I bring<br>
+      clarity <span style="font-size:0.88em;font-weight:300;">&#38;</span> <span class="script">beauty</span><br>
+      to complex experiences.
+    </h1>
+    <a href="#works" class="hero-cta">
+      See my works
+      <div class="cta-circle">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M8 3v10M3 8l5 5 5-5"/>
+        </svg>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Works -->
+<section id="works">
+  <div class="works-grid">
+    <a class="case-card" href="florence-case-study.html">
+      <div class="case-card-inner">
+        <div class="case-title">A Year of Florence</div>
+      </div>
+      <div class="case-image-wrap"><img class="case-image" src="3rd_case.jpg" alt="A Year of Florence"/></div>
+      <div class="case-footer">
+        <p class="case-desc">An interactive data visualisation of tourist density across Florence's neighbourhoods, month by month.</p>
+        <span class="case-link">→ View full case</span>
+      </div>
+    </a>
+
+    <a class="case-card" href="case-1.html">
+      <div class="case-card-inner">
+        <div class="case-title">AI-assisted document workflows</div>
+      </div>
+      <div class="case-image-wrap"><img class="case-image" src="case1.jpg" alt="AI-assisted document workflows"/></div>
+      <div class="case-footer">
+        <p class="case-desc">The product supports scanning, organization, and understanding of documents.</p>
+        <span class="case-link">→ View full case</span>
+      </div>
+    </a>
+    <a class="case-card" href="case-2.html">
+      <div class="case-card-inner">
+        <div class="case-title">Migraine tracking app</div>
+      </div>
+      <div class="case-image-wrap"><img class="case-image" src="case2.jpg" alt="Migraine tracking app"/></div>
+      <div class="case-footer">
+        <p class="case-desc">A research-driven product for supporting people with migraines through tracking and pattern recognition.</p>
+        <span class="case-link">→ View full case</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about-me">
+  <div class="about-text">
+    <p>I'm a <strong>Product Designer</strong> dedicated to bringing <strong>clarity and elegance</strong> to complex digital systems. With deep roots in <strong>SaaS, Fintech, and Healthcare</strong>, I thrive where logic meets ambiguity, transforming heavy data into <strong>intuitive, actionable experiences</strong>. For me, design is about more than screens: it's about <strong>Data Storytelling</strong>, bridging the gap between business complexity and the human need for control.</p>
+    <img class="about-image-mobile" src="photo.jpg" alt="Sasha Krivorotko"/>
+    <p>My fascination with design has always been a fascination with <strong>people</strong>, how we think, navigate, and feel. This curiosity follows me outside of Figma too. When I'm not architecting workflows, you'll find me painting, experimenting with digital illustrations, or analyzing UX patterns in game streams. And when I need to step away from pixels, I hit the tennis court 🎾, because a great product, much like a great game, is all about <strong>balance, agility, and the right move at the right time</strong>.</p>
+  </div>
+  <div class="about-image-wrap">
+    <img class="about-image" src="photo.jpg" alt="Sasha Krivorotko"/>
+  </div>
+</section>
+
+<!-- Contacts -->
+<section id="contacts">
+  <p class="contacts-sub">Got a project in mind?</p>
+  <h2 class="contacts-headline">LET'S DISCUSS IT!</h2>
+  <div class="contacts-links">
+    <a href="https://www.linkedin.com/in/krivorotkoale" target="_blank">LinkedIn</a>
+    <span id="emailLink" onclick="copyEmail()" style="cursor:pointer; text-decoration:underline; text-underline-offset:4px; font-size:16px; font-weight:500; color:var(--text);">ale.kri.design@gmail.com</span>
+    <span id="emailCopied" style="font-size:13px; color:var(--text-muted); display:none; margin-top:-8px;">Copied!</span>
+  </div>
+</section>
+
+<script>
+  function openMobileMenu() {
+    document.getElementById('mobileMenu').classList.add('open');
+    document.getElementById('hamburgerBtn').classList.add('open');
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburgerBtn').classList.remove('open');
+  }
+  function copyEmail() {
+    var email = 'ale.kri.design' + '@' + 'gmail.com';
+    navigator.clipboard.writeText(email).then(function() {
+      var copied = document.getElementById('emailCopied');
+      copied.style.display = 'block';
+      setTimeout(function() { copied.style.display = 'none'; }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
