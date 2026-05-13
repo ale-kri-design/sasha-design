@@ -13,7 +13,116 @@
     --text-muted: #666666;
     --font: 'Manrope', sans-serif;
     --font-script: 'Ephesis', cursive;
+
+    /* Letter-fall animation */
+    --anim-duration: 1.4s;
+    --anim-stagger: 35ms;
+    --anim-fall: 70px;
+    --anim-bounce: 1.25;
+    --anim-start: 0.25s;
   }
+
+  /* ── Hero letter fall ── */
+  .hero-headline .letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--anim-fall)));
+    animation: letterFall var(--anim-duration) cubic-bezier(0.34, var(--anim-bounce), 0.64, 1) forwards;
+    animation-delay: calc(var(--anim-start) + var(--i, 0) * var(--anim-stagger));
+    will-change: transform, opacity;
+  }
+  .hero-headline .letter.space { width: 0.28em; }
+  @keyframes letterFall {
+    0% {
+      opacity: 0;
+      transform: translateY(calc(-1 * var(--anim-fall)));
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-headline .letter {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* ── Tweaks panel ── */
+  .tweaks-panel {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999;
+    width: 300px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+    padding: 18px 20px 20px;
+    font-family: var(--font);
+    color: var(--text);
+    display: none;
+    user-select: none;
+  }
+  .tweaks-panel.open { display: block; }
+  .tweaks-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .tweaks-header h3 {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tweaks-close {
+    background: none; border: none; cursor: pointer;
+    font-size: 16px; line-height: 1; color: var(--text-muted);
+    padding: 4px;
+  }
+  .tweaks-close:hover { color: var(--text); }
+  .tweak-row { margin-bottom: 14px; }
+  .tweak-row:last-of-type { margin-bottom: 16px; }
+  .tweak-label {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 12px; font-weight: 500; margin-bottom: 6px;
+    color: var(--text);
+  }
+  .tweak-value {
+    font-family: 'SF Mono', ui-monospace, Menlo, monospace;
+    font-size: 11px; color: var(--text-muted); font-weight: 400;
+  }
+  .tweak-row input[type="range"] {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 3px; background: #E5E5E5; border-radius: 999px;
+    outline: none; cursor: pointer;
+  }
+  .tweak-row input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--text); cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .tweak-row input[type="range"]::-moz-range-thumb {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--text); cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .tweak-replay {
+    width: 100%; padding: 10px 16px;
+    background: var(--text); color: #fff;
+    border: none; border-radius: 999px;
+    font-family: var(--font); font-size: 13px; font-weight: 500;
+    letter-spacing: 0.02em; cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .tweak-replay:hover { background: #000; }
+  .tweak-replay:active { transform: scale(0.98); }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -230,7 +339,7 @@
   }
 </style>
 </head>
-<body>
+<body style="font-size: 18px">
 
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
@@ -246,7 +355,7 @@
   </nav>
   <div class="mobile-menu-footer">
     <a href="https://www.linkedin.com/in/krivorotkoale" target="_blank">LinkedIn</a>
-    <a href="mailto:ale.kri.design@gmail.com">ale.kri.design@gmail.com</a>
+    <a href="/cdn-cgi/l/email-protection#ed8c8188c3869f84c389889e848a83ad8a808c8481c38e8280"><span class="__cf_email__" data-cfemail="b2d3ded79cd9c0db9cd6d7c1dbd5dcf2d5dfd3dbde9cd1dddf">[email&#160;protected]</span></a>
   </div>
 </div>
 
@@ -265,7 +374,7 @@
 
 <!-- Hero -->
 <section id="home">
-  <div class="hero-inner">
+  <div class="hero-inner" style="gap: 120px">
     <h1 class="hero-headline">
       <span class="name">I'm Sasha</span> - Product Designer<br>
       based in Florence, Italy. I bring<br>
@@ -325,9 +434,9 @@
   <div class="about-text">
     <p>I'm a <strong>Product Designer</strong> dedicated to bringing <strong>clarity and elegance</strong> to complex digital systems. With deep roots in <strong>SaaS, Fintech, and Healthcare</strong>, I thrive where logic meets ambiguity, transforming heavy data into <strong>intuitive, actionable experiences</strong>. For me, design is about more than screens: it's about <strong>Data Storytelling</strong>, bridging the gap between business complexity and the human need for control.</p>
     <img class="about-image-mobile" src="photo.jpg" alt="Sasha Krivorotko"/>
-    <p>My fascination with design has always been a fascination with <strong>people</strong>, how we think, navigate, and feel. This curiosity follows me outside of Figma too. When I'm not architecting workflows, you'll find me painting, experimenting with digital illustrations, or analyzing UX patterns in game streams. And when I need to step away from pixels, I hit the tennis court 🎾, because a great product, much like a great game, is all about <strong>balance, agility, and the right move at the right time</strong>.</p>
+    <p>My fascination with design has always been a fascination with <strong>people</strong>, how we think, navigate, and feel. This curiosity follows me outside of Figma too. When I'm not architecting workflows, you'll find me painting, experimenting with digital illustrations, or analyzing UX patterns in game streams. And when I need to step away from pixels, you can find me on the tennis court 🎾</p>
   </div>
-  <div class="about-image-wrap">
+  <div class="about-image-wrap" style="width: 702px;">
     <img class="about-image" src="photo.jpg" alt="Sasha Krivorotko"/>
   </div>
 </section>
@@ -338,12 +447,191 @@
   <h2 class="contacts-headline">LET'S DISCUSS IT!</h2>
   <div class="contacts-links">
     <a href="https://www.linkedin.com/in/krivorotkoale" target="_blank">LinkedIn</a>
-    <span id="emailLink" onclick="copyEmail()" style="cursor:pointer; text-decoration:underline; text-underline-offset:4px; font-size:16px; font-weight:500; color:var(--text);">ale.kri.design@gmail.com</span>
+    <span id="emailLink" onclick="copyEmail()" style="cursor:pointer; text-decoration:underline; text-underline-offset:4px; font-size:16px; font-weight:500; color:var(--text);"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ff9e939ad1948d96d19b9a8c969891bf98929e9693d19c9092">[email&#160;protected]</a></span>
     <span id="emailCopied" style="font-size:13px; color:var(--text-muted); display:none; margin-top:-8px;">Copied!</span>
   </div>
 </section>
 
-<script>
+<!-- Tweaks panel -->
+<div class="tweaks-panel" id="tweaksPanel">
+  <div class="tweaks-header">
+    <h3>Tweaks</h3>
+    <button class="tweaks-close" onclick="closeTweaks()" aria-label="Close">✕</button>
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label">
+      <span>Duration</span>
+      <span class="tweak-value" id="val-duration">1.4s</span>
+    </div>
+    <input type="range" id="tw-duration" min="0.3" max="3" step="0.05" value="1.4">
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label">
+      <span>Stagger between letters</span>
+      <span class="tweak-value" id="val-stagger">35ms</span>
+    </div>
+    <input type="range" id="tw-stagger" min="0" max="120" step="1" value="35">
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label">
+      <span>Fall distance</span>
+      <span class="tweak-value" id="val-fall">70px</span>
+    </div>
+    <input type="range" id="tw-fall" min="10" max="200" step="2" value="70">
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label">
+      <span>Bounce</span>
+      <span class="tweak-value" id="val-bounce">1.25</span>
+    </div>
+    <input type="range" id="tw-bounce" min="1.0" max="1.9" step="0.01" value="1.25">
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label">
+      <span>Start delay</span>
+      <span class="tweak-value" id="val-start">0.25s</span>
+    </div>
+    <input type="range" id="tw-start" min="0" max="1.5" step="0.05" value="0.25">
+  </div>
+
+  <button class="tweak-replay" onclick="replayAnimation()">↻ Replay animation</button>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  /* ── Tweak defaults (editable via host) ── */
+  const TWEAKS = /*EDITMODE-BEGIN*/{
+    "duration": 2.9,
+    "stagger": 5,
+    "fall": 18,
+    "bounce": 1.01,
+    "start": 0.05
+  }/*EDITMODE-END*/;
+
+  const tweakState = { ...TWEAKS };
+
+  function applyTweaks() {
+    const r = document.documentElement.style;
+    r.setProperty('--anim-duration', tweakState.duration + 's');
+    r.setProperty('--anim-stagger',  tweakState.stagger  + 'ms');
+    r.setProperty('--anim-fall',     tweakState.fall     + 'px');
+    r.setProperty('--anim-bounce',   tweakState.bounce);
+    r.setProperty('--anim-start',    tweakState.start    + 's');
+
+    const fmt = {
+      duration: v => v.toFixed(2) + 's',
+      stagger:  v => Math.round(v) + 'ms',
+      fall:     v => Math.round(v) + 'px',
+      bounce:   v => Number(v).toFixed(2),
+      start:    v => Number(v).toFixed(2) + 's'
+    };
+    for (const k of Object.keys(tweakState)) {
+      const el = document.getElementById('val-' + k);
+      if (el) el.textContent = fmt[k](tweakState[k]);
+      const input = document.getElementById('tw-' + k);
+      if (input && Number(input.value) !== Number(tweakState[k])) {
+        input.value = tweakState[k];
+      }
+    }
+  }
+
+  function setTweak(key, value) {
+    tweakState[key] = value;
+    applyTweaks();
+    try {
+      window.parent.postMessage({
+        type: '__edit_mode_set_keys',
+        edits: { [key]: value }
+      }, '*');
+    } catch (e) {}
+  }
+
+  /* ── Wrap each letter of the hero headline in a span ── */
+  function wrapHeroLetters() {
+    const root = document.querySelector('.hero-headline');
+    if (!root) return 0;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    let n;
+    while ((n = walker.nextNode())) textNodes.push(n);
+
+    let i = 0;
+    for (const tn of textNodes) {
+      const text = tn.textContent;
+      if (!text) continue;
+      const frag = document.createDocumentFragment();
+      for (const ch of text) {
+        if (ch === ' ' || ch === '\n' || ch === '\t') {
+          frag.appendChild(document.createTextNode(ch));
+        } else {
+          const span = document.createElement('span');
+          span.className = 'letter';
+          span.textContent = ch;
+          span.style.setProperty('--i', i++);
+          frag.appendChild(span);
+        }
+      }
+      tn.replaceWith(frag);
+    }
+    return i;
+  }
+
+  function replayAnimation() {
+    const letters = document.querySelectorAll('.hero-headline .letter');
+    letters.forEach(el => {
+      el.style.animation = 'none';
+      // force reflow
+      void el.offsetWidth;
+      el.style.animation = '';
+    });
+  }
+
+  /* ── Tweaks edit-mode protocol ── */
+  function openTweaks()  { document.getElementById('tweaksPanel').classList.add('open'); }
+  function closeTweaks() {
+    document.getElementById('tweaksPanel').classList.remove('open');
+    try { window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*'); } catch (e) {}
+  }
+
+  window.addEventListener('message', (e) => {
+    const t = e.data && e.data.type;
+    if (t === '__activate_edit_mode')   openTweaks();
+    if (t === '__deactivate_edit_mode') closeTweaks();
+  });
+
+  /* ── Init ── */
+  document.addEventListener('DOMContentLoaded', () => {
+    wrapHeroLetters();
+    applyTweaks();
+
+    // Wire up sliders
+    const inputs = {
+      duration: 'tw-duration',
+      stagger:  'tw-stagger',
+      fall:     'tw-fall',
+      bounce:   'tw-bounce',
+      start:    'tw-start'
+    };
+    for (const [key, id] of Object.entries(inputs)) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+      el.value = tweakState[key];
+      el.addEventListener('input', () => {
+        setTweak(key, parseFloat(el.value));
+      });
+      el.addEventListener('change', () => {
+        // Replay when user finishes adjusting so they can see the result
+        replayAnimation();
+      });
+    }
+
+    try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch (e) {}
+  });
+
   function openMobileMenu() {
     document.getElementById('mobileMenu').classList.add('open');
     document.getElementById('hamburgerBtn').classList.add('open');
@@ -361,6 +649,15 @@
     });
   }
 </script>
+
+<style id="__om-edit-overrides">
+  #home .script > span:nth-child(1) { font-family: Ephesis !important; font-size: 80px !important; }
+  #home .script > span:nth-child(2) { font-size: 80px !important; }
+  #home .script > span:nth-child(3) { font-size: 80px !important; }
+  #home .script > span:nth-child(4) { font-size: 80px !important; }
+  #home .script > span:nth-child(5) { font-size: 80px !important; }
+  #home .script > span:nth-child(6) { font-size: 80px !important; }
+</style>
 
 </body>
 </html>

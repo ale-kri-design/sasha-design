@@ -122,24 +122,42 @@
     min-height: 100vh;
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 90px;
+    grid-template-rows: auto auto auto;
+    column-gap: 90px;
+    row-gap: 60px;
     align-items: flex-start;
     padding: 140px 48px 120px;
   }
-  .case-hero-left { display: flex; flex-direction: column; gap: 12px; }
+  .case-hero-left { display: contents; }
+  .case-hero-left .section-pill { grid-column: 1; grid-row: 1; }
   .case-hero-title {
+    grid-column: 1; grid-row: 2;
     font-size: 64px;
     font-weight: 500;
     letter-spacing: -0.02em;
     line-height: 1.05;
   }
   .case-hero-right {
+    grid-column: 2; grid-row: 2;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: 20px;
-    padding-top: 40px;
+    padding-top: 0;
+  }
+  .hero-illustration {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    width: 100%;
+    margin-top: 56px;
+    color: var(--text);
+    opacity: 0.78;
+  }
+  .hero-illustration svg {
+    width: 100%;
+    height: auto;
+    display: block;
   }
   .case-hero-body {
     font-size: 24px;
@@ -329,8 +347,11 @@
   /* ── Mobile ── */
   @media (max-width: 900px) {
     nav { padding: 20px 24px; }
-    .case-hero { grid-template-columns: 1fr; gap: 40px; padding: 100px 24px 80px; }
-    .case-hero-title { font-size: 44px; }
+    .case-hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto auto; column-gap: 0; row-gap: 12px; padding: 100px 24px 80px; }
+    .case-hero-left .section-pill { grid-column: 1; grid-row: 1; }
+    .case-hero-title { grid-column: 1; grid-row: 2; font-size: 44px; }
+    .case-hero-right { grid-column: 1; grid-row: 3; padding-top: 28px; }
+    .hero-illustration { grid-row: 4; margin-top: 24px; }
     .case-hero-body { font-size: 18px; }
     .content-section, .role-section, .journey-section { padding: 80px 24px; }
     .section-title { font-size: 36px; }
@@ -375,17 +396,17 @@
 </nav>
 
 <!-- ── Hero ── -->
-<div class="case-hero reveal">
+<div class="case-hero reveal" style="height: 698px; padding: 140px 48px 720px">
   <div class="case-hero-left">
-    <span class="section-pill">Data Storytelling</span>
-    <h1 class="case-hero-title">A Year of Florence</h1>
+    <span class="section-pill" style="width: 160px; height: 30px; text-align: center; padding: 5px 14px 4px; font-weight: 700">Data Storytelling</span>
+    <h1 class="case-hero-title" style="padding: 0px">A Year of Florence</h1>
   </div>
   <div class="case-hero-right">
     <p class="case-hero-body">An interactive data visualisation showing how 13 million tourists and 370,000 residents share the same city. The numbers tell the story: month by month, zone by zone.</p>
     <div class="hero-tags">
-      <span class="hero-tag">Data Visualisation</span>
-      <span class="hero-tag">Scrollytelling</span>
-      <span class="hero-tag">Urban Research</span>
+      <span class="hero-tag" style="font-size: 14px">Data Visualisation</span>
+      <span class="hero-tag" style="font-size: 14px">Scrollytelling</span>
+      <span class="hero-tag" style="font-size: 14px">Urban Research</span>
     </div>
     <div class="hero-read-time">
       <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4l2.5 1.5"/></svg>
@@ -397,8 +418,8 @@
 <!-- ── My Role ── -->
 <div class="role-section reveal">
   <span class="section-pill">My Role</span>
-  <h2 class="section-title">From raw data to a story that works</h2>
-  <p class="section-body">I led the full project from sourcing and cleaning the data, to designing the narrative arc, to building the interactive entirely in code.</p>
+  <h2 class="section-title">From raw data to a story</h2>
+  <p class="section-body">I led the full project from sourcing and cleaning the data, to designing the narrative arc and building the interactive entirely in code.</p>
   <div class="role-grid">
     <div class="role-card">
       <div class="role-icon">
@@ -419,14 +440,14 @@
         <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="3"/><path d="M10 2v3M10 15v3M2 10h3M15 10h3"/></svg>
       </div>
       <div class="role-card-title">Visual Design</div>
-      <div class="role-card-body">Dot-grid method, typography, colour palette, and seasonal visual behaviour</div>
+      <div class="role-card-body">Dot-grid method, typography, colour palette, and seasonal visual behaviour.</div>
     </div>
     <div class="role-card">
       <div class="role-icon">
         <svg viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 7 2 10 6 13"/><polyline points="14 7 18 10 14 13"/><line x1="11" y1="5" x2="9" y2="15"/></svg>
       </div>
       <div class="role-card-title">Frontend Build</div>
-      <div class="role-card-body">Implemented in HTML, CSS, and vanilla JS Canvas API for dot rendering, IntersectionObserver for scroll events</div>
+      <div class="role-card-body">Implemented in HTML, CSS, and vanilla JS Canvas API for dot rendering, Intersection Observer for scroll events</div>
     </div>
     <div class="role-card">
       <div class="role-icon">
@@ -455,13 +476,14 @@
       <div class="journey-dot"></div>
       <div class="journey-phase">Discover</div>
       <div class="journey-title">Data audit</div>
-      <div class="journey-desc">Identified the gap: tourism data exists in PDFs and spreadsheets but no source tells a human story. Found monthly breakdown by zone in ISTAT and CST Firenze reports. <strong>No existing source translated this into a human story.</strong></div>
+      <div class="journey-desc">Identified the gap: tourism data exists in PDFs and spreadsheets but no source tells a human story. Found monthly breakdown by zone in ISTAT and CST Firenze reports. 
+No existing source translated this into a human story.</div>
     </div>
-    <div class="journey-item">
+    <div class="journey-item" style="height: 18px">
       <div class="journey-dot"></div>
       <div class="journey-phase">Define</div>
       <div class="journey-title">Narrative framing</div>
-      <div class="journey-desc">Chose the tourist-to-resident ratio as the primary metric more direct than absolute numbers. Defined the two zones: Centro Storico vs. the rest of the city.</div>
+      <div class="journey-desc" style="font-family: Manrope; letter-spacing: 0px; width: 640px">Chose the tourist-to-resident ratio as the primary metric more direct than absolute numbers. Defined the two zones: Centro Storico vs. the rest of the city.</div>
     </div>
     <div class="journey-item">
       <div class="journey-dot"></div>
@@ -473,13 +495,15 @@
       <div class="journey-dot"></div>
       <div class="journey-phase">Build</div>
       <div class="journey-title">Coded interactive</div>
-      <div class="journey-desc">Vanilla JS throughout. Canvas API for dot rendering with retina support. IntersectionObserver for scroll-driven month switching.</div>
+      <div class="journey-desc">Vanilla JS throughout. Canvas API for dot rendering with retina support. 
+Intersection Observer API for scroll-driven month switching.</div>
     </div>
     <div class="journey-item">
       <div class="journey-dot"></div>
-      <div class="journey-phase">Refine</div>
+      <div class="journey-phase">BUILD &amp; REFINE</div>
       <div class="journey-title">Narrative editing</div>
-      <div class="journey-desc">Cut everything that competed with the core message. Kept what mattered, removed what didn't.</div>
+      <div class="journey-desc">Cut everything that competed with the core message. 
+Kept what mattered, removed what didn't.</div>
     </div>
   </div>
 </div>
@@ -488,7 +512,8 @@
 <div class="content-section reveal">
   <span class="section-pill">Problem</span>
   <h2 class="section-title">The data existed. The story didn't.</h2>
-  <p class="section-body">Florence's tourism statistics are published every year but in PDF reports written for municipal officials. The numbers answer "how many?" but never <strong>"what does it feel like to live here?"</strong></p>
+  <p class="section-body">Florence's tourism statistics are published every year but in PDF reports written for municipal officials. The numbers answer "how many?" but never
+"what does it feel like to live here?"</p>
   <div style="margin-top:24px">
     <div class="arrow-item"><span>→</span><span><strong>PDF annual reports</strong> city-wide totals, <strong>no seasonal or geographic breakdown</strong></span></div>
     <div class="arrow-item"><span>→</span><span><strong>ISTAT tables</strong> accurate but <strong>unintelligible without human context</strong></span></div>
@@ -506,7 +531,8 @@
     <div class="stat-item">
       <div class="stat-number">27</div>
       <div class="stat-label">tourists per resident in July</div>
-      <div class="stat-desc">In the Centro Storico the most intense month of the year. The neighbourhood effectively changes population.</div>
+      <div class="stat-desc">In the Centro Storico the most intense month of the year. 
+The neighbourhood effectively changes population.</div>
     </div>
     <div class="stat-item">
       <div class="stat-number">76%</div>
@@ -529,10 +555,13 @@
 <!-- ── Design Approach ── -->
 <div class="content-section reveal">
   <span class="section-pill">Design Approach</span>
-  <h2 class="section-title">Designing for understanding, not information</h2>
-  <p class="section-body">The central question wasn't "how do I display this data?" but <strong>"how do I make someone feel what it means to live in Florence in July?"</strong> Every decision followed from that.</p>
+  <h2 class="section-title">Designing for understanding, 
+not information</h2>
+  <p class="section-body">The central question wasn't "how do I display this data?" but
+"how do I make someone feel what it means to live in Florence in July?"
+Every decision followed from that.</p>
   <div style="margin-top:32px; margin-bottom:32px">
-    <div class="arrow-item"><span>→</span><span><strong>Dot-grid method.</strong> Each dot = 10,000 people. <svg width="12" height="12" style="vertical-align:middle;margin:0 2px"><circle cx="6" cy="6" r="6" fill="#C85C38"/></svg> tourist dots and <svg width="12" height="12" style="vertical-align:middle;margin:0 2px"><circle cx="6" cy="6" r="6" fill="#2C4B6E"/></svg> resident dots occupy the same space, making the imbalance visible and immediate</span></div>
+    <div class="arrow-item"><span>→</span><span>Dot-grid method. Each dot = 10,000 people, Tourist dots and  Resident dots occupy the same space, making the imbalance visible and immediate</span></div>
     <div class="arrow-item"><span>→</span><span><strong>Scroll as time.</strong> Each chapter is one month and the panel updates as you scroll down, mimicking the passage of the year from January to December</span></div>
     <div class="arrow-item"><span>→</span><span><strong>The ratio as protagonist.</strong> One large number dominates the panel. Everything else supports it.</span></div>
     <div class="arrow-item"><span>→</span><span><strong>Two zones, one comparison.</strong> A visual comparison between Centro Storico and the rest of the city is clear and evident.</span></div>
@@ -559,7 +588,7 @@
 <div class="ds-section reveal">
   <span class="section-pill">Visual Language</span>
   <h2 class="section-title">A system built around one constraint</h2>
-  <p class="section-body">Every visual decision had to earn its place by making the data clearer. Two colours, one typeface, no chart axes — if it didn't serve the story, it was removed.</p>
+  <p class="section-body">Every visual decision had to earn its place by making the data clearer. Two main colours, one typeface, no chart axes. If it didn't serve the story, it was removed.</p>
 
   <div style="margin-top: 48px;">
     <div class="ds-colors-label">Color Palette</div>
@@ -601,27 +630,27 @@
     <div class="ds-colors-label">Typography — Manrope</div>
     <div class="ds-type-table">
       <div class="ds-type-row">
-        <div class="ds-type-label">Ratio</div>
+        <div class="ds-type-label" style="font-size: 14px">Ratio</div>
         <div class="ds-type-sample" style="font-size:64px; font-weight:300; letter-spacing:-0.03em; line-height:1;">27</div>
         <div class="ds-type-spec">64px · Light 300</div>
       </div>
       <div class="ds-type-row">
-        <div class="ds-type-label">Display</div>
+        <div class="ds-type-label" style="font-size: 14px">Display</div>
         <div class="ds-type-sample" style="font-size:48px; font-weight:500; letter-spacing:-0.02em; line-height:1;">tourists per resident</div>
-        <div class="ds-type-spec">48px · Medium 500</div>
+        <div class="ds-type-spec" style="font-size: 14px">48px · Medium 500</div>
       </div>
       <div class="ds-type-row">
         <div class="ds-type-label">H2</div>
-        <div class="ds-type-sample" style="font-size:20px; font-weight:600; letter-spacing:-0.01em;">Centro Storico · July</div>
+        <div class="ds-type-sample" style="font-size:20px; font-weight:600; letter-spacing:-0.01em;">Centro Storico , July</div>
         <div class="ds-type-spec">20px · Semibold 600</div>
       </div>
       <div class="ds-type-row">
-        <div class="ds-type-label">Body</div>
+        <div class="ds-type-label" style="font-size: 14px">Body</div>
         <div class="ds-type-sample" style="font-size:16px; font-weight:400; line-height:1.6; color:#333;">The neighbourhood effectively changes population.</div>
         <div class="ds-type-spec">16px · Regular 400</div>
       </div>
       <div class="ds-type-row">
-        <div class="ds-type-label">Label</div>
+        <div class="ds-type-label" style="font-size: 14px">Label</div>
         <div class="ds-type-sample" style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#C85C38;">The Numbers</div>
         <div class="ds-type-spec">11px · Bold · 0.1em</div>
       </div>
@@ -671,9 +700,9 @@
   <span class="section-pill">Reflection</span>
   <h2 class="section-title">Qualitative outcomes</h2>
 
-  <div class="quote-block">
-    <div class="quote-text">Effective storytelling is built on clarity, clean interfaces, and letting the user explore the data at their own pace.</div>
-    <div class="quote-sub">The hardest part was finding the right visualisation — one that felt natural rather than constructed.</div>
+  <div class="quote-block" style="background-color: rgb(245, 245, 245); border-color: rgb(107, 14, 14); border-width: 1.5px 1.5px 1.5px 1px; border-style: solid">
+    <div class="quote-text" style="color: rgb(184, 76, 32)">Effective storytelling is built on clarity, clean interfaces, and letting the user explore the data at their own pace.</div>
+    <div class="quote-sub" style="color: rgb(184, 76, 32)">The hardest part was finding the right visualisation, one that felt natural.</div>
   </div>
 
   <div style="margin-top:8px">
@@ -707,3 +736,7 @@ els.forEach(function(el) { io.observe(el); });
 </script>
 </body>
 </html>
+
+<style id="__om-edit-overrides">
+.content-section >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >div { font-family: Manrope !important }
+</style>
