@@ -245,9 +245,9 @@
   /* ── Hero ── */
   #home { align-items: center; justify-content: flex-start; }
   .hero-inner { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 80px; max-width: 800px; width: 100%; }
-  .hero-headline { font-size: 60px; font-weight: 300; line-height: 95px; letter-spacing: -0.01em; }
+  .hero-headline { font-size: 60px; font-weight: 300; line-height: 80px; letter-spacing: -0.01em; }
   .hero-headline .name { font-size: 64px; font-weight: 600; }
-  .hero-headline .script { font-family: var(--font-script); font-weight: 400; font-size: 64px; letter-spacing: 0; line-height: inherit; display: inline; }
+  .hero-headline .script { font-family: var(--font-script); font-weight: 400; font-size: 60px; letter-spacing: 0; line-height: inherit; display: inline; }
   .hero-cta { display: inline-flex; align-items: center; gap: 16px; font-size: 22px; font-weight: 400; color: var(--text); text-decoration: none; }
   .cta-circle { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--text); display: grid; place-items: center; flex-shrink: 0; }
   @keyframes wobble { 0%{transform:rotate(0)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)} 60%{transform:rotate(-5deg)} 80%{transform:rotate(5deg)} 100%{transform:rotate(0)} }
@@ -355,7 +355,7 @@
   </nav>
   <div class="mobile-menu-footer">
     <a href="https://www.linkedin.com/in/krivorotkoale" target="_blank">LinkedIn</a>
-    <a href="/cdn-cgi/l/email-protection#2e4f424b00455c47004a4b5d4749406e49434f4742004d4143"><span class="__cf_email__" data-cfemail="3a5b565f14514853145e5f49535d547a5d575b535614595557">[email&#160;protected]</span></a>
+    <a href="/cdn-cgi/l/email-protection#99f8f5fcb7f2ebf0b7fdfceaf0fef7d9fef4f8f0f5b7faf6f4"><span class="__cf_email__" data-cfemail="1e7f727b30756c77307a7b6d7779705e79737f7772307d7173">[email&#160;protected]</span></a>
   </div>
 </div>
 
@@ -374,11 +374,11 @@
 
 <!-- Hero -->
 <section id="home">
-  <div class="hero-inner" style="gap: 120px">
-    <h1 class="hero-headline" style="line-height: 1.05">
+  <div class="hero-inner" style="gap: 120px; line-height: 1">
+    <h1 class="hero-headline" style="text-align: left">
       <span class="name">I'm Sasha</span> - Product Designer<br>
       based in Florence, Italy. I bring<br>
-      clarity <span style="font-size:0.88em;font-weight:300;">&#38;</span> <span class="script">beauty</span><br>
+      clarity <span class="amp" style="font-size:0.88em;font-weight:300;">&#38;</span> <span class="script">beauty</span><br>
       to complex experiences.
     </h1>
     <a href="#works" class="hero-cta">
@@ -447,7 +447,7 @@
   <h2 class="contacts-headline">LET'S DISCUSS IT!</h2>
   <div class="contacts-links">
     <a href="https://www.linkedin.com/in/krivorotkoale" target="_blank">LinkedIn</a>
-    <span id="emailLink" onclick="copyEmail()" style="cursor:pointer; text-decoration:underline; text-underline-offset:4px; font-size:16px; font-weight:500; color:var(--text);"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6a7aaa3e8adb4afe8a2a3b5afa1a886a1aba7afaae8a5a9ab">[email&#160;protected]</a></span>
+    <span id="emailLink" onclick="copyEmail()" style="cursor:pointer; text-decoration:underline; text-underline-offset:4px; font-size:16px; font-weight:500; color:var(--text);"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="553439307b3e273c7b3130263c323b153238343c397b363a38">[email&#160;protected]</a></span>
     <span id="emailCopied" style="font-size:13px; color:var(--text-muted); display:none; margin-top:-8px;">Copied!</span>
   </div>
 </section>
@@ -649,6 +649,16 @@
     });
   }
 </script>
+
+<style id="__om-edit-overrides">
+  #home .script > span:nth-child(1) { font-family: Ephesis !important; font-size: 70px !important; line-height: 0.941 !important; text-align: center !important; }
+  #home .script > span:nth-child(2) { font-size: 70px !important; line-height: 0.94 !important; text-align: center !important; }
+  #home .script > span:nth-child(3) { font-size: 70px !important; line-height: 0.94 !important; text-align: center !important; }
+  #home .script > span:nth-child(4) { font-size: 70px !important; line-height: 0.9 !important; text-align: center !important; }
+  #home .script > span:nth-child(5) { font-size: 70px !important; line-height: 0.94 !important; text-align: center !important; }
+  #home .script > span:nth-child(6) { font-size: 70px !important; line-height: 0.94 !important; text-align: center !important; }
+  #home .hero-headline .amp .letter { font-size: 40px !important; }
+</style>
 
 </body>
 </html>
