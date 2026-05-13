@@ -245,7 +245,7 @@
   /* ── Hero ── */
   #home { align-items: center; justify-content: flex-start; }
   .hero-inner { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 80px; max-width: 800px; width: 100%; }
-  .hero-headline { font-size: 60px; font-weight: 300; line-height: 80px; letter-spacing: -0.01em; }
+  .hero-headline { font-size: 60px; font-weight: 300; line-height: 1.25; letter-spacing: -0.01em; }
   .hero-headline .name { font-size: 64px; font-weight: 600; }
   .hero-headline .script { font-family: var(--font-script); font-weight: 400; font-size: 60px; letter-spacing: 0; line-height: inherit; display: inline; }
   .hero-cta { display: inline-flex; align-items: center; gap: 16px; font-size: 22px; font-weight: 400; color: var(--text); text-decoration: none; }
@@ -374,8 +374,8 @@
 
 <!-- Hero -->
 <section id="home">
-  <div class="hero-inner" style="gap: 120px; line-height: 1">
-    <h1 class="hero-headline" style="text-align: left">
+  <div class="hero-inner" style="gap: 120px;">
+    <h1 class="hero-headline" style="text-align: left; line-height: 1.25;">
       <span class="name">I'm Sasha</span> - Product Designer<br>
       based in Florence, Italy. I bring<br>
       clarity <span class="amp" style="font-size:0.88em;font-weight:300;">&#38;</span> <span class="script">beauty</span><br>
@@ -651,12 +651,8 @@
 </script>
 
 <style id="__om-edit-overrides">
-  #home .script > span:nth-child(1) { font-family: Ephesis !important; font-size: 70px !important; line-height: 0.941 !important; text-align: center !important; }
-  #home .script > span:nth-child(2) { font-size: 70px !important; line-height: 0.94 !important; text-align: center !important; }
-  #home .script > span:nth-child(3) { font-size: 70px !important; line-height: 0.94 !important; text-align: center !important; }
-  #home .script > span:nth-child(4) { font-size: 70px !important; line-height: 0.9 !important; text-align: center !important; }
-  #home .script > span:nth-child(5) { font-size: 70px !important; line-height: 0.94 !important; text-align: center !important; }
-  #home .script > span:nth-child(6) { font-size: 70px !important; line-height: 0.94 !important; text-align: center !important; }
+  #home .script .letter { font-size: 75px !important; line-height: 1.5 !important; overflow: visible !important; animation: none !important; opacity: 1 !important; transform: none !important; display: inline !important; }
+  #home .script .letter:first-child { font-family: Ephesis !important; }
   #home .hero-headline .amp .letter { font-size: 40px !important; }
 </style>
 
