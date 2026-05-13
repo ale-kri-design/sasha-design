@@ -245,9 +245,9 @@
   /* ── Hero ── */
   #home { align-items: center; justify-content: flex-start; }
   .hero-inner { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 80px; max-width: 800px; width: 100%; }
-  .hero-headline { font-size: 60px; font-weight: 300; line-height: 1.12; letter-spacing: -0.01em; }
+  .hero-headline { font-size: 60px; font-weight: 300; line-height: 1.25; letter-spacing: -0.01em; }
   .hero-headline .name { font-size: 64px; font-weight: 600; }
-  .hero-headline .script { font-family: var(--font-script); font-weight: 400; font-size: 70px; letter-spacing: 0; line-height: 1; display: inline; }
+  .hero-headline .script { font-family: var(--font-script); font-weight: 400; font-size: 70px; letter-spacing: 0; line-height: 1.4; display: inline-block; vertical-align: baseline; padding-top: 0.15em; }
   .hero-cta { display: inline-flex; align-items: center; gap: 16px; font-size: 22px; font-weight: 400; color: var(--text); text-decoration: none; }
   .cta-circle { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--text); display: grid; place-items: center; flex-shrink: 0; }
   @keyframes wobble { 0%{transform:rotate(0)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)} 60%{transform:rotate(-5deg)} 80%{transform:rotate(5deg)} 100%{transform:rotate(0)} }
@@ -276,9 +276,9 @@
   .case-title { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 20px; color: #111; line-height: 24px; }
   .case-image-wrap { width: 100%; aspect-ratio: 16/10; flex-shrink: 0; overflow: hidden; }
   .case-image { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .case-footer { padding: 16px 24px 24px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex: 1; }
+  .case-footer { padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex: 1; }
   .case-desc { font-size: 16px; color: #111; line-height: 24px; flex: 1; }
-  .case-link { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 500; text-decoration: none; color: var(--text); background: white; border: none; border-radius: 99px; padding: 10px 22px; white-space: nowrap; flex-shrink: 0; align-self: flex-end; transition: background 0.2s, color 0.2s; margin-top: auto; }
+  .case-link { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 500; text-decoration: none; color: var(--text); background: white; border: none; border-radius: 99px; padding: 10px 22px; white-space: nowrap; flex-shrink: 0; align-self: center; transition: background 0.2s, color 0.2s; }
   .case-link:hover { background: var(--text); color: white; }
 
   /* ── About ── */
@@ -355,7 +355,7 @@
   </nav>
   <div class="mobile-menu-footer">
     <a href="https://www.linkedin.com/in/krivorotkoale" target="_blank">LinkedIn</a>
-    <a href="/cdn-cgi/l/email-protection#157479703b7e677c3b7170667c727b557278747c793b767a78"><span class="__cf_email__" data-cfemail="1c7d707932776e753278796f757b725c7b717d7570327f7371">[email&#160;protected]</span></a>
+    <a href="/cdn-cgi/l/email-protection#fe9f929bd0958c97d09a9b8d979990be99939f9792d09d9193"><span class="__cf_email__" data-cfemail="fa9b969fd4918893d49e9f89939d94ba9d979b9396d4999597">[email&#160;protected]</span></a>
   </div>
 </div>
 
@@ -375,7 +375,7 @@
 <!-- Hero -->
 <section id="home">
   <div class="hero-inner" style="gap: 120px">
-    <h1 class="hero-headline">
+    <h1 class="hero-headline" style="line-height: 1; letter-spacing: -0.8px">
       <span class="name">I'm Sasha</span> - Product Designer<br>
       based in Florence, Italy. I bring<br>
       clarity <span style="font-size:0.88em;font-weight:300;">&#38;</span> <span class="script">beauty</span><br>
@@ -434,7 +434,7 @@
   <div class="about-text">
     <p>I'm a <strong>Product Designer</strong> dedicated to bringing <strong>clarity and elegance</strong> to complex digital systems. With deep roots in <strong>SaaS, Fintech, and Healthcare</strong>, I thrive where logic meets ambiguity, transforming heavy data into <strong>intuitive, actionable experiences</strong>. For me, design is about more than screens: it's about <strong>Data Storytelling</strong>, bridging the gap between business complexity and the human need for control.</p>
     <img class="about-image-mobile" src="photo.jpg" alt="Sasha Krivorotko"/>
-    <p>My fascination with design has always been a fascination with <strong>people</strong>, how we think, navigate, and feel. This curiosity follows me outside of Figma too. When I'm not architecting workflows, you'll find me painting, experimenting with digital illustrations, or analyzing UX patterns in game streams. And when I need to step away from pixels, you can find me on the tennis court 🎾</p>
+    <p>My fascination with design has always been a fascination with <strong>people, how we think, navigate, and feel</strong>. This curiosity follows me outside of Figma too. When I'm not architecting workflows, you'll find me painting, experimenting with digital illustrations, or analyzing UX patterns in game streams. And when I need to step away from pixels, you can find me on the tennis court 🎾</p>
   </div>
   <div class="about-image-wrap" style="width: 702px;">
     <img class="about-image" src="photo.jpg" alt="Sasha Krivorotko"/>
@@ -447,7 +447,7 @@
   <h2 class="contacts-headline">LET'S DISCUSS IT!</h2>
   <div class="contacts-links">
     <a href="https://www.linkedin.com/in/krivorotkoale" target="_blank">LinkedIn</a>
-    <span id="emailLink" onclick="copyEmail()" style="cursor:pointer; text-decoration:underline; text-underline-offset:4px; font-size:16px; font-weight:500; color:var(--text);"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f5949990db9e879cdb9190869c929bb59298949c99db969a98">[email&#160;protected]</a></span>
+    <span id="emailLink" onclick="copyEmail()" style="cursor:pointer; text-decoration:underline; text-underline-offset:4px; font-size:16px; font-weight:500; color:var(--text);"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5b4b9b0fbbea7bcfbb1b0a6bcb2bb95b2b8b4bcb9fbb6bab8">[email&#160;protected]</a></span>
     <span id="emailCopied" style="font-size:13px; color:var(--text-muted); display:none; margin-top:-8px;">Copied!</span>
   </div>
 </section>
@@ -652,3 +652,22 @@
 
 </body>
 </html>
+
+<style id="__om-edit-overrides">
+#home :is(h1,h2,h3,h4,h5,h6) >.script >span:nth-child(1) { font-size: 65px !important }
+#home :is(h1,h2,h3,h4,h5,h6) >.script >span:nth-child(2) { font-size: 65px !important }
+#home :is(h1,h2,h3,h4,h5,h6) >.script >span:nth-child(3) { font-size: 65px !important }
+#home :is(h1,h2,h3,h4,h5,h6) >.script >span:nth-child(4) { font-size: 65px !important }
+#home :is(h1,h2,h3,h4,h5,h6) >.script >span:nth-child(5) { font-size: 65px !important }
+#home .script >span:nth-child(6) { font-size: 65px !important }
+#home span:nth-child(55) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) { font-size: 40px !important }
+#home :is(h1,h2,h3,h4,h5,h6) >.script >span:nth-child(1) { font-size: 70px !important }
+#home :is(h1,h2,h3,h4,h5,h6) >.script >span:nth-child(2) { font-size: 70px !important }
+#home :is(h1,h2,h3,h4,h5,h6) >.script >span:nth-child(3) { font-size: 70px !important }
+#home :is(h1,h2,h3,h4,h5,h6) >.script >span:nth-child(4) { font-size: 70px !important }
+#home :is(h1,h2,h3,h4,h5,h6) >.script >span:nth-child(5) { font-size: 70px !important }
+#home .script >span:nth-child(6) { font-size: 70px !important }
+#home :is(h1,h2,h3,h4,h5,h6) >.script >span:nth-child(1) { line-height: 1.1 !important }
+#home :is(h1,h2,h3,h4,h5,h6) >.script >span:nth-child(1) { line-height: 1 !important }
+#home :is(h1,h2,h3,h4,h5,h6) >.script >span:nth-child(1) { line-height: 1.2 !important }
+</style>
