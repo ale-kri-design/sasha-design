@@ -25,11 +25,9 @@
   /* ── Hero letter fall ── */
   .hero-headline .letter {
     display: inline-block;
-    opacity: 0;
-    transform: translateY(calc(-1 * var(--anim-fall)));
-    animation: letterFall var(--anim-duration) cubic-bezier(0.34, var(--anim-bounce), 0.64, 1) forwards;
-    animation-delay: calc(var(--anim-start) + var(--i, 0) * var(--anim-stagger));
-    will-change: transform, opacity;
+    opacity: 1;
+    transform: none;
+    will-change: auto;
   }
   .hero-headline .letter.space { width: 0.28em; }
   @keyframes letterFall {
