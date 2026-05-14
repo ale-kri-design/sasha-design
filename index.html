@@ -22,7 +22,21 @@
     --anim-start: 0.25s;
   }
 
-  /* ── Hero letter fall ── */
+  /* ── Hero entrance animation ── */
+  @keyframes fadeRise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-headline {
+    opacity: 0;
+    animation: fadeRise 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s forwards;
+  }
+  .hero-cta {
+    opacity: 0;
+    animation: fadeRise 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.5s forwards;
+  }
+
   .hero-headline .letter {
     display: inline-block;
     opacity: 1;
@@ -30,25 +44,9 @@
     will-change: auto;
   }
   .hero-headline .letter.space { width: 0.28em; }
-  @keyframes letterFall {
-    0% {
-      opacity: 0;
-      transform: translateY(calc(-1 * var(--anim-fall)));
-    }
-    60% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+
   @media (prefers-reduced-motion: reduce) {
-    .hero-headline .letter {
-      animation: none;
-      opacity: 1;
-      transform: none;
-    }
+    .hero-headline, .hero-cta { animation: none; opacity: 1; }
   }
 
   /* ── Tweaks panel ── */
@@ -649,7 +647,7 @@
 </script>
 
 <style id="__om-edit-overrides">
-  #home .script .letter { font-size: 75px !important; line-height: 1.5 !important; overflow: visible !important; animation: none !important; opacity: 1 !important; transform: none !important; display: inline !important; }
+  #home .script .letter { font-size: 75px !important; line-height: 1.25 !important; overflow: visible !important; animation: none !important; opacity: 1 !important; transform: none !important; display: inline !important; }
   #home .script .letter:first-child { font-family: Ephesis !important; }
   #home .hero-headline .amp .letter { font-size: 40px !important; }
 </style>
