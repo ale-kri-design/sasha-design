@@ -213,7 +213,7 @@
     width: 100%;
   }
   .mobile-menu-links a {
-    font-size: 32px;
+    font-size: 20px;
     font-weight: 400;
     text-decoration: none;
     color: var(--text);
@@ -294,8 +294,16 @@
   .contacts-links a { font-size: 16px; font-weight: 500; color: var(--text); text-decoration: underline; text-underline-offset: 4px; transition: opacity 0.2s; }
   .contacts-links a:hover { opacity: 0.5; }
 
+  /* ── Works nav (mobile only) ── */
+  .works-nav { display: none; }
+
+  /* Mobile-only line breaks */
+  .mob-br { display: none; }
+
   /* ── Mobile ── */
   @media (max-width: 768px) {
+    .mob-br { display: inline; }
+
     nav { padding: 20px 24px; }
     .hamburger { display: flex; }
     .nav-links { display: none; }
@@ -305,9 +313,9 @@
     /* Hero */
     #home { min-height: 100vh; align-items: flex-start; padding-top: 120px; }
     .hero-inner { gap: 120px; }
-    .hero-headline { font-size: 36px; line-height: 1.2; }
-    .hero-headline .name { font-size: 36px; font-weight: 600; display: block; }
-    .hero-headline .script { font-size: 44px; }
+    .hero-headline { font-size: 33px; line-height: 67px; }
+    .hero-headline .name { font-size: 36px; font-weight: 600; display: inline; }
+    .hero-headline .script { font-size: 36px; }
     .hero-cta { font-size: 20px; margin-top: 0; }
 
     /* Works */
@@ -315,6 +323,29 @@
     .case-card { width: calc(85vw); min-width: 280px; }
     .case-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
     .case-link { align-self: center; }
+
+    .works-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .works-nav-btn { display: none; }
+    .works-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .works-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.28);
+      transition: background 0.3s, transform 0.3s;
+    }
+    .works-dot.active {
+      background: rgba(0,0,0,0.65);
+      transform: scale(1.5);
+    }
 
     /* About */
     #about-me { flex-direction: column; gap: 0; padding: 64px 24px; }
@@ -343,14 +374,14 @@
     <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
     <a href="#home" class="logo" onclick="closeMobileMenu()">S_<span>DESIGN</span></a>
   </div>
-  <nav class="mobile-menu-links">
+  <div class="mobile-menu-links">
     <a href="#home" onclick="closeMobileMenu()">HOME</a>
     <a href="#works" onclick="closeMobileMenu()">WORKS</a>
     <a href="#about-me" onclick="closeMobileMenu()">ABOUT ME</a>
     <a href="#contacts" onclick="closeMobileMenu()">CONTACTS</a>
-  </nav>
+  </div>
   <div class="mobile-menu-footer">
-    <a href="https://www.linkedin.com/in/krivorotkoale" target="_blank">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/krivorotkoale" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     <a href="mailto:ale.kri.design@gmail.com">ale.kri.design@gmail.com</a>
   </div>
 </div>
@@ -371,11 +402,11 @@
 <!-- Hero -->
 <section id="home">
   <div class="hero-inner" style="gap: 120px;">
-    <h1 class="hero-headline" style="text-align: left; line-height: 1.25;">
-      <span class="name">I'm Sasha</span> - Product Designer<br>
-      based in Florence, Italy. I bring<br>
+    <h1 class="hero-headline" style="text-align: left;">
+      <span class="name">I'm Sasha</span> -<span class="mob-br"><br></span> Product Designer<br>
+      based in Florence,<span class="mob-br"><br></span> Italy. I bring<br>
       clarity <span class="amp" style="font-size:0.88em;font-weight:300;">&#38;</span> <span class="script">beauty</span><br>
-      to complex experiences.
+      to complex<span class="mob-br"></span> experiences.
     </h1>
     <a href="#works" class="hero-cta">
       See my works
@@ -422,6 +453,24 @@
         <span class="case-link">→ View full case</span>
       </div>
     </a>
+  </div>
+
+  <div class="works-nav" id="worksNav">
+    <button class="works-nav-btn" id="worksPrev" aria-label="Previous">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M10 3L5 8l5 5"/>
+      </svg>
+    </button>
+    <div class="works-dots" id="worksDots">
+      <span class="works-dot active"></span>
+      <span class="works-dot"></span>
+      <span class="works-dot"></span>
+    </div>
+    <button class="works-nav-btn" id="worksNext" aria-label="Next">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M6 3l5 5-5 5"/>
+      </svg>
+    </button>
   </div>
 </section>
 
@@ -637,6 +686,34 @@
     document.getElementById('mobileMenu').classList.remove('open');
     document.getElementById('hamburgerBtn').classList.remove('open');
   }
+  // ── Works carousel nav (mobile) ──
+  (function() {
+    const grid = document.querySelector('.works-grid');
+    const cards = Array.from(document.querySelectorAll('.case-card'));
+    const dots = Array.from(document.querySelectorAll('.works-dot'));
+    let current = 0;
+
+    function goTo(index) {
+      current = Math.max(0, Math.min(index, cards.length - 1));
+      const card = cards[current];
+      grid.scrollTo({ left: card.offsetLeft - grid.offsetLeft, behavior: 'smooth' });
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    document.getElementById('worksPrev').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('worksNext').addEventListener('click', () => goTo(current + 1));
+
+    grid.addEventListener('scroll', () => {
+      const gap = 16;
+      const cardWidth = cards[0].offsetWidth + gap;
+      const idx = Math.round(grid.scrollLeft / cardWidth);
+      if (idx !== current) {
+        current = idx;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+    }, { passive: true });
+  })();
+
   function copyEmail() {
     var email = 'ale.kri.design' + '@' + 'gmail.com';
     navigator.clipboard.writeText(email).then(function() {
@@ -648,9 +725,15 @@
 </script>
 
 <style id="__om-edit-overrides">
-  #home .script .letter { font-size: 75px !important; line-height: 1.25 !important; overflow: visible !important; animation: none !important; opacity: 1 !important; transform: none !important; display: inline !important; }
+  #home .script .letter { font-size: 80px !important; line-height: 1.25 !important; overflow: visible !important; animation: none !important; opacity: 1 !important; transform: none !important; display: inline !important; }
   #home .script .letter:first-child { font-family: Ephesis !important; }
   #home .hero-headline .amp .letter { font-size: 40px !important; }
+
+  @media (max-width: 768px) {
+    #home .hero-headline { line-height: 67px !important; }
+    #home .script .letter { font-size: 65px !important; line-height: 67px !important; }
+    #home .hero-headline .amp .letter { font-size: 32px !important; line-height: 67px !important; }
+  }
 </style>
 
 </body>
